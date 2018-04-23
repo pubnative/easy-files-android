@@ -1,0 +1,149 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/ui">
+
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="circularimages"
+            android:summary="@string/circularimages"
+            android:title="@string/circularicons"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="showDividers"
+            android:title="@string/showDividers"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="showHeaders"
+            android:title="@string/showHeaders"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="intelliHideToolbar"
+            android:summary="@string/intellihide_toolbar_summary"
+            android:title="@string/intellihide_toolbar_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sidebar_preferences">
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="sidebar_folders_enable"
+            android:title="@string/showfolders_pref_title"/>
+        <Preference
+            android:dependency="sidebar_folders_enable"
+            android:key="sidebar_folders"
+            android:title="@string/showfolders_pref"/>
+
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="sidebar_quickaccess_enable"
+            android:title="@string/showquickaccess_pref_title"/>
+        <Preference
+            android:dependency="sidebar_quickaccess_enable"
+            android:key="sidebar_quickaccess"
+            android:title="@string/showquickaccess_pref"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/general">
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="savepaths"
+            android:summary="@string/savepathsummary"
+            android:title="@string/savepaths"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="showThumbs"
+            android:summary="@string/thumbSummary"
+            android:title="@string/thumb"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="false"
+            android:key="showHidden"
+            android:title="@string/hidden"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="showLastModified"
+            android:summary="@string/lastModifiedSummary"
+            android:title="@string/lastModifiedPref"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="true"
+            android:key="showFileSize"
+            android:summary="@string/sizePrefSummary"
+            android:title="@string/sizePref"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="false"
+            android:key="goBack_checkbox"
+            android:summary="@string/back_summary"
+            android:title="@string/back_title"/>
+        <Preference
+            android:key="columns"
+            android:title="@string/gridcolumnno"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/archive_preferences">
+        <EditTextPreference
+            android:key="extractpath"
+            android:summary="@string/archive_summary"
+            android:title="@string/archive_extract_folder">
+        </EditTextPreference>
+        <EditTextPreference
+            android:key="zippath"
+            android:summary="@string/zip_summary"
+            android:title="@string/zip_create_folder">
+        </EditTextPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/security">
+        <Preference
+            android:key="crypt_password"
+            android:summary="@string/crypt_pref_master_password_summary"
+            android:title="@string/crypt_pref_master_password_title">
+        </Preference>
+
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:key="crypt_fingerprint"
+            android:summary="@string/crypt_pref_fingerprint_summary"
+            android:title="@string/crypt_pref_fingerprint_title"
+            android:enabled="false"
+            >
+        </net.easynaps.easyfiles.ui.views.preference.CheckBox>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/miscellaneous">
+        <Preference
+            android:key="advancedsearch"
+            android:title="@string/advanced_search"/>
+
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="false"
+            android:key="typeablepaths"
+            android:summary="@string/typeablepaths_summary"
+            android:title="@string/typeablepaths_title"/>
+
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="false"
+            android:key="texteditor_newstack"
+            android:title="@string/preference_newstack_title"
+            android:summary="@string/preference_newstack_summary"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/advanced">
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="false"
+            android:key="showPermissions"
+            android:summary="@string/rootPrefSummary"
+            android:title="@string/rootPref"/>
+        <net.easynaps.easyfiles.ui.views.preference.CheckBox
+            android:defaultValue="false"
+            android:key="rootmode"
+            android:summary="@string/rootmodesummary"
+            android:title="@string/rootmode"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about">
+        <Preference
+            android:key="about"
+            android:title="@string/aboutFileManager"
+            />
+        <Preference
+            android:key="feedback"
+            android:title="@string/feedback"/>
+    </PreferenceCategory>
+</PreferenceScreen>

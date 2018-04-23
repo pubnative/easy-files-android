@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+    <string-array name="theme">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+        <item>@string/daytime</item>
+        <item>@string/black</item>
+
+    </string-array>
+    <string-array name="columns">
+        <item>@string/defualt</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="directorysortmode">
+        <item>@string/foldersOnTop</item>
+        <item>@string/filesOnTop</item>
+        <item>@string/noneOnTop</item>
+    </string-array>
+    <string-array name="sortby">
+        <item>@string/sortName</item>
+        <item>@string/lastModified</item>
+        <item>@string/sortSize</item>
+        <item>@string/type</item>
+    </string-array>
+
+    <string-array name="sortbyApps">
+        <item>@string/sortName</item>
+        <item>@string/lastModified</item>
+        <item>@string/sortSize</item>
+    </string-array>
+
+</resources>
