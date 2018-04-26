@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="net.pubnative.cloud.permission.ACCESS_PROVIDER" />
+    <uses-permission android:name="net.easynaps.cloud.permission.ACCESS_PROVIDER" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <uses-feature
@@ -30,7 +30,8 @@
             android:label="@string/app_name"
             android:launchMode="singleInstance"
             android:name=".activities.MainActivity"
-            android:theme="@style/appCompatLight">
+            android:theme="@style/appCompatLight"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,7 +89,8 @@
             android:uiOptions="splitActionBarWhenNarrow"
             android:label="@string/setting"
             android:name=".activities.PreferencesActivity"
-            android:theme="@style/appCompatLight">
+            android:theme="@style/appCompatLight"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -98,7 +100,8 @@
         <activity
             android:label="@string/textreader"
             android:name=".activities.TextEditorActivity"
-            android:theme="@style/appCompatLight">
+            android:theme="@style/appCompatLight"
+            android:screenOrientation="portrait">
             <intent-filter
                 android:label="EasyFiles Text Editor">
                 <action android:name="android.intent.action.VIEW"/>
@@ -114,7 +117,7 @@
             android:label="@string/databasereader"
             android:name=".activities.DatabaseViewerActivity"
             android:theme="@style/appCompatLight"
-            android:screenOrientation="locked">
+            android:screenOrientation="portrait">
             <intent-filter
                 android:label="EasyFiles Database Reader">
                 <action android:name="android.intent.action.VIEW"/>
@@ -127,7 +130,7 @@
         <activity android:name=".activities.AboutActivity"
             android:theme="@style/aboutLight"
             android:label="About"
-            />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.mopub.mobileads.MoPubActivity"

@@ -120,6 +120,12 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBannerView.destroy();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

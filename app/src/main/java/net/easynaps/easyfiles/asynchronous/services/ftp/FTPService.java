@@ -68,13 +68,13 @@ public class FTPService extends Service implements Runnable {
     private static final String WIFI_AP_ADDRESS = "192.168.43.1";
 
     // Service will (global) broadcast when server start/stop
-    static public final String ACTION_STARTED = "net.pubnative.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_STARTED";
-    static public final String ACTION_STOPPED = "net.pubnative.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_STOPPED";
-    static public final String ACTION_FAILEDTOSTART = "net.pubnative.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_FAILEDTOSTART";
+    static public final String ACTION_STARTED = "net.easynaps.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_STARTED";
+    static public final String ACTION_STOPPED = "net.easynaps.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_STOPPED";
+    static public final String ACTION_FAILEDTOSTART = "net.easynaps.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_FAILEDTOSTART";
 
     // RequestStartStopReceiver listens for these actions to start/stop this server
-    static public final String ACTION_START_FTPSERVER = "net.pubnative.easyfiles.services.ftpservice.FTPReceiver.ACTION_START_FTPSERVER";
-    static public final String ACTION_STOP_FTPSERVER = "net.pubnative.easyfiles.services.ftpservice.FTPReceiver.ACTION_STOP_FTPSERVER";
+    static public final String ACTION_START_FTPSERVER = "net.easynaps.easyfiles.services.ftpservice.FTPReceiver.ACTION_START_FTPSERVER";
+    static public final String ACTION_STOP_FTPSERVER = "net.easynaps.easyfiles.services.ftpservice.FTPReceiver.ACTION_STOP_FTPSERVER";
 
     static public final String TAG_STARTED_BY_TILE = "started_by_tile";  // attribute of action_started, used by notification
 

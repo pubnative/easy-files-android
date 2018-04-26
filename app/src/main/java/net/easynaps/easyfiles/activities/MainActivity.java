@@ -1096,6 +1096,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
         /*if (mainFragment!=null)
             mainFragment = null;*/
+        mInterstitial.destroy();
     }
 
     /**

@@ -181,6 +181,12 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMRectView.destroy();
+    }
+
     private void loadAd() {
         RequestManager bannerRequestManager = new MRectRequestManager();
         bannerRequestManager.setZoneId(getString(R.string.pnlite_mrect_zone_id));
