@@ -420,7 +420,7 @@ public class LoadFilesListTask extends AsyncTask<Void, Void, Pair<OpenMode, Arra
             }
         return recentFiles;
     }
-    
+
     private void listOtg(String path, OnFileFound fileFound) {
         OTGUtil.getDocumentFiles(path, c, fileFound);
     }

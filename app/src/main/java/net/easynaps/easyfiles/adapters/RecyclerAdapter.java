@@ -155,8 +155,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         }
 
-        notifyDataSetChanged();
-        //notifyItemChanged(position);
+        notifyItemChanged(position);
         if (mainFrag.mActionMode != null && mainFrag.selection) {
             // we have the actionmode visible, invalidate it's views
             mainFrag.mActionMode.invalidate();
@@ -172,8 +171,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int i = path.equals("/") || !getBoolean(PREFERENCE_SHOW_GOBACK_BUTTON) ? 0 : 1;
 
         for (; i < itemsDigested.size(); i++) {
-            itemsDigested.get(i).setChecked(b);
-            notifyItemChanged(i);
+            ListItem item = itemsDigested.get(i);
+            if (b && item.getChecked() != ListItem.CHECKED) {
+                item.setChecked(true);
+                notifyItemChanged(i);
+            } else if (!b && item.getChecked() == ListItem.CHECKED) {
+                item.setChecked(false);
+                notifyItemChanged(i);
+            }
         }
 
         if (mainFrag.mActionMode != null) {
@@ -196,8 +201,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     public void toggleChecked(boolean b) {
         for (int i = 0; i < itemsDigested.size(); i++) {
-            itemsDigested.get(i).setChecked(b);
-            notifyItemChanged(i);
+            ListItem item = itemsDigested.get(i);
+            if (b && item.getChecked() != ListItem.CHECKED) {
+                item.setChecked(true);
+                notifyItemChanged(i);
+            } else if (!b && item.getChecked() == ListItem.CHECKED){
+                item.setChecked(false);
+                notifyItemChanged(i);
+            }
         }
 
         if (mainFrag.mActionMode != null) {
@@ -450,7 +461,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.rl.setMinimumHeight((int) minRowHeight);
                     if (itemsDigested.size() == (getBoolean(PREFERENCE_SHOW_GOBACK_BUTTON)? 1:0))
                         holder.txtTitle.setText(R.string.nofiles);
-                    else holder.txtTitle.setText("");
+                    else {
+                        holder.txtTitle.setText("");
+                    }
                     return;
                 }
             }
@@ -863,7 +876,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             if (description.endsWith(".zip") || description.endsWith(".jar")
                     || description.endsWith(".apk") || description.endsWith(".rar")
-                    || description.endsWith(".tar") || description.endsWith(".tar.gz"))
+                    || description.endsWith(".tar") || description.endsWith(".tar.gz")
+                    || description.endsWith(".7z"))
                 popupMenu.getMenu().findItem(R.id.ex).setVisible(true);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {

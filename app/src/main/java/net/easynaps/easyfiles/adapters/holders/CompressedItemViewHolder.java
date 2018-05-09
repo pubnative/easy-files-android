@@ -7,12 +7,13 @@ import android.widget.TextView;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.ui.views.RoundedImageView;
+import net.easynaps.easyfiles.ui.views.ThemedTextView;
 
 public class CompressedItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
     public final RoundedImageView pictureIcon;
     public final ImageView genericIcon, apkIcon;
-    public final TextView txtTitle;
+    public final ThemedTextView txtTitle;
     public final TextView txtDesc;
     public final TextView date;
     public final TextView perm;

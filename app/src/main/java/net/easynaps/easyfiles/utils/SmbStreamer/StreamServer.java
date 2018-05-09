@@ -7,6 +7,7 @@ package net.easynaps.easyfiles.utils.SmbStreamer;
 import android.net.Uri;
 import android.util.Log;
 
+import net.easynaps.easyfiles.utils.cloud.CloudStreamer;
 import net.easynaps.easyfiles.utils.cloud.CloudUtil;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -170,7 +172,7 @@ public abstract class StreamServer {
     public StreamServer( int port, File wwwroot ) throws IOException {
         myTcpPort = port;
         this.myRootDir = wwwroot;
-        myServerSocket = new ServerSocket( myTcpPort );
+        myServerSocket = tryBind( myTcpPort );
         myThread = new Thread(() -> {
             try {
                 while (true) {
@@ -194,6 +196,17 @@ public abstract class StreamServer {
             myThread.join();
         } catch (IOException | InterruptedException e) {
         }
+    }
+
+    private ServerSocket tryBind(int port) throws IOException {
+        ServerSocket socket;
+        try {
+            socket = new ServerSocket(port);
+        } catch (BindException ifPortIsOccupiedByCloudStreamer) {
+            CloudStreamer.getInstance().stop();
+            socket = new ServerSocket(port);
+        }
+        return socket;
     }
 
     /**

@@ -8,11 +8,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.easynaps.easyfiles.R;
+import net.easynaps.easyfiles.ui.views.ThemedTextView;
 
 public class AppHolder extends RecyclerView.ViewHolder {
 
     public final ImageView apkIcon;
-    public final TextView txtTitle;
+    public final ThemedTextView txtTitle;
     public final RelativeLayout rl;
     public final TextView txtDesc;
     public final ImageButton about;

@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 import android.widget.TextView;
 
+import net.easynaps.easyfiles.ui.views.ThemedTextView;
+
 import java.util.ArrayList;
 
 /**
@@ -272,7 +274,7 @@ public class AnimUtils {
      * @param delayInMillis
      * @param marqueeView
      */
-    public static void marqueeAfterDelay(int delayInMillis, TextView marqueeView) {
+    public static void marqueeAfterDelay(int delayInMillis, ThemedTextView marqueeView) {
         new CountDownTimer(delayInMillis, delayInMillis) {
 
             @Override
