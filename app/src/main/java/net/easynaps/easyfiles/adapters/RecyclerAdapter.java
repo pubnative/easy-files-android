@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import net.easynaps.easyfiles.ui.icons.Icons;
 import net.easynaps.easyfiles.ui.icons.MimeTypes;
 import net.easynaps.easyfiles.ui.views.CircleGradientDrawable;
 import net.easynaps.easyfiles.ui.views.RoundedImageView;
+import net.easynaps.easyfiles.utils.AnimUtils;
 import net.easynaps.easyfiles.utils.GlideConstants;
 import net.easynaps.easyfiles.utils.Utils;
 import net.easynaps.easyfiles.utils.color.ColorUsage;
@@ -252,12 +254,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         super.onViewAttachedToWindow(holder);
         if(holder instanceof ItemViewHolder) {
             ((ItemViewHolder) holder).rl.clearAnimation();
+            ((ItemViewHolder) holder).txtTitle.setSelected(false);
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        if (holder instanceof ItemViewHolder) {
+            AnimUtils.marqueeAfterDelay(2000, ((ItemViewHolder) holder).txtTitle);
         }
     }
 
     @Override
     public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
         ((ItemViewHolder) holder).rl.clearAnimation();
+        ((ItemViewHolder) holder).txtTitle.setSelected(false);
         return super.onFailedToRecycleView(holder);
     }
 

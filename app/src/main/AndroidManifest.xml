@@ -192,6 +192,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="net.easynaps.easyfiles.services.ftpservice.FTPReceiver.ACTION_START_FTPSERVER" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="net.easynaps.easyfiles.services.ftpservice.FTPReceiver.ACTION_STOP_FTPSERVER" />
             </intent-filter>
         </receiver>

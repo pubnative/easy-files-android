@@ -26,6 +26,7 @@ import net.easynaps.easyfiles.filesystem.compressed.CompressedHelper;
 import net.easynaps.easyfiles.filesystem.compressed.showcontents.Decompressor;
 import net.easynaps.easyfiles.fragments.CompressedExplorerFragment;
 import net.easynaps.easyfiles.ui.views.CircleGradientDrawable;
+import net.easynaps.easyfiles.utils.AnimUtils;
 import net.easynaps.easyfiles.utils.OpenMode;
 import net.easynaps.easyfiles.utils.Utils;
 import net.easynaps.easyfiles.utils.color.ColorUtils;
@@ -300,11 +301,19 @@ public class CompressedExplorerAdapter extends RecyclerView.Adapter<CompressedIt
     public void onViewDetachedFromWindow(CompressedItemViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         holder.rl.clearAnimation();
+        holder.txtTitle.setSelected(false);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(CompressedItemViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        AnimUtils.marqueeAfterDelay(2000, holder.txtTitle);
     }
 
     @Override
     public boolean onFailedToRecycleView(CompressedItemViewHolder holder) {
         holder.rl.clearAnimation();
+        holder.txtTitle.setSelected(false);
         return super.onFailedToRecycleView(holder);
     }
 
