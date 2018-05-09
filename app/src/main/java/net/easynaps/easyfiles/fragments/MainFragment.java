@@ -856,7 +856,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
             } else {
                 // hiding search view if visible
                 if (getMainActivity().getAppbar().getSearchView().isEnabled()) {
-                    getMainActivity().getAppbar().getSearchView().hideSearchView();
+                    getMainActivity().getAppbar().getSearchView().hideSearchView(false);
                 }
 
                 String path = !e.hasSymlink()? e.desc:e.symlink;

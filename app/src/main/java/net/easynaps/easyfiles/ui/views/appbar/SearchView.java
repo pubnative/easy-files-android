@@ -53,7 +53,7 @@ public class SearchView {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                appbar.getSearchView().hideSearchView();
+                appbar.getSearchView().hideSearchView(false);
             }
         });
 
@@ -62,7 +62,7 @@ public class SearchView {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     searchListener.onSearch(searchViewEditText.getText().toString());
-                    appbar.getSearchView().hideSearchView();
+                    appbar.getSearchView().hideSearchView(true);
                     return true;
                 }
                 return false;
@@ -89,7 +89,6 @@ public class SearchView {
             animator = ViewAnimationUtils.createCircularReveal(searchViewLayout,
                     searchCoords[0] + 32, searchCoords[1] - 16, START_RADIUS, endRadius);
         } else {
-            // TODO:ViewAnimationUtils.createCircularReveal
             animator = ObjectAnimator.ofFloat(searchViewLayout, "alpha", 0f, 1f);
         }
 
@@ -122,7 +121,7 @@ public class SearchView {
     /**
      * hide search view with a circular reveal animation
      */
-    public void hideSearchView() {
+    public void hideSearchView(boolean searching) {
         final int END_RADIUS = 16;
         int startRadius = Math.max(searchViewLayout.getWidth(), searchViewLayout.getHeight());
         Animator animator;
@@ -134,12 +133,11 @@ public class SearchView {
             animator = ViewAnimationUtils.createCircularReveal(searchViewLayout,
                     searchCoords[0] + 32, searchCoords[1] - 16, startRadius, END_RADIUS);
         } else {
-            // TODO: ViewAnimationUtils.createCircularReveal
             animator = ObjectAnimator.ofFloat(searchViewLayout, "alpha", 1f, 0f);
         }
 
         // removing background fade view
-        mainActivity.hideSmokeScreen();
+        if (!searching) mainActivity.hideSmokeScreen();
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setDuration(600);
         animator.start();

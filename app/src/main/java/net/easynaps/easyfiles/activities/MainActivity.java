@@ -641,7 +641,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         Fragment fragment = getFragmentAtFrame();
         if (getAppbar().getSearchView().isShown()) {
             // hide search view if visible, with an animation
-            getAppbar().getSearchView().hideSearchView();
+            getAppbar().getSearchView().hideSearchView(false);
         } else if (fragment instanceof TabFragment) {
             if (floatingActionButton.isExpanded()) {
                 floatingActionButton.collapse();
@@ -1316,7 +1316,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         }
 
         fabBgView.setOnClickListener(view -> {
-            if (getAppbar().getSearchView().isEnabled()) getAppbar().getSearchView().hideSearchView();
+            if (getAppbar().getSearchView().isEnabled()) getAppbar().getSearchView().hideSearchView(false);
         });
 
         drawer.setDrawerHeaderBackground();
@@ -1719,12 +1719,14 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     public void onPreExecute(String query) {
         mainFragment.mSwipeRefreshLayout.setRefreshing(true);
         mainFragment.onSearchPreExecute(query);
+        //showSmokeScreen();
     }
 
     @Override
     public void onPostExecute(String query) {
         mainFragment.onSearchCompleted(query);
         mainFragment.mSwipeRefreshLayout.setRefreshing(false);
+        hideSmokeScreen();
     }
 
     @Override
