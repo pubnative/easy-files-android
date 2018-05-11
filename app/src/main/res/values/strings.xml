@@ -133,7 +133,7 @@
     <string name="hidden">Show Hidden Files and Folders</string>
     <string name="lastModifiedSummary">Show the date and time when the file was modified last time</string>
     <string name="lastModifiedPref">Show Last Modified</string>
-    <string name="sizePrefSummary">Show size of files and number of items in folders</string>
+    <string name="sizePrefSummary">Show size of files</string>
     <string name="sizePref">Show Sizes</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="rootPrefSummary">Show Permissions of Files and Folders</string>

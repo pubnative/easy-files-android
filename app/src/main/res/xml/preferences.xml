@@ -77,19 +77,6 @@
             android:title="@string/gridcolumnno"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/archive_preferences">
-        <EditTextPreference
-            android:key="extractpath"
-            android:summary="@string/archive_summary"
-            android:title="@string/archive_extract_folder">
-        </EditTextPreference>
-        <EditTextPreference
-            android:key="zippath"
-            android:summary="@string/zip_summary"
-            android:title="@string/zip_create_folder">
-        </EditTextPreference>
-    </PreferenceCategory>
-
     <PreferenceCategory android:title="@string/security">
         <Preference
             android:key="crypt_password"

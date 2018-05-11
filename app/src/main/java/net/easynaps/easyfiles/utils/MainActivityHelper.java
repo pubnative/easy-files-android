@@ -34,7 +34,6 @@ import net.easynaps.easyfiles.filesystem.HybridFileParcelable;
 import net.easynaps.easyfiles.filesystem.Operations;
 import net.easynaps.easyfiles.filesystem.compressed.CompressedHelper;
 import net.easynaps.easyfiles.filesystem.compressed.showcontents.Decompressor;
-import net.easynaps.easyfiles.fragments.CloudSheetFragment;
 import net.easynaps.easyfiles.fragments.MainFragment;
 import net.easynaps.easyfiles.fragments.SearchWorkerFragment;
 import net.easynaps.easyfiles.fragments.TabFragment;
@@ -47,7 +46,7 @@ import java.util.ArrayList;
 
 public class MainActivityHelper {
 
-    public static final int NEW_FOLDER = 0, NEW_FILE = 1, NEW_SMB = 2, NEW_CLOUD = 3;
+    public static final int NEW_FOLDER = 0, NEW_FILE = 1;
 
     private MainActivity mainActivity;
     private DataUtils dataUtils = DataUtils.getInstance();
@@ -158,11 +157,6 @@ public class MainActivityHelper {
                 break;
             case NEW_FILE:
                 mkfile(ma.openMode, path, ma);
-                break;
-            case NEW_CLOUD:
-                BottomSheetDialogFragment fragment = new CloudSheetFragment();
-                fragment.show(ma.getActivity().getSupportFragmentManager(),
-                        CloudSheetFragment.TAG_FRAGMENT);
                 break;
         }
     }

@@ -497,7 +497,6 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     private void initFabToSave(final ArrayList<Uri> uris) {
         floatingActionButton.removeButton(findViewById(R.id.menu_new_folder));
         floatingActionButton.removeButton(findViewById(R.id.menu_new_file));
-        floatingActionButton.removeButton(findViewById(R.id.menu_new_cloud));
 
         floatingActionButton.setMenuButtonIcon(R.drawable.ic_file_download_white_24dp);
         floatingActionButton.getMenuButton().setOnClickListener(v -> {
@@ -1403,7 +1402,6 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
         initFabTitle(findViewById(R.id.menu_new_folder), MainActivityHelper.NEW_FOLDER);
         initFabTitle(findViewById(R.id.menu_new_file), MainActivityHelper.NEW_FILE);
-        initFabTitle(findViewById(R.id.menu_new_cloud), MainActivityHelper.NEW_CLOUD);
     }
 
     private void initFabTitle(TitleFAB fabTitle, int type) {

@@ -39,14 +39,6 @@
             fab:srcCompat="@drawable/ic_insert_drive_file_white_48dp"
             fab:fabSize="mini"
             fab:fab_title="@string/file"/>
-
-        <jahirfiquitiva.libs.fabsmenu.TitleFAB
-            android:id="@+id/menu_new_cloud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:srcCompat="@drawable/ic_cloud_white_24dp"
-            fab:fabSize="mini"
-            fab:fab_title="@string/cloud_connection"/>
     </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
 </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
