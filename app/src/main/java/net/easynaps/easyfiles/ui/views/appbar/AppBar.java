@@ -1,9 +1,9 @@
 package net.easynaps.easyfiles.ui.views.appbar;
 
 import android.content.SharedPreferences;
-import android.support.annotation.StringRes;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.StringRes;
+import com.google.android.material.appbar.AppBarLayout;
+import androidx.appcompat.widget.Toolbar;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;

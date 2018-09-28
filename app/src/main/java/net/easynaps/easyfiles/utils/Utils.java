@@ -8,12 +8,11 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.Toast;
 

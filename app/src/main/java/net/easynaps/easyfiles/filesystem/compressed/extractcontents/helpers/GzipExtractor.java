@@ -1,7 +1,7 @@
 package net.easynaps.easyfiles.filesystem.compressed.extractcontents.helpers;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import net.easynaps.easyfiles.filesystem.FileUtil;
 import net.easynaps.easyfiles.filesystem.compressed.extractcontents.Extractor;

@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;

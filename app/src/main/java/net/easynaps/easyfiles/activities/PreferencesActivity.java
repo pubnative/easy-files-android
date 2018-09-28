@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,7 +75,7 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
         Toolbar toolbar = findViewById(R.id.toolbar);
         invalidateRecentsColorAndIcon();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_HOME_AS_UP | android.support.v7.app.ActionBar.DISPLAY_SHOW_TITLE);
+        getSupportActionBar().setDisplayOptions(androidx.appcompat.app.ActionBar.DISPLAY_HOME_AS_UP | androidx.appcompat.app.ActionBar.DISPLAY_SHOW_TITLE);
         invalidateToolbarColor();
         invalidateNavBar();
 

@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 
-public class ThemedImageView extends android.support.v7.widget.AppCompatImageView {
+public class ThemedImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     public ThemedImageView(Context context) {
         this(context, null, 0);

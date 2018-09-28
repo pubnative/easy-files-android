@@ -1,7 +1,7 @@
 package net.easynaps.easyfiles.ui.views.drawer;
 
-import android.support.annotation.ColorInt;
-import android.support.design.widget.NavigationView;
+import androidx.annotation.ColorInt;
+import com.google.android.material.navigation.NavigationView;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 

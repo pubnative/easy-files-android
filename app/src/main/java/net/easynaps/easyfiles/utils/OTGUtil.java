@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.provider.DocumentFile;
+import androidx.documentfile.provider.DocumentFile;
 import android.util.Log;
 
 import net.easynaps.easyfiles.activities.MainActivity;

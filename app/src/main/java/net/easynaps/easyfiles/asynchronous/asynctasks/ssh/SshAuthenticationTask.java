@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.Toast;
 
 import net.easynaps.easyfiles.R;

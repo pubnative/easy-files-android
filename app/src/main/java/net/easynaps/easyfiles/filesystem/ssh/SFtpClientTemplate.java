@@ -1,6 +1,6 @@
 package net.easynaps.easyfiles.filesystem.ssh;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import net.schmizz.sshj.sftp.SFTPClient;
 

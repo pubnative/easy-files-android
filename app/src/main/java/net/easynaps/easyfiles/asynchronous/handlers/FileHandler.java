@@ -3,7 +3,7 @@ package net.easynaps.easyfiles.asynchronous.handlers;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.widget.RecyclerView;
 import android.view.View;
 
 import net.easynaps.easyfiles.adapters.RecyclerAdapter;

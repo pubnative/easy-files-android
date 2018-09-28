@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import net.easynaps.easyfiles.asynchronous.asynctasks.SearchAsyncTask;
 import net.easynaps.easyfiles.filesystem.HybridFileParcelable;

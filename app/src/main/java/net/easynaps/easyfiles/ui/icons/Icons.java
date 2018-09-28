@@ -1,6 +1,6 @@
 package net.easynaps.easyfiles.ui.icons;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.filesystem.compressed.CompressedHelper;

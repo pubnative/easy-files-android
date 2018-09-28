@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.asynchronous.asynctasks.ssh;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;

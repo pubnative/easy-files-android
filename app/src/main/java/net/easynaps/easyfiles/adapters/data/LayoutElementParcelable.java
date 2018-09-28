@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.adapters.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import net.easynaps.easyfiles.filesystem.HybridFileParcelable;
 import net.easynaps.easyfiles.ui.icons.Icons;

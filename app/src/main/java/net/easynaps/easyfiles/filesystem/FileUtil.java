@@ -11,8 +11,8 @@ import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.provider.DocumentFile;
+import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
 import android.util.Log;
 
 import com.cloudrail.si.interfaces.CloudStorage;

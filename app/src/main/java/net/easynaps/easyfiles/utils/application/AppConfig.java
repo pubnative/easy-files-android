@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.widget.Toast;
 
