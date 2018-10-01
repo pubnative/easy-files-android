@@ -25,8 +25,8 @@ android {
         applicationId "net.easynaps.easyfiles"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 102
-        versionName "0.1.2"
+        versionCode 200
+        versionName "0.2.0"
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true;
