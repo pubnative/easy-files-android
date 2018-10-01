@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
-import androidx.appcompat.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +33,8 @@ import net.easynaps.easyfiles.utils.provider.UtilitiesProvider;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class CompressedExplorerAdapter extends RecyclerView.Adapter<CompressedItemViewHolder> {
 

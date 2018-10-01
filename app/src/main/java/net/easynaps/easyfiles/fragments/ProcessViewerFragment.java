@@ -8,8 +8,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
+
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.widget.CardView;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.format.Formatter;

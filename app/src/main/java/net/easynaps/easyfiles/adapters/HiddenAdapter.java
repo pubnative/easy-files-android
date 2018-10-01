@@ -3,7 +3,6 @@ package net.easynaps.easyfiles.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.appcompat.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,8 @@ import net.easynaps.easyfiles.utils.files.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HiddenAdapter extends RecyclerView.Adapter<HiddenViewHolder> {
 

@@ -1,12 +1,13 @@
 package net.easynaps.easyfiles.adapters.holders;
 
-import androidx.appcompat.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.easynaps.easyfiles.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HiddenViewHolder extends RecyclerView.ViewHolder {
     public final ImageButton image;

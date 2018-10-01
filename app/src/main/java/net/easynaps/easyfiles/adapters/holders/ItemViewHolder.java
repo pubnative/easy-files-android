@@ -1,6 +1,5 @@
 package net.easynaps.easyfiles.adapters.holders;
 
-import androidx.appcompat.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -10,6 +9,8 @@ import android.widget.TextView;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.ui.views.RoundedImageView;
 import net.easynaps.easyfiles.ui.views.ThemedTextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case

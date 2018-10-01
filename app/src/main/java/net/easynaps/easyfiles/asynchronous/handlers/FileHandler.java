@@ -3,7 +3,6 @@ package net.easynaps.easyfiles.asynchronous.handlers;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import androidx.appcompat.widget.RecyclerView;
 import android.view.View;
 
 import net.easynaps.easyfiles.adapters.RecyclerAdapter;
@@ -13,6 +12,8 @@ import net.easynaps.easyfiles.fragments.MainFragment;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class FileHandler extends Handler {
     private WeakReference<MainFragment> mainFragment;
