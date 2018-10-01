@@ -5,28 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:layout_height="match_parent" >
-        </FrameLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
 
-        <include layout="@layout/layout_appbar"/>
-        <include layout="@layout/layout_search"/>
+        <include layout="@layout/layout_appbar" />
+
+        <include layout="@layout/layout_search" />
 
         <LinearLayout
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="16dp"
             android:id="@+id/indicator_layout"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp">
 
             <net.easynaps.easyfiles.ui.views.Indicator
                 android:id="@+id/indicator"
@@ -34,19 +34,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center_horizontal"
                 android:layout_marginTop="@dimen/padding_normal"
-                app:currentPageIndicatorColor="?attr/colorAccent"
-                />
+                app:currentPageIndicatorColor="?attr/colorAccent" />
         </LinearLayout>
+
         <View
+            android:id="@+id/fab_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fab_bg"
-            android:visibility="gone"
-            android:clickable="true"
             android:background="@drawable/fab_shadow_light"
-            />
+            android:clickable="true"
+            android:visibility="gone" />
 
-        <include layout="@layout/layout_fab"/>
+        <include layout="@layout/layout_fab" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -54,6 +53,6 @@
         android:id="@+id/navigation"
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

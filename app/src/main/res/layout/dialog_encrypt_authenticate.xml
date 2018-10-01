@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_encrypt_password"
         android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_text_dialog_encrypt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
-            android:inputType="textPassword"
             android:hint="@string/password"
-            android:id="@+id/edit_text_dialog_encrypt_password"
-            android:layout_gravity="center_horizontal" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_encrypt_password_confirm"
         android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_text_dialog_encrypt_password_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
-            android:inputType="textPassword"
             android:hint="@string/password_repeat"
-            android:id="@+id/edit_text_dialog_encrypt_password_confirm"
-            android:layout_gravity="center_horizontal" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

@@ -3,33 +3,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/preferences"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <androidx.appcompat.widget.Toolbar
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar"
-        android:layout_alignParentTop="true"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:elevation="10dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <com.mopub.mobileads.MoPubView
         android:id="@+id/banner_mopub"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:visibility="gone"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/prefsfragment"
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/banner_mopub"/>
+        android:layout_above="@id/banner_mopub"
+        android:layout_below="@id/toolbar" />
 
 </RelativeLayout>

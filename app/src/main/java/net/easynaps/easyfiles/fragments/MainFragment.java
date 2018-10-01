@@ -28,11 +28,12 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.view.ActionMode;
-import androidx.appcompat.widget.DefaultItemAnimator;
-import androidx.appcompat.widget.GridLayoutManager;
-import androidx.appcompat.widget.LinearLayoutManager;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -137,7 +138,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
     private boolean stopAnims = true;
     private SwipeRefreshLayout nofilesview;
 
-    private androidx.appcompat.widget.RecyclerView listView;
+    private RecyclerView listView;
     private UtilitiesProvider utilsProvider;
     private HashMap<String, Bundle> scrolls = new HashMap<>();
     private MainFragment ma = this;
@@ -204,7 +205,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.main_frag, container, false);
         setRetainInstance(true);
-        listView = (androidx.appcompat.widget.RecyclerView) rootView.findViewById(R.id.listView);
+        listView = (RecyclerView) rootView.findViewById(R.id.listView);
         mToolbarContainer = getMainActivity().getAppbar().getAppbarLayout();
         fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroll);
         fastScroller.setPressedHandleColor(accentColor);

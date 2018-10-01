@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,8 @@ import net.easynaps.easyfiles.utils.theme.AppTheme;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SmbSearchDialog extends DialogFragment {
     private UtilitiesProvider utilsProvider;
@@ -201,9 +202,9 @@ public class SmbSearchDialog extends DialogFragment {
 
             rootView = view;
 
-            txtTitle = (TextView) view.findViewById(R.id.firstline);
-            image = (ImageView) view.findViewById(R.id.icon);
-            txtDesc = (TextView) view.findViewById(R.id.secondLine);
+            txtTitle = view.findViewById(R.id.firstline);
+            image = view.findViewById(R.id.icon);
+            txtDesc = view.findViewById(R.id.secondLine);
         }
 
     }

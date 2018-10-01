@@ -3,80 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/material_generic"
-        app:cardElevation="@dimen/material_generic_card_elevation"
-        >
+        app:cardElevation="@dimen/material_generic_card_elevation">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/material_generic"
-                android:paddingBottom="@dimen/material_generic"
                 android:paddingTop="@dimen/material_generic"
-                >
+                android:paddingBottom="@dimen/material_generic">
 
                 <!-- status -->
                 <TextView
                     android:id="@+id/text_view_ftp_status"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/material_generic_medium"
-                    android:textSize="@dimen/material_generic_title"
                     android:maxLines="1"
-                    />
+                    android:textSize="@dimen/material_generic_title" />
 
                 <View
                     android:id="@+id/divider_ftp_status"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_divider"
-                    android:background="@color/divider"
                     android:layout_marginTop="@dimen/material_generic"
                     android:layout_marginBottom="@dimen/material_generic"
-                    />
+                    android:background="@color/divider" />
 
                 <!-- username -->
                 <TextView
                     android:id="@+id/text_view_ftp_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/material_generic_title"
                     android:layout_marginBottom="@dimen/material_generic"
-                    />
+                    android:textSize="@dimen/material_generic_title" />
 
                 <!-- password -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    >
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/text_view_ftp_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/material_generic_title"
                         android:layout_marginBottom="@dimen/material_generic"
-                        />
+                        android:textSize="@dimen/material_generic_title" />
 
                     <ImageButton
                         android:id="@+id/ftp_password_visible"
-                        android:src="@drawable/ic_eye_grey600_24dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
                         android:layout_marginLeft="@dimen/material_generic_medium"
-                        />
+                        android:background="?selectableItemBackground"
+                        android:src="@drawable/ic_eye_grey600_24dp" />
                 </LinearLayout>
 
                 <!-- port -->
@@ -84,17 +75,15 @@
                     android:id="@+id/text_view_ftp_port"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/material_generic_title"
                     android:layout_marginBottom="@dimen/material_generic"
-                    />
+                    android:textSize="@dimen/material_generic_title" />
 
                 <!-- shared path -->
                 <TextView
                     android:id="@+id/text_view_ftp_path"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/material_generic_title"
-                    />
+                    android:textSize="@dimen/material_generic_title" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,20 +95,18 @@
                     android:id="@+id/divider_ftp_start"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_divider"
-                    android:background="@color/divider"
                     android:layout_marginBottom="@dimen/material_generic"
-                    />
+                    android:background="@color/divider" />
 
                 <Button
+                    android:id="@+id/startStopButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/material_generic_medium"
-                    android:text="@string/start_ftp"
-                    android:id="@+id/startStopButton"
-                    android:background="?android:attr/selectableItemBackground"
                     android:layout_marginBottom="@dimen/material_generic"
-                    />
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="@string/start_ftp" />
             </LinearLayout>
 
         </LinearLayout>
-    </androidx.appcompat.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
