@@ -152,9 +152,9 @@ dependencies {
 
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
     implementation 'com.google.firebase:firebase-core:15.0.2'
-    implementation 'net.pubnative:lite.sdk:0.1.7-master.128'
-    implementation 'net.pubnative:lite.adapters.mopub:0.1.7-master.128'
-    implementation('com.mopub:mopub-sdk:4.19.0@aar') {
+    implementation 'net.pubnative:hybid.sdk:0.2.6'
+    implementation 'net.pubnative:hybid.adapters.mopub:0.2.6'
+    implementation('com.mopub:mopub-sdk:5.3.0@aar') {
         transitive = true
         exclude module: 'libAvid-mopub'
         exclude module: 'moat-mobile-app-kit'
