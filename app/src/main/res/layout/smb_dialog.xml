@@ -1,91 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
         android:id="@+id/connectionTIL"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textUri"
-            android:hint="@string/connectionname"
-            android:id="@+id/connectionET"
-            android:layout_gravity="center_horizontal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:id="@+id/ipTIL"
-        app:errorEnabled="true"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textUri"
-            android:hint="@string/smb_server"
-            android:id="@+id/ipET"
-            android:layout_gravity="center_horizontal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:id="@+id/domainTIL"
-        app:errorEnabled="true"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textUri"
-            android:hint="@string/domain"
-            android:id="@+id/domainET"
-            android:layout_gravity="center_horizontal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        app:errorEnabled="true"
         android:layout_height="wrap_content"
-        android:id="@+id/usernameTIL" >
+        app:errorEnabled="true">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/connectionET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/username"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
-            android:id="@+id/usernameET" />
+            android:hint="@string/connectionname"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ipTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/ipET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ems="10"
+            android:hint="@string/smb_server"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/domainTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/domainET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ems="10"
+            android:hint="@string/domain"
+            android:inputType="textUri" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/usernameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        app:errorEnabled="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
             android:hint="@string/password"
-            android:id="@+id/passwordET"
-            android:layout_gravity="center_horizontal" />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkBox2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/anonymous"
-        android:id="@+id/checkBox2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/anonymous" />
+
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/wanthelp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/wanthelp"
-        />
+        android:text="@string/wanthelp" />
 </LinearLayout>

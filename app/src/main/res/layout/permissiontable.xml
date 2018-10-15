@@ -3,30 +3,36 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="@string/permission_read" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="@string/permission_write" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="@string/permission_execute" />
 
-        </TableRow>
+    </TableRow>
+
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -34,30 +40,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/permission_owner"
-            />
+            android:text="@string/permission_owner" />
 
         <CheckBox
             android:id="@+id/creadown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            />
+            android:padding="5dp" />
 
         <CheckBox
             android:id="@+id/cwriteown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            />
+            android:padding="5dp" />
 
         <CheckBox
             android:id="@+id/cexeown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            />
+            android:padding="5dp" />
     </TableRow>
+
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -82,6 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </TableRow>
+
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">

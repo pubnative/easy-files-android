@@ -1,52 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="false"
-            >
+            app:titleEnabled="false">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/easyfiles_about_header"
-                app:layout_collapseMode="parallax"
-                android:scaleType="fitCenter"
-                android:fitsSystemWindows="true"
                 android:background="@color/colorPrimary"
-                />
+                android:fitsSystemWindows="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/easyfiles_about_header"
+                app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:fitsSystemWindows="false"
-                app:layout_collapseMode="pin"
                 android:theme="?attr/toolbar_theme"
-                app:popupTheme="?attr/popup"
-                >
+                app:layout_collapseMode="pin"
+                app:popupTheme="?attr/popup">
+
                 <TextView
                     android:id="@+id/text_view_title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
-                    android:textColor="@android:color/white"
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    />
+                    android:textColor="@android:color/white" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -56,29 +50,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/material_generic"
-                app:cardElevation="@dimen/material_generic_card_elevation"
-                >
+                app:cardElevation="@dimen/material_generic_card_elevation">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/material_generic"
-                    android:paddingBottom="@dimen/material_generic"
-                    >
+                    android:paddingBottom="@dimen/material_generic">
 
                     <!-- version -->
                     <RelativeLayout
@@ -87,39 +77,37 @@
                         android:layout_height="@dimen/material_generic_list_item"
                         android:background="?android:attr/selectableItemBackground"
                         android:gravity="center_vertical"
-                        android:onClick="onClick"
-                        >
+                        android:onClick="onClick">
+
                         <ImageView
                             android:id="@+id/image_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/material_generic"
                             android:layout_marginRight="@dimen/material_generic_medium"
-                            app:srcCompat="@drawable/ic_info_outline_gray_24dp"
-                            android:layout_centerVertical="true"
-                            />
+                            app:srcCompat="@drawable/ic_info_outline_gray_24dp" />
+
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toRightOf="@+id/image_version"
-                            android:gravity="center_vertical"
-                            >
+                            android:gravity="center_vertical">
 
                             <TextView
                                 android:id="@+id/text_view_version_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/version"
-                                android:textSize="@dimen/material_generic_title"
-                                />
+                                android:textSize="@dimen/material_generic_title" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/text_view_version_title"
                                 android:text="@string/app_version"
-                                android:textSize="@dimen/material_generic_title_summary"
-                                />
+                                android:textSize="@dimen/material_generic_title_summary" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -130,31 +118,29 @@
                         android:layout_height="@dimen/material_generic_list_item"
                         android:background="?android:attr/selectableItemBackground"
                         android:gravity="center_vertical"
-                        android:onClick="onClick"
-                        >
+                        android:onClick="onClick">
+
                         <ImageView
                             android:id="@+id/image_view_license"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/material_generic"
                             android:layout_marginRight="@dimen/material_generic_medium"
-                            app:srcCompat="@drawable/ic_library_code_white_24dp"
-                            android:layout_centerVertical="true"
-                            />
+                            app:srcCompat="@drawable/ic_library_code_white_24dp" />
+
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_toRightOf="@+id/image_view_license"
-                            android:gravity="center_vertical"
-                            >
+                            android:gravity="center_vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/libraries"
-                                android:textSize="@dimen/material_generic_title"
-                                />
+                                android:textSize="@dimen/material_generic_title" />
                         </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -166,7 +152,7 @@
                 android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

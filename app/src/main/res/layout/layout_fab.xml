@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Menu Layout is needed for the overlay to work -->
-<jahirfiquitiva.libs.fabsmenu.FABsMenuLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="utf-8"?><!-- Menu Layout is needed for the overlay to work -->
+<jahirfiquitiva.libs.fabsmenu.FABsMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    fab:fabs_menu_overlayColor="#00000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     fab:fabs_menu_clickableOverlay="true"
+    fab:fabs_menu_overlayColor="#00000000"
     tools:layout_behavior="@string/fabs_menu_layout_behavior">
 
     <!-- FABs Menu is the main view. It will contain all the items FABs and it create the menu fab itself -->
@@ -17,28 +15,28 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:clipChildren="false"
-        fab:fab_moreButtonPlusIcon="@drawable/ic_add_white_24dp"
-        fab:fab_menuMargins="16dp"
-        fab:fab_moreButtonSize="normal"
+        fab:fab_expandDirection="up"
         fab:fab_labelsPosition="left"
-        fab:fab_expandDirection="up">
+        fab:fab_menuMargins="16dp"
+        fab:fab_moreButtonPlusIcon="@drawable/ic_add_white_24dp"
+        fab:fab_moreButtonSize="normal">
 
         <!-- This is the item that appears at the top of the menu -->
         <jahirfiquitiva.libs.fabsmenu.TitleFAB
             android:id="@+id/menu_new_folder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:srcCompat="@drawable/folder_fab"
             fab:fabSize="mini"
-            fab:fab_title="@string/folder"/>
+            fab:fab_title="@string/folder"
+            fab:srcCompat="@drawable/folder_fab" />
 
         <jahirfiquitiva.libs.fabsmenu.TitleFAB
             android:id="@+id/menu_new_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:srcCompat="@drawable/ic_insert_drive_file_white_48dp"
             fab:fabSize="mini"
-            fab:fab_title="@string/file"/>
+            fab:fab_title="@string/file"
+            fab:srcCompat="@drawable/ic_insert_drive_file_white_48dp" />
     </jahirfiquitiva.libs.fabsmenu.FABsMenu>
 
 </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
