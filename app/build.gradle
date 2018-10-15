@@ -80,7 +80,7 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
-    implementation 'org.apache.commons:commons-compress:1.12'
+    implementation 'org.apache.commons:commons-compress:1.18'
 
     implementation ('com.github.junrar:junrar:0.7') {
         exclude module: 'commons-logging'
@@ -128,7 +128,7 @@ dependencies {
     implementation 'com.github.npgall:concurrent-trees:2.6.1'//Concurrent tries
 
     //SFTP
-    implementation 'com.hierynomus:sshj:0.23.0'
+    implementation 'com.hierynomus:sshj:0.26.0'
 
     implementation 'com.madgag.spongycastle:bcpkix-jdk15on:1.58.0.0'
     implementation 'com.madgag.spongycastle:prov:1.58.0.0'
