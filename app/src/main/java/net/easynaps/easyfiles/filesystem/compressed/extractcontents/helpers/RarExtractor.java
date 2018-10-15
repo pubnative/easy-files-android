@@ -1,7 +1,7 @@
 package net.easynaps.easyfiles.filesystem.compressed.extractcontents.helpers;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.github.junrar.Archive;
 import com.github.junrar.exception.RarException;

@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.utils.files;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.support.v4.provider.DocumentFile;
+import androidx.documentfile.provider.DocumentFile;
 import android.util.Log;
 
 import com.cloudrail.si.interfaces.CloudStorage;

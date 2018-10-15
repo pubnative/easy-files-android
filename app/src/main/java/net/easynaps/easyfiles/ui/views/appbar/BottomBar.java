@@ -6,9 +6,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -36,7 +36,6 @@ import net.easynaps.easyfiles.utils.OpenMode;
 import net.easynaps.easyfiles.utils.Utils;
 import net.easynaps.easyfiles.utils.files.FileUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_CHANGEPATHS;

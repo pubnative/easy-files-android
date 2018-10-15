@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.asynchronous.asynctasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import android.text.format.Formatter;
 import android.widget.TextView;
 

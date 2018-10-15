@@ -1,7 +1,7 @@
 package net.easynaps.easyfiles.filesystem.ssh;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import net.easynaps.easyfiles.asynchronous.asynctasks.AsyncTaskResult;

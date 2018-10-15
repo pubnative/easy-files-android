@@ -3,7 +3,7 @@ package net.easynaps.easyfiles.asynchronous.asynctasks.ssh;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.Toast;
 
 import net.easynaps.easyfiles.R;

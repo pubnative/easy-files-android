@@ -11,7 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextWatcher;
@@ -69,7 +69,7 @@ public class TextEditorActivity extends ThemedActivity implements TextWatcher, V
     private Timer mTimer;
     private boolean mModified;
     private Typeface mInputTypefaceDefault, mInputTypefaceMono;
-    private android.support.v7.widget.Toolbar toolbar;
+    private androidx.appcompat.widget.Toolbar toolbar;
     ScrollView scrollView;
 
     /*

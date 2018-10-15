@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.ui.views;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.util.DisplayMetrics;
 
 import net.easynaps.easyfiles.utils.theme.AppTheme;
