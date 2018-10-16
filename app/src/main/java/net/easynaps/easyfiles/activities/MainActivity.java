@@ -8,6 +8,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -23,6 +24,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.service.quicksettings.TileService;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -59,6 +62,9 @@ import com.cloudrail.si.services.Box;
 import com.cloudrail.si.services.Dropbox;
 import com.cloudrail.si.services.GoogleDrive;
 import com.cloudrail.si.services.OneDrive;
+import com.mopub.common.MoPub;
+import com.mopub.common.privacy.ConsentDialogListener;
+import com.mopub.common.privacy.PersonalInfoManager;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -111,8 +117,10 @@ import net.easynaps.easyfiles.utils.application.AppConfig;
 import net.easynaps.easyfiles.utils.color.ColorUsage;
 import net.easynaps.easyfiles.utils.files.FileUtils;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
+import net.pubnative.lite.sdk.HyBid;
 import net.pubnative.lite.sdk.api.InterstitialRequestManager;
 import net.pubnative.lite.sdk.api.RequestManager;
+import net.pubnative.lite.sdk.consent.UserConsentActivity;
 import net.pubnative.lite.sdk.models.Ad;
 import net.pubnative.lite.sdk.utils.PrebidUtils;
 
@@ -244,6 +252,13 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
     private static final int REQUEST_CODE_CLOUD_LIST_KEYS = 5463;
     private static final int REQUEST_CODE_CLOUD_LIST_KEY = 5472;
+
+    private final static int REQUEST_CODE_CONSENT = 5500;
+    private final static String PREF_CONSENT = "pn_consent";
+    private final static String PREF_CONSENT_GAID = "pn_consent_gaid";
+    private final static String PREF_LAST_CONSENT_ASKED_DATE = "pn_consent_date";
+
+    private boolean isActive = false;
 
     private PasteHelper pasteHelper;
 
@@ -415,10 +430,22 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         });
 
         mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
+    }
 
-        if (savedInstanceState == null) {
-            loadInterstitial();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        isActive = true;
+
+        new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        isActive = false;
     }
 
     /**
@@ -1283,6 +1310,9 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         } else if (requestCode == REQUEST_CODE_SAF && responseCode != Activity.RESULT_OK) {
             // otg access not provided
             drawer.resetPendingPath();
+        } else if (requestCode == REQUEST_CODE_CONSENT) {
+            setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
+            showMoPubConsent();
         }
     }
 
@@ -2092,22 +2122,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     private void loadInterstitial() {
-        RequestManager interstitialRequestManager = new InterstitialRequestManager();
-        interstitialRequestManager.setZoneId(getString(R.string.pnlite_interstitial_zone_id));
-        interstitialRequestManager.setRequestListener(new RequestManager.RequestListener() {
-            @Override
-            public void onRequestSuccess(Ad ad) {
-                mInterstitial.setKeywords(PrebidUtils.getPrebidKeywords(ad, getString(R.string.pnlite_interstitial_zone_id)));
-                mInterstitial.load();
-            }
-
-            @Override
-            public void onRequestFail(Throwable throwable) {
-                mInterstitial.load();
-            }
-        });
-
-        interstitialRequestManager.requestAd();
+        mInterstitial.load();
     }
 
     @Override
@@ -2133,5 +2148,76 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     @Override
     public void onInterstitialClicked(MoPubInterstitial interstitial) {
 
+    }
+
+    private final Runnable consentRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isActive) {
+                if (shouldAskForConsent()) {
+                    Intent intent = HyBid.getUserDataManager().getConsentScreenIntent(MainActivity.this);
+                    startActivityForResult(intent, REQUEST_CODE_CONSENT);
+                } else {
+                    showMoPubConsent();
+                }
+            }
+        }
+    };
+
+    private void setConsent(boolean consent) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(PREF_CONSENT, consent);
+        editor.putString(PREF_CONSENT_GAID, HyBid.getDeviceInfo().getAdvertisingId());
+        editor.putLong(PREF_LAST_CONSENT_ASKED_DATE, System.currentTimeMillis());
+        editor.apply();
+    }
+
+    public boolean shouldAskForConsent() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (!preferences.contains(PREF_CONSENT)) {
+            return true;
+        }
+
+        boolean consentGiven = preferences.getBoolean(PREF_CONSENT, false);
+        String consentGaid = preferences.getString(PREF_CONSENT_GAID, "");
+
+        if (!consentGaid.equalsIgnoreCase(HyBid.getDeviceInfo().getAdvertisingId())) {
+            return true;
+        } else {
+            if (consentGiven) {
+                return false;
+            } else {
+                long currentDate = System.currentTimeMillis();
+                long lastDate = preferences.getLong(PREF_LAST_CONSENT_ASKED_DATE, currentDate);
+
+                long difference = currentDate - lastDate;
+                int daysPassed = (int) (difference / (1000 * 60 * 60 * 24));
+
+                return daysPassed >= 30;
+            }
+        }
+    }
+
+    private void showMoPubConsent() {
+        final PersonalInfoManager infoManager = MoPub.getPersonalInformationManager();
+        if (infoManager.shouldShowConsentDialog()) {
+            infoManager.loadConsentDialog(new ConsentDialogListener() {
+                @Override
+                public void onConsentDialogLoaded() {
+                    if (isActive) {
+                        infoManager.showConsentDialog();
+                    }
+                }
+
+                @Override
+                public void onConsentDialogLoadFailed(@NonNull MoPubErrorCode moPubErrorCode) {
+
+                }
+            });
+        } else {
+            loadInterstitial();
+        }
     }
 }

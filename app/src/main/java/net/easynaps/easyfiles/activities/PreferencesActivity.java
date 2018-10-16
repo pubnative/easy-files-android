@@ -278,24 +278,8 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     }
 
     private void loadAd() {
-        RequestManager bannerRequestManager = new BannerRequestManager();
-        bannerRequestManager.setZoneId(getString(R.string.pnlite_banner_zone_id));
-        bannerRequestManager.setRequestListener(new RequestManager.RequestListener() {
-            @Override
-            public void onRequestSuccess(Ad ad) {
-                mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
-                mBannerView.setKeywords(PrebidUtils.getPrebidKeywords(ad, getString(R.string.pnlite_banner_zone_id)));
-                mBannerView.loadAd();
-            }
-
-            @Override
-            public void onRequestFail(Throwable throwable) {
-                mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
-                mBannerView.loadAd();
-            }
-        });
-
-        bannerRequestManager.requestAd();
+        mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
+        mBannerView.loadAd();
     }
 
     @Override

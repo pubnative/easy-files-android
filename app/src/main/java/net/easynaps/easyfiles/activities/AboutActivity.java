@@ -188,24 +188,8 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
     }
 
     private void loadAd() {
-        RequestManager bannerRequestManager = new MRectRequestManager();
-        bannerRequestManager.setZoneId(getString(R.string.pnlite_mrect_zone_id));
-        bannerRequestManager.setRequestListener(new RequestManager.RequestListener() {
-            @Override
-            public void onRequestSuccess(Ad ad) {
-                mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
-                mMRectView.setKeywords(PrebidUtils.getPrebidKeywords(ad, getString(R.string.pnlite_mrect_zone_id)));
-                mMRectView.loadAd();
-            }
-
-            @Override
-            public void onRequestFail(Throwable throwable) {
-                mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
-                mMRectView.loadAd();
-            }
-        });
-
-        bannerRequestManager.requestAd();
+        mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
+        mMRectView.loadAd();
     }
 
     @Override
