@@ -24,6 +24,7 @@ import net.easynaps.easyfiles.database.UtilsHandler;
 import net.easynaps.easyfiles.utils.LruBitmapCache;
 import net.easynaps.easyfiles.utils.ScreenUtils;
 import net.easynaps.easyfiles.utils.provider.UtilitiesProvider;
+import net.pubnative.lite.sdk.HyBid;
 import net.pubnative.lite.sdk.PNLite;
 
 /**
@@ -67,17 +68,16 @@ public class AppConfig extends GlideApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        PNLite.initialize(getString(R.string.pnlite_app_token), this);
+        PNLite.initialize(getString(R.string.pnlite_app_token), this, success -> {
+            SdkConfiguration sdkConfiguration = new SdkConfiguration
+                    .Builder(getString(R.string.mopub_banner_ad_unit_id))
+                    .build();
+            MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
 
-        SdkConfiguration sdkConfiguration = new SdkConfiguration
-                .Builder(getString(R.string.mopub_banner_ad_unit_id))
-                .build();
-        MoPub.initializeSdk(this, sdkConfiguration, new SdkInitializationListener() {
-            @Override
-            public void onInitializationFinished() {
-
-            }
+            });
         });
+
+
     }
 
     @Override
@@ -90,6 +90,7 @@ public class AppConfig extends GlideApplication {
      * Post a runnable to handler. Use this in case we don't have any restriction to execute after
      * this runnable is executed, and {@link #runInBackground(CustomAsyncCallbacks)} in case we need
      * to execute something after execution in background
+     *
      * @param runnable
      */
     public static void runInBackground(Runnable runnable) {
@@ -101,6 +102,7 @@ public class AppConfig extends GlideApplication {
     /**
      * A compact AsyncTask which runs which executes whatever is passed by callbacks.
      * Supports any class that extends an object as param array, and result too.
+     *
      * @param customAsyncCallbacks
      */
     public static void runInBackground(final CustomAsyncCallbacks customAsyncCallbacks) {
@@ -212,10 +214,10 @@ public class AppConfig extends GlideApplication {
 
     public static void setActivityContext(Context context) {
         sActivityContext = context;
-        screenUtils = new ScreenUtils((Activity)context);
+        screenUtils = new ScreenUtils((Activity) context);
     }
 
-    public ScreenUtils getScreenUtils(){
+    public ScreenUtils getScreenUtils() {
         return screenUtils;
     }
 
