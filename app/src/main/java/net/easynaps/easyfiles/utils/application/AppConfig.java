@@ -69,15 +69,15 @@ public class AppConfig extends GlideApplication {
         StrictMode.setVmPolicy(builder.build());
 
         PNLite.initialize(getString(R.string.pnlite_app_token), this, success -> {
-            SdkConfiguration sdkConfiguration = new SdkConfiguration
-                    .Builder(getString(R.string.mopub_banner_ad_unit_id))
-                    .build();
-            MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
 
-            });
         });
 
+        SdkConfiguration sdkConfiguration = new SdkConfiguration
+                .Builder(getString(R.string.mopub_banner_ad_unit_id))
+                .build();
+        MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
 
+        });
     }
 
     @Override
