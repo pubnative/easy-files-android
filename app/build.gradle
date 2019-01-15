@@ -150,8 +150,8 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'//Multiple dex files
 
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'net.pubnative:hybid.sdk:0.3.0'
     implementation 'net.pubnative:hybid.adapters.mopub:0.3.0'
     implementation('com.mopub:mopub-sdk:5.3.0@aar') {
