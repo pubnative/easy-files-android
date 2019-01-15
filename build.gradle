@@ -4,6 +4,9 @@ buildscript {
         google()
         maven { url 'https://dl.bintray.com/pubnative/maven' }
         maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url "https://dl.bintray.com/ironsource-mobile/android-sdk"
+        }
 
     }
     dependencies {
@@ -21,6 +24,9 @@ allprojects {
         mavenCentral()
         maven { url 'https://dl.bintray.com/pubnative/maven' }
         maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url "https://dl.bintray.com/ironsource-mobile/android-sdk"
+        }
     }
 }
 

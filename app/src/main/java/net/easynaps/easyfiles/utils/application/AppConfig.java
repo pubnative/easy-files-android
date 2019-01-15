@@ -15,6 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
+import com.ironsource.mediationsdk.IronSource;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 import com.mopub.common.SdkInitializationListener;
@@ -77,6 +80,13 @@ public class AppConfig extends GlideApplication {
                 .build();
         MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
 
+        });
+
+        AppLovinSdk.initializeSdk(this, new AppLovinSdk.SdkInitializationListener() {
+            @Override
+            public void onSdkInitialized(AppLovinSdkConfiguration appLovinSdkConfiguration) {
+
+            }
         });
     }
 

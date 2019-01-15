@@ -62,6 +62,7 @@ import com.cloudrail.si.services.Box;
 import com.cloudrail.si.services.Dropbox;
 import com.cloudrail.si.services.GoogleDrive;
 import com.cloudrail.si.services.OneDrive;
+import com.ironsource.mediationsdk.IronSource;
 import com.mopub.common.MoPub;
 import com.mopub.common.privacy.ConsentDialogListener;
 import com.mopub.common.privacy.PersonalInfoManager;
@@ -431,6 +432,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         if (savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
         }
+
+        IronSource.init(this, "866d59dd");
     }
 
     @Override
@@ -1045,6 +1048,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             unregisterReceiver(mOtgReceiver);
         }
         killToast();
+
+        IronSource.onPause(this);
     }
 
     @Override
@@ -1072,6 +1077,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             otgFilter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
             registerReceiver(mOtgReceiver, otgFilter);
         }
+
+        IronSource.onResume(this);
     }
 
     /**
