@@ -16,11 +16,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.applovin.sdk.AppLovinSdk;
-import com.applovin.sdk.AppLovinSdkConfiguration;
-import com.ironsource.mediationsdk.IronSource;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.database.UtilsHandler;
@@ -28,7 +25,6 @@ import net.easynaps.easyfiles.utils.LruBitmapCache;
 import net.easynaps.easyfiles.utils.ScreenUtils;
 import net.easynaps.easyfiles.utils.provider.UtilitiesProvider;
 import net.pubnative.lite.sdk.HyBid;
-import net.pubnative.lite.sdk.PNLite;
 
 /**
  * Created by vishal on 7/12/16 edited by Emmanuel Messulam<emmanuelbendavid@gmail.com>
@@ -71,7 +67,7 @@ public class AppConfig extends GlideApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        PNLite.initialize(getString(R.string.pnlite_app_token), this, success -> {
+        HyBid.initialize(getString(R.string.pnlite_app_token), this, success -> {
 
         });
 
@@ -82,11 +78,8 @@ public class AppConfig extends GlideApplication {
 
         });
 
-        AppLovinSdk.initializeSdk(this, new AppLovinSdk.SdkInitializationListener() {
-            @Override
-            public void onSdkInitialized(AppLovinSdkConfiguration appLovinSdkConfiguration) {
+        AppLovinSdk.initializeSdk(this, appLovinSdkConfiguration -> {
 
-            }
         });
     }
 

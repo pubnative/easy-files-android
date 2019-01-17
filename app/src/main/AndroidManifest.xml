@@ -247,10 +247,18 @@
 
         <meta-data
             android:name="applovin.sdk.key"
-            android:value="qxVl-uJyyXnqxT2tBTVCi0Qw6cSx2zi1y98_edB6ezuMPnc6SUpWH0t56-7bulbtThx8T5_dM6GHTMZlMDVGOV" />
+            android:value="uJn7Z_AWrovfwJrHGFBNQ-uQDhcbRNexCzr1Xpy5oStLIRJGzopnlAX7K2LXZuK0VPIygHT_07AFSFK-8dcgBc" />
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9176690371168943~1657320549"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
     </application>
 
 </manifest>

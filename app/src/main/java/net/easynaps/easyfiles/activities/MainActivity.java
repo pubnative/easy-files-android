@@ -62,6 +62,7 @@ import com.cloudrail.si.services.Box;
 import com.cloudrail.si.services.Dropbox;
 import com.cloudrail.si.services.GoogleDrive;
 import com.cloudrail.si.services.OneDrive;
+import com.heyzap.sdk.ads.HeyzapAds;
 import com.ironsource.mediationsdk.IronSource;
 import com.mopub.common.MoPub;
 import com.mopub.common.privacy.ConsentDialogListener;
@@ -433,7 +434,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
         }
 
-        IronSource.init(this, "866d59dd");
+        IronSource.init(this, "86721205");
+        HeyzapAds.start("5cc49eb119c0330e30cad321071bbee5", this);
     }
 
     @Override
