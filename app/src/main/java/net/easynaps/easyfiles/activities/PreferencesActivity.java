@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.ironsource.mediationsdk.IronSource;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -86,6 +87,8 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
         } else {
             selectItem(0);
         }
+
+        IronSource.init(this, "86721205", IronSource.AD_UNIT.BANNER);
 
         mBannerView = findViewById(R.id.banner_mopub);
         mBannerView.setBannerAdListener(this);

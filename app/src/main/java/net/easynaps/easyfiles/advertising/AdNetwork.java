@@ -1,6 +1,7 @@
 package net.easynaps.easyfiles.advertising;
 
 public enum AdNetwork {
+    PUBNATIVE,
     APPLOVIN,
     IRONSOURCE,
     FYBER,

@@ -1,10 +1,10 @@
-package net.easynaps.easyfiles.advertising.mopub;
+package net.easynaps.easyfiles.advertising.fyber;
 
 import android.view.View;
 
 import net.easynaps.easyfiles.advertising.AdPlacement;
 
-public class MoPubMRectController implements AdPlacement {
+public class FyberMRectController implements AdPlacement {
 
     //---------------------------------- AdPlacement methods ---------------------------------------
     @Override

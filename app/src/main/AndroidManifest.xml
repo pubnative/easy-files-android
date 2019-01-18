@@ -25,6 +25,7 @@
         android:banner="@drawable/easyfiles_about_header"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:hardwareAccelerated="true"
         tools:replace="android:label">
 
         <activity
@@ -181,15 +182,17 @@
             android:hardwareAccelerated="true"
             android:theme="@android:style/Theme.Translucent" />
 
+
+
         <service
             android:name=".asynchronous.services.ExtractService"
-            android:label="Extracting"></service>
+            android:label="Extracting" />
         <service
             android:name=".asynchronous.services.ZipService"
-            android:label="Compressing"></service>
+            android:label="Compressing" />
         <service
             android:name=".asynchronous.services.CopyService"
-            android:label="Copying"></service>
+            android:label="Copying" />
 
         <service
             android:name=".asynchronous.services.EncryptService"
@@ -249,16 +252,17 @@
             android:name="applovin.sdk.key"
             android:value="uJn7Z_AWrovfwJrHGFBNQ-uQDhcbRNexCzr1Xpy5oStLIRJGzopnlAX7K2LXZuK0VPIygHT_07AFSFK-8dcgBc" />
 
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9176690371168943~1657320549"/>
+            android:value="ca-app-pub-9176690371168943~1657320549" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true"/>
+            android:value="true" />
     </application>
 
 </manifest>
