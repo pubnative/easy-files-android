@@ -892,6 +892,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             case R.id.home:
                 if (ma != null)
                     ma.home();
+                loadInterstitial();
                 break;
             case R.id.history:
                 if (ma != null)
@@ -2146,6 +2147,9 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     private void loadInterstitial() {
+        if (mInterstitialPlacement != null) {
+            mInterstitialPlacement.destroy();
+        }
         mInterstitialPlacement = new InterstitialPlacementFactory().createAdPlacement(this, AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME), this);
         mInterstitialPlacement.loadAd();
     }
