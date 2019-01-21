@@ -33,30 +33,30 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
     }
 
     @Override
-    public void show() {
-        mAdView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void destroy() {
-        mAdView.setVisibility(View.GONE);
         mAdView.destroy();
     }
 
     //------------------------------- BannerAdListener methods -------------------------------------
     @Override
     public void onBannerLoaded(MoPubView banner) {
-
+        if (mListener != null) {
+            mListener.onAdLoaded();
+        }
     }
 
     @Override
     public void onBannerFailed(MoPubView banner, MoPubErrorCode errorCode) {
-
+        if (mListener != null) {
+            mListener.onAdError(new Exception(errorCode.toString()));
+        }
     }
 
     @Override
     public void onBannerClicked(MoPubView banner) {
-
+        if (mListener != null) {
+            mListener.onAdClicked();
+        }
     }
 
     @Override

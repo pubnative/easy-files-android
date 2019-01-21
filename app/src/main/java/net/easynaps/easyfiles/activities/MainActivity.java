@@ -73,6 +73,11 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.ThemedActivity;
+import net.easynaps.easyfiles.advertising.AdManager;
+import net.easynaps.easyfiles.advertising.EasyFilesAdConstants;
+import net.easynaps.easyfiles.advertising.InterstitialPlacement;
+import net.easynaps.easyfiles.advertising.InterstitialPlacementFactory;
+import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
 import net.easynaps.easyfiles.asynchronous.asynctasks.DeleteTask;
 import net.easynaps.easyfiles.asynchronous.asynctasks.MoveFiles;
 import net.easynaps.easyfiles.asynchronous.asynctasks.PrepareCopyTask;
@@ -144,7 +149,7 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 public class MainActivity extends ThemedActivity implements OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
         SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks,
-        LoaderManager.LoaderCallbacks<Cursor>, MoPubInterstitial.InterstitialAdListener {
+        LoaderManager.LoaderCallbacks<Cursor>, /*MoPubInterstitial.InterstitialAdListener*/ InterstitialPlacementListener {
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -260,7 +265,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
     private PasteHelper pasteHelper;
 
-    private MoPubInterstitial mInterstitial;
+    //private MoPubInterstitial mInterstitial;
+    private InterstitialPlacement mInterstitialPlacement;
 
     /**
      * Called when the activity is first created.
@@ -427,8 +433,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             }
         });
 
-        mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
-        mInterstitial.setInterstitialAdListener(this);
+        /*mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
+        mInterstitial.setInterstitialAdListener(this);*/
 
         if (savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
@@ -1137,7 +1143,10 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
         /*if (mainFragment!=null)
             mainFragment = null;*/
-        mInterstitial.destroy();
+        //mInterstitial.destroy();
+        if (mInterstitialPlacement != null) {
+            mInterstitialPlacement.destroy();
+        }
     }
 
     /**
@@ -2137,10 +2146,37 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     private void loadInterstitial() {
-        mInterstitial.load();
+        mInterstitialPlacement = new InterstitialPlacementFactory().createAdPlacement(this, AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME), this);
+        mInterstitialPlacement.loadAd();
     }
 
     @Override
+    public void onAdLoaded() {
+        Log.d(TAG, "onAdLoaded");
+        mInterstitialPlacement.show();
+    }
+
+    @Override
+    public void onAdError(Throwable error) {
+        Log.e(TAG, error.getMessage());
+    }
+
+    @Override
+    public void onAdShown() {
+        Log.d(TAG, "onAdShown");
+    }
+
+    @Override
+    public void onAdDismissed() {
+        Log.d(TAG, "onAdDismissed");
+    }
+
+    @Override
+    public void onAdClicked() {
+        Log.d(TAG, "onAdClicked");
+    }
+
+    /*@Override
     public void onInterstitialLoaded(MoPubInterstitial interstitial) {
         mInterstitial.show();
     }
@@ -2163,7 +2199,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     @Override
     public void onInterstitialClicked(MoPubInterstitial interstitial) {
 
-    }
+    }*/
 
     private final Runnable consentRunnable = new Runnable() {
         @Override
@@ -2231,8 +2267,6 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
                 }
             });
-        } else {
-            loadInterstitial();
         }
     }
 }

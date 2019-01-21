@@ -31,13 +31,7 @@ public class FyberBannerController implements AdPlacement, HeyzapAds.BannerListe
     }
 
     @Override
-    public void show() {
-        mAdView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void destroy() {
-        mAdView.setVisibility(View.GONE);
         mAdView.destroy();
     }
 

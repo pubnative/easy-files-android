@@ -78,7 +78,7 @@ public class AdManager {
         queue.offer(AdNetwork.APPLOVIN);
         queue.offer(AdNetwork.IRONSOURCE);
         queue.offer(AdNetwork.FYBER);
-        queue.offer(AdNetwork.FACEBOOK);
+        //queue.offer(AdNetwork.FACEBOOK);
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);

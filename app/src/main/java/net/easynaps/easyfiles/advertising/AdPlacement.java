@@ -4,7 +4,8 @@ import android.view.View;
 
 public interface AdPlacement {
     View getAdView();
+
     void loadAd();
-    void show();
+
     void destroy();
 }

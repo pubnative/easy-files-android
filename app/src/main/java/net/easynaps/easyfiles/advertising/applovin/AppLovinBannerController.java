@@ -37,13 +37,7 @@ public class AppLovinBannerController implements AdPlacement,
     }
 
     @Override
-    public void show() {
-        mAdView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void destroy() {
-        mAdView.setVisibility(View.GONE);
         mAdView.destroy();
     }
 

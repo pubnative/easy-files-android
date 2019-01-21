@@ -101,6 +101,8 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
             mTitleTextView.setAlpha(Math.abs(verticalOffset / (float) appBarLayout.getTotalScrollRange()));
         });
 
+        IronSource.init(this, "86721205", IronSource.AD_UNIT.BANNER);
+
         /*mMRectView = findViewById(R.id.mrect_mopub);
         mMRectView.setBannerAdListener(this);
         mMRectView.setAutorefreshEnabled(false);*/
@@ -257,6 +259,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
 
     @Override
     public void onAdLoaded() {
+        Log.d(TAG, "onAdLoaded");
         mAdContainer.removeAllViews();
         mAdContainer.addView(mAdPlacement.getAdView());
         mAdContainer.setVisibility(View.VISIBLE);
@@ -264,6 +267,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
 
     @Override
     public void onAdClicked() {
+        Log.d(TAG, "onAdClicked");
         cleanupAd();
         loadAd();
     }

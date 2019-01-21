@@ -35,13 +35,7 @@ public class IronSourceBannerController implements AdPlacement, BannerListener {
     }
 
     @Override
-    public void show() {
-        mAdView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void destroy() {
-        mAdView.setVisibility(View.GONE);
     }
 
     //-------------------------------- BannerListener methods --------------------------------------

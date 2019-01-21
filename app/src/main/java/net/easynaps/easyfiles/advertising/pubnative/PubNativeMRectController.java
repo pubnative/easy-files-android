@@ -30,13 +30,7 @@ public class PubNativeMRectController implements AdPlacement, PNAdView.Listener 
     }
 
     @Override
-    public void show() {
-        mAdView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void destroy() {
-        mAdView.setVisibility(View.GONE);
         mAdView.destroy();
     }
 

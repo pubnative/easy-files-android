@@ -1,6 +1,100 @@
 package net.easynaps.easyfiles.advertising.googleadmanager;
 
+import android.app.Activity;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
+
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
+import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
 
 public class GoogleInterstitialController implements InterstitialPlacement {
+    private final PublisherInterstitialAd mInterstitial;
+    private final InterstitialPlacementListener mListener;
+
+    public GoogleInterstitialController(Activity context, String adUnitId, InterstitialPlacementListener listener) {
+        this.mInterstitial = new PublisherInterstitialAd(context);
+        mInterstitial.setAdUnitId(adUnitId);
+        mInterstitial.setAdListener(mAdListener);
+        this.mListener = listener;
+    }
+
+
+    //------------------------------ InterstitialPlacement methods ---------------------------------
+    @Override
+    public void loadAd() {
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        mInterstitial.loadAd(adRequest);
+    }
+
+    @Override
+    public void show() {
+        mInterstitial.show();
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public boolean isReady() {
+        return mInterstitial.isLoaded();
+    }
+
+    //----------------------------------- AdListener methods ---------------------------------------
+    private final AdListener mAdListener = new AdListener() {
+        @Override
+        public void onAdLoaded() {
+            super.onAdLoaded();
+            if (mListener != null) {
+                mListener.onAdLoaded();
+            }
+        }
+
+        @Override
+        public void onAdFailedToLoad(int errorCode) {
+            super.onAdFailedToLoad(errorCode);
+            if (mListener != null) {
+                switch (errorCode) {
+                    case PublisherAdRequest.ERROR_CODE_INTERNAL_ERROR:
+                        mListener.onAdError(new Exception("Google Ad Manager - Internal error"));
+                        break;
+                    case PublisherAdRequest.ERROR_CODE_INVALID_REQUEST:
+                        mListener.onAdError(new Exception("Google Ad Manager - Invalid request"));
+                        break;
+                    case PublisherAdRequest.ERROR_CODE_NETWORK_ERROR:
+                        mListener.onAdError(new Exception("Google Ad Manager - Network error"));
+                        break;
+                    case PublisherAdRequest.ERROR_CODE_NO_FILL:
+                        mListener.onAdError(new Exception("Google Ad Manager - No fill"));
+                        break;
+                }
+            }
+        }
+
+        @Override
+        public void onAdClicked() {
+            super.onAdClicked();
+            if (mListener != null) {
+                mListener.onAdClicked();
+            }
+        }
+
+        @Override
+        public void onAdOpened() {
+            super.onAdOpened();
+        }
+
+        @Override
+        public void onAdLeftApplication() {
+            super.onAdLeftApplication();
+        }
+
+        @Override
+        public void onAdClosed() {
+            super.onAdClosed();
+        }
+    };
 }

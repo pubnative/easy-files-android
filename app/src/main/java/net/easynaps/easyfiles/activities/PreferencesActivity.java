@@ -342,6 +342,7 @@ public class PreferencesActivity extends ThemedActivity implements /*MoPubView.B
 
     @Override
     public void onAdLoaded() {
+        Log.d(TAG, "onAdLoaded");
         mAdContainer.removeAllViews();
         mAdContainer.addView(mAdPlacement.getAdView());
         mAdContainer.setVisibility(View.VISIBLE);
@@ -349,6 +350,7 @@ public class PreferencesActivity extends ThemedActivity implements /*MoPubView.B
 
     @Override
     public void onAdClicked() {
+        Log.d(TAG, "onAdClicked");
         cleanupAd();
         loadAd();
     }
