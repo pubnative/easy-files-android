@@ -22,12 +22,15 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.ironsource.mediationsdk.IronSource;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.ThemedActivity;
+import net.easynaps.easyfiles.advertising.AdManager;
+import net.easynaps.easyfiles.advertising.AdPlacement;
+import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.BannerPlacementFactory;
+import net.easynaps.easyfiles.advertising.EasyFilesAdConstants;
 import net.easynaps.easyfiles.fragments.preference_fragments.AdvancedSearchPref;
 import net.easynaps.easyfiles.fragments.preference_fragments.ColorPref;
 import net.easynaps.easyfiles.fragments.preference_fragments.FoldersPref;
@@ -38,14 +41,10 @@ import net.easynaps.easyfiles.utils.PreferenceUtils;
 import net.easynaps.easyfiles.utils.Utils;
 import net.easynaps.easyfiles.utils.color.ColorUsage;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
-import net.pubnative.lite.sdk.api.BannerRequestManager;
-import net.pubnative.lite.sdk.api.RequestManager;
-import net.pubnative.lite.sdk.models.Ad;
-import net.pubnative.lite.sdk.utils.PrebidUtils;
 
 import static android.os.Build.VERSION.SDK_INT;
 
-public class PreferencesActivity extends ThemedActivity implements MoPubView.BannerAdListener {
+public class PreferencesActivity extends ThemedActivity implements /*MoPubView.BannerAdListener,*/ AdPlacementListener {
     private static final String TAG = PreferencesActivity.class.getSimpleName();
 
     //Start is the first activity you see
@@ -66,7 +65,9 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
 
     private Parcelable[] fragmentsListViewParcelables = new Parcelable[NUMBER_OF_PREFERENCES];
 
-    private MoPubView mBannerView;
+    //private MoPubView mBannerView;
+    private AdPlacement mAdPlacement;
+    private FrameLayout mAdContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,9 +81,9 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
         invalidateToolbarColor();
         invalidateNavBar();
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             selectedItem = savedInstanceState.getInt(KEY_CURRENT_FRAG_OPEN, 0);
-        } else if(getIntent().getExtras() != null) {
+        } else if (getIntent().getExtras() != null) {
             selectItem(getIntent().getExtras().getInt(KEY_CURRENT_FRAG_OPEN));
         } else {
             selectItem(0);
@@ -90,9 +91,11 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
 
         IronSource.init(this, "86721205", IronSource.AD_UNIT.BANNER);
 
-        mBannerView = findViewById(R.id.banner_mopub);
+        /*mBannerView = findViewById(R.id.banner_mopub);
         mBannerView.setBannerAdListener(this);
-        mBannerView.setAutorefreshEnabled(false);
+        mBannerView.setAutorefreshEnabled(false);*/
+
+        mAdContainer = findViewById(R.id.banner_container);
 
         loadAd();
     }
@@ -105,8 +108,8 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
 
     @Override
     public void onBackPressed() {
-        if(currentFragment instanceof ColorPref) {
-            if(((ColorPref) currentFragment).onBackPressed()) return;
+        if (currentFragment instanceof ColorPref) {
+            if (((ColorPref) currentFragment).onBackPressed()) return;
         }
 
         if (selectedItem != START_PREFERENCE && restartActivity) {
@@ -123,16 +126,31 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        IronSource.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        IronSource.onPause(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBannerView.destroy();
+        //mBannerView.destroy();
+        if (mAdPlacement != null) {
+            mAdPlacement.destroy();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(currentFragment.onOptionsItemSelected(item)) return true;
+                if (currentFragment.onOptionsItemSelected(item)) return true;
 
                 if (selectedItem != START_PREFERENCE && restartActivity) {
                     restartActivity(this);
@@ -161,11 +179,11 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
      * the scrolled position) when the user accesses another PreferenceFragment. To prevent this, the
      * Activity saves the ListView's state, so that it can be restored when the user returns to the
      * PreferenceFragment.
-     *
+     * <p>
      * We cannot use the normal save/restore state functions because they only get called when the
      * OS kills the fragment, not the user. See https://stackoverflow.com/a/12793395/3124150 for a
      * better explanation.
-     *
+     * <p>
      * We cannot save the Parcelable in the fragment because the fragment is destroyed.
      */
     public void saveListViewState(int prefFragment, Parcelable listViewState) {
@@ -219,12 +237,13 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
             window.setStatusBarColor(tabStatusColor);
             if (colourednavigation) {
                 window.setNavigationBarColor(tabStatusColor);
-            } else if(window.getNavigationBarColor() != Color.BLACK){
+            } else if (window.getNavigationBarColor() != Color.BLACK) {
                 window.setNavigationBarColor(Color.BLACK);
             }
         }
 
-        if (getAppTheme().equals(AppTheme.BLACK)) getWindow().getDecorView().setBackgroundColor(Utils.getColor(this, android.R.color.black));
+        if (getAppTheme().equals(AppTheme.BLACK))
+            getWindow().getDecorView().setBackgroundColor(Utils.getColor(this, android.R.color.black));
     }
 
     /**
@@ -239,7 +258,7 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
         activity.overridePendingTransition(enter_anim, exit_anim);
         activity.finish();
         activity.overridePendingTransition(enter_anim, exit_anim);
-        if(selectedItem != START_PREFERENCE) {
+        if (selectedItem != START_PREFERENCE) {
             Intent i = activity.getIntent();
             i.putExtra(KEY_CURRENT_FRAG_OPEN, selectedItem);
         }
@@ -248,6 +267,7 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
 
     /**
      * When a Preference (that requires an independent fragment) is selected this is called.
+     *
      * @param item the Preference in question
      */
     public void selectItem(int item) {
@@ -281,11 +301,21 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     }
 
     private void loadAd() {
-        mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
-        mBannerView.loadAd();
+        mAdPlacement = new BannerPlacementFactory().createAdPlacement(this,
+                AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_BANNER_SETTINGS),
+                this);
+        mAdPlacement.loadAd();
+        //mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
+        //mBannerView.loadAd();
     }
 
-    @Override
+    private void cleanupAd() {
+        mAdContainer.setVisibility(View.GONE);
+        mAdContainer.removeAllViews();
+        mAdPlacement.destroy();
+    }
+
+    /*@Override
     public void onBannerLoaded(MoPubView banner) {
         mBannerView.setVisibility(View.VISIBLE);
     }
@@ -308,5 +338,23 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     @Override
     public void onBannerCollapsed(MoPubView banner) {
 
+    }*/
+
+    @Override
+    public void onAdLoaded() {
+        mAdContainer.removeAllViews();
+        mAdContainer.addView(mAdPlacement.getAdView());
+        mAdContainer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onAdClicked() {
+        cleanupAd();
+        loadAd();
+    }
+
+    @Override
+    public void onAdError(Throwable error) {
+        Log.e(TAG, error.getMessage());
     }
 }

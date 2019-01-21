@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.ironsource.mediationsdk.IronSource;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mopub.mobileads.MoPubErrorCode;
@@ -24,6 +26,11 @@ import com.mopub.mobileads.MoPubView;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;
+import net.easynaps.easyfiles.advertising.AdManager;
+import net.easynaps.easyfiles.advertising.AdPlacement;
+import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.EasyFilesAdConstants;
+import net.easynaps.easyfiles.advertising.MRectPlacementFactory;
 import net.easynaps.easyfiles.utils.Utils;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 import net.pubnative.lite.sdk.api.MRectRequestManager;
@@ -31,7 +38,7 @@ import net.pubnative.lite.sdk.api.RequestManager;
 import net.pubnative.lite.sdk.models.Ad;
 import net.pubnative.lite.sdk.utils.PrebidUtils;
 
-public class AboutActivity extends BasicActivity implements View.OnClickListener, MoPubView.BannerAdListener {
+public class AboutActivity extends BasicActivity implements View.OnClickListener, /*MoPubView.BannerAdListener,*/ AdPlacementListener {
 
     private static final String TAG = "AboutActivity";
 
@@ -41,10 +48,13 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
     private AppBarLayout mAppBarLayout;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private TextView mTitleTextView;
-    private int mCount=0;
+    private int mCount = 0;
     private Snackbar snackbar;
     private SharedPreferences mSharedPref;
-    private MoPubView mMRectView;
+
+    //private MoPubView mMRectView;
+    private AdPlacement mAdPlacement;
+    private FrameLayout mAdContainer;
 
     private static final String KEY_PREF_STUDIO = "studio";
 
@@ -66,7 +76,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
 
         mAppBarLayout = findViewById(R.id.appBarLayout);
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
-        mTitleTextView =  findViewById(R.id.text_view_title);
+        mTitleTextView = findViewById(R.id.text_view_title);
 
         mAppBarLayout.setLayoutParams(calculateHeaderViewParams());
 
@@ -91,15 +101,18 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
             mTitleTextView.setAlpha(Math.abs(verticalOffset / (float) appBarLayout.getTotalScrollRange()));
         });
 
-        mMRectView = findViewById(R.id.mrect_mopub);
+        /*mMRectView = findViewById(R.id.mrect_mopub);
         mMRectView.setBannerAdListener(this);
-        mMRectView.setAutorefreshEnabled(false);
+        mMRectView.setAutorefreshEnabled(false);*/
+
+        mAdContainer = findViewById(R.id.mrect_container);
 
         loadAd();
     }
 
     /**
      * Calculates aspect ratio for the Amaze header
+     *
      * @return the layout params with new set of width and height attribute
      */
     private CoordinatorLayout.LayoutParams calculateHeaderViewParams() {
@@ -109,7 +122,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
         float vidAspectRatio = (float) HEADER_WIDTH / (float) HEADER_HEIGHT;
         Log.d(TAG, vidAspectRatio + "");
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        float reqHeightAsPerAspectRatio = (float) screenWidth *vidAspectRatio;
+        float reqHeightAsPerAspectRatio = (float) screenWidth * vidAspectRatio;
         Log.d(TAG, reqHeightAsPerAspectRatio + "");
 
 
@@ -138,7 +151,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
                 if (mCount >= 5) {
                     String text = getResources().getString(R.string.easter_egg_title) + " : " + mCount;
 
-                    if(snackbar != null && snackbar.isShown()) {
+                    if (snackbar != null && snackbar.isShown()) {
                         snackbar.setText(text);
                     } else {
                         snackbar = Snackbar.make(v, text, Snackbar.LENGTH_SHORT);
@@ -163,7 +176,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
                         .withAboutSpecial1Description(getString(R.string.amaze_license))
                         .withLicenseShown(true);
 
-                switch(getAppTheme().getSimpleTheme()) {
+                switch (getAppTheme().getSimpleTheme()) {
                     case LIGHT:
                         libsBuilder.withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR);
                         break;
@@ -182,17 +195,42 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mMRectView.destroy();
-    }
-
-    private void loadAd() {
-        mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
-        mMRectView.loadAd();
+    protected void onResume() {
+        super.onResume();
+        IronSource.onResume(this);
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        IronSource.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //mMRectView.destroy();
+        if (mAdPlacement != null) {
+            mAdPlacement.destroy();
+        }
+    }
+
+    private void loadAd() {
+        mAdPlacement = new MRectPlacementFactory().createAdPlacement(this,
+                AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_MRECT_ABOUT),
+                this);
+        mAdPlacement.loadAd();
+        //mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
+        //mMRectView.loadAd();
+    }
+
+    private void cleanupAd() {
+        mAdContainer.setVisibility(View.GONE);
+        mAdContainer.removeAllViews();
+        mAdPlacement.destroy();
+    }
+
+    /*@Override
     public void onBannerLoaded(MoPubView banner) {
         mMRectView.setVisibility(View.VISIBLE);
     }
@@ -215,6 +253,23 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
     @Override
     public void onBannerCollapsed(MoPubView banner) {
 
+    }*/
+
+    @Override
+    public void onAdLoaded() {
+        mAdContainer.removeAllViews();
+        mAdContainer.addView(mAdPlacement.getAdView());
+        mAdContainer.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onAdClicked() {
+        cleanupAd();
+        loadAd();
+    }
+
+    @Override
+    public void onAdError(Throwable error) {
+        Log.e(TAG, error.getMessage());
+    }
 }

@@ -1,7 +1,6 @@
 package net.easynaps.easyfiles.advertising;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 
@@ -28,7 +27,7 @@ import net.easynaps.easyfiles.advertising.pubnative.PubNativeBannerController;
 import net.easynaps.easyfiles.utils.Utils;
 import net.pubnative.lite.sdk.views.HyBidBannerAdView;
 
-public class BannerAdPlacementFactory {
+public class BannerPlacementFactory {
     public AdPlacement createAdPlacement(Activity context, AdNetwork adNetwork, AdPlacementListener listener) {
         switch (adNetwork) {
             case PUBNATIVE:
@@ -80,7 +79,7 @@ public class BannerAdPlacementFactory {
         layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
         adView.setLayoutParams(layoutParams);
 
-        return new IronSourceBannerController(adView, "PLACEMENT_ID", listener);
+        return new IronSourceBannerController(adView, "EasyFilesBanner", listener);
     }
 
     private AdPlacement createFyberPlacement(Activity context, AdPlacementListener listener) {
@@ -122,7 +121,7 @@ public class BannerAdPlacementFactory {
         layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
         adView.setLayoutParams(layoutParams);
 
-        return new GoogleBannerController(adView, "AD_UNIT_ID", listener);
+        return new GoogleBannerController(adView, "/219576711/EasyFilesBanner   size (320, 50)", listener);
     }
 
     private AdPlacement createAdmobPlacement(Activity context, AdPlacementListener listener) {
@@ -134,6 +133,6 @@ public class BannerAdPlacementFactory {
         layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
         adView.setLayoutParams(layoutParams);
 
-        return new AdmobBannerController(adView, "AD_UNIT_ID", listener);
+        return new AdmobBannerController(adView, "ca-app-pub-9176690371168943/7642028987", listener);
     }
 }
