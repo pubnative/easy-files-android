@@ -74,10 +74,14 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.ThemedActivity;
 import net.easynaps.easyfiles.advertising.AdManager;
+import net.easynaps.easyfiles.advertising.AdReward;
 import net.easynaps.easyfiles.advertising.EasyFilesAdConstants;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementFactory;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacementFactory;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
 import net.easynaps.easyfiles.asynchronous.asynctasks.DeleteTask;
 import net.easynaps.easyfiles.asynchronous.asynctasks.MoveFiles;
 import net.easynaps.easyfiles.asynchronous.asynctasks.PrepareCopyTask;
@@ -149,7 +153,7 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 public class MainActivity extends ThemedActivity implements OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
         SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks,
-        LoaderManager.LoaderCallbacks<Cursor>, /*MoPubInterstitial.InterstitialAdListener*/ InterstitialPlacementListener {
+        LoaderManager.LoaderCallbacks<Cursor> /*, MoPubInterstitial.InterstitialAdListener*/ {
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -267,6 +271,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
     //private MoPubInterstitial mInterstitial;
     private InterstitialPlacement mInterstitialPlacement;
+    private RewardedVideoPlacement mRewardedPlacement;
 
     /**
      * Called when the activity is first created.
@@ -442,6 +447,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
         IronSource.init(this, "86721205");
         HeyzapAds.start("5cc49eb119c0330e30cad321071bbee5", this);
+        MoPub.onCreate(this);
     }
 
     @Override
@@ -449,6 +455,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         super.onStart();
 
         isActive = true;
+
+        MoPub.onStart(this);
     }
 
     @Override
@@ -456,6 +464,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         super.onStop();
 
         isActive = false;
+
+        MoPub.onStop(this);
     }
 
     /**
@@ -673,6 +683,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
                 onbackpressed();
             }
         } else onbackpressed();
+
+        MoPub.onBackPressed(this);
     }
 
     void onbackpressed() {
@@ -896,7 +908,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
                 break;
             case R.id.history:
                 if (ma != null)
-                    GeneralDialogCreation.showHistoryDialog(dataUtils, getPrefs(), ma, getAppTheme());
+                    loadRewardedVideo();
+                GeneralDialogCreation.showHistoryDialog(dataUtils, getPrefs(), ma, getAppTheme());
                 break;
             case R.id.sethome:
                 if (ma == null) return super.onOptionsItemSelected(item);
@@ -1059,6 +1072,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         killToast();
 
         IronSource.onPause(this);
+        MoPub.onPause(this);
     }
 
     @Override
@@ -1088,6 +1102,13 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         }
 
         IronSource.onResume(this);
+        MoPub.onResume(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        MoPub.onRestart(this);
     }
 
     /**
@@ -1148,6 +1169,12 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         if (mInterstitialPlacement != null) {
             mInterstitialPlacement.destroy();
         }
+
+        if (mRewardedPlacement != null) {
+            mRewardedPlacement.destroy();
+        }
+
+        MoPub.onDestroy(this);
     }
 
     /**
@@ -2150,35 +2177,88 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         if (mInterstitialPlacement != null) {
             mInterstitialPlacement.destroy();
         }
-        mInterstitialPlacement = new InterstitialPlacementFactory().createAdPlacement(this, AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME), this);
+        mInterstitialPlacement = new InterstitialPlacementFactory().createAdPlacement(this, AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME), mInterstitialListener);
         mInterstitialPlacement.loadAd();
     }
 
-    @Override
-    public void onAdLoaded() {
-        Log.d(TAG, "onAdLoaded");
-        mInterstitialPlacement.show();
+    private void loadRewardedVideo() {
+        if (mRewardedPlacement != null) {
+            mRewardedPlacement.destroy();
+        }
+        mRewardedPlacement = new RewardedVideoPlacementFactory().createAdPlacement(this, AdManager.getInstance().getNextNetwork(EasyFilesAdConstants.PLACEMENT_REWARDED_HISTORY), mRewardedListener);
+        mRewardedPlacement.loadAd();
     }
 
-    @Override
-    public void onAdError(Throwable error) {
-        Log.e(TAG, error.getMessage());
-    }
+    private final InterstitialPlacementListener mInterstitialListener = new InterstitialPlacementListener() {
+        @Override
+        public void onAdLoaded() {
+            Log.d(TAG, "onAdLoaded");
+            mInterstitialPlacement.show();
+        }
 
-    @Override
-    public void onAdShown() {
-        Log.d(TAG, "onAdShown");
-    }
+        @Override
+        public void onAdError(Throwable error) {
+            Log.e(TAG, error.getMessage());
+        }
 
-    @Override
-    public void onAdDismissed() {
-        Log.d(TAG, "onAdDismissed");
-    }
+        @Override
+        public void onAdShown() {
+            Log.d(TAG, "onAdShown");
+        }
 
-    @Override
-    public void onAdClicked() {
-        Log.d(TAG, "onAdClicked");
-    }
+        @Override
+        public void onAdDismissed() {
+            Log.d(TAG, "onAdDismissed");
+        }
+
+        @Override
+        public void onAdClicked() {
+            Log.d(TAG, "onAdClicked");
+        }
+    };
+
+    private final RewardedVideoPlacementListener mRewardedListener = new RewardedVideoPlacementListener() {
+        @Override
+        public void onVideoLoaded() {
+            Log.d(TAG, "onVideoLoaded");
+            mRewardedPlacement.show();
+        }
+
+        @Override
+        public void onVideoError(Throwable error) {
+            Log.e(TAG, error.getMessage());
+        }
+
+        @Override
+        public void onVideoOpened() {
+            Log.d(TAG, "onVideoOpened");
+        }
+
+        @Override
+        public void onVideoClosed() {
+            Log.d(TAG, "onVideoClosed");
+        }
+
+        @Override
+        public void onVideoStarted() {
+            Log.d(TAG, "onVideoStarted");
+        }
+
+        @Override
+        public void onVideoCompleted() {
+            Log.d(TAG, "onVideoCompleted");
+        }
+
+        @Override
+        public void onAdClicked() {
+            Log.d(TAG, "onAdClicked");
+        }
+
+        @Override
+        public void onReward(AdReward reward) {
+            Log.d(TAG, "onReward");
+        }
+    };
 
     /*@Override
     public void onInterstitialLoaded(MoPubInterstitial interstitial) {

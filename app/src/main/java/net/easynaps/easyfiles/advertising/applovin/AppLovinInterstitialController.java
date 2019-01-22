@@ -25,6 +25,9 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
 
     public AppLovinInterstitialController(Activity context, InterstitialPlacementListener listener) {
         this.mInterstitial = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(context), context);
+        mInterstitial.setAdDisplayListener(this);
+        mInterstitial.setAdClickListener(this);
+
         this.mActivity = context;
         this.mListener = listener;
     }

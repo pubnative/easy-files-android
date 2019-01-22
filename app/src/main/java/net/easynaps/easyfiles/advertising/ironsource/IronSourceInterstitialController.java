@@ -13,7 +13,7 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
     private final String mPlacementName;
     private final InterstitialPlacementListener mListener;
 
-    public IronSourceInterstitialController(Activity context, String placementName, InterstitialPlacementListener listener) {
+    public IronSourceInterstitialController(String placementName, InterstitialPlacementListener listener) {
         this.mPlacementName = placementName;
         this.mListener = listener;
         IronSource.setInterstitialListener(mInterstitialListener);

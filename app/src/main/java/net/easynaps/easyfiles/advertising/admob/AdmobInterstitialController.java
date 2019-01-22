@@ -59,16 +59,16 @@ public class AdmobInterstitialController implements InterstitialPlacement {
             if (mListener != null) {
                 switch (errorCode) {
                     case AdRequest.ERROR_CODE_INTERNAL_ERROR:
-                        mListener.onAdError(new Exception("Google Ad Manager - Internal error"));
+                        mListener.onAdError(new Exception("Admob - Internal error"));
                         break;
                     case AdRequest.ERROR_CODE_INVALID_REQUEST:
-                        mListener.onAdError(new Exception("Google Ad Manager - Invalid request"));
+                        mListener.onAdError(new Exception("Admob - Invalid request"));
                         break;
                     case AdRequest.ERROR_CODE_NETWORK_ERROR:
-                        mListener.onAdError(new Exception("Google Ad Manager - Network error"));
+                        mListener.onAdError(new Exception("Admob - Network error"));
                         break;
                     case AdRequest.ERROR_CODE_NO_FILL:
-                        mListener.onAdError(new Exception("Google Ad Manager - No fill"));
+                        mListener.onAdError(new Exception("Admob - No fill"));
                         break;
                 }
             }

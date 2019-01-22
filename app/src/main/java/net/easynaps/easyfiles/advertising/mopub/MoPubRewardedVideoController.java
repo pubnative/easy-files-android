@@ -1,0 +1,109 @@
+package net.easynaps.easyfiles.advertising.mopub;
+
+import android.app.Activity;
+import android.support.annotation.NonNull;
+
+import com.mopub.common.MoPubReward;
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubRewardedVideoListener;
+import com.mopub.mobileads.MoPubRewardedVideos;
+
+import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+
+import java.util.Set;
+
+public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoPubRewardedVideoListener {
+    private final String mAdUnitId;
+    private final RewardedVideoPlacementListener mListener;
+
+    public MoPubRewardedVideoController(String adUnitId, RewardedVideoPlacementListener listener) {
+        this.mAdUnitId = adUnitId;
+        this.mListener = listener;
+
+        MoPubRewardedVideos.setRewardedVideoListener(this);
+    }
+
+    //------------------------------ RewardedVideoPlacement methods --------------------------------
+    @Override
+    public void loadAd() {
+        MoPubRewardedVideos.loadRewardedVideo(mAdUnitId);
+    }
+
+    @Override
+    public void show() {
+        MoPubRewardedVideos.showRewardedVideo(mAdUnitId);
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public boolean isReady() {
+        return MoPubRewardedVideos.hasRewardedVideo(mAdUnitId);
+    }
+
+    //--------------------------- MoPubRewardedVideoListener methods -------------------------------
+    @Override
+    public void onRewardedVideoLoadSuccess(@NonNull String adUnitId) {
+        if (mListener != null) {
+            mListener.onVideoLoaded();
+        }
+    }
+
+    @Override
+    public void onRewardedVideoLoadFailure(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
+        if (mListener != null) {
+            mListener.onVideoError(new Exception(errorCode.toString()));
+        }
+    }
+
+    @Override
+    public void onRewardedVideoStarted(@NonNull String adUnitId) {
+        if (mListener != null) {
+            mListener.onVideoStarted();
+        }
+    }
+
+    @Override
+    public void onRewardedVideoCompleted(@NonNull Set<String> adUnitIds, @NonNull MoPubReward reward) {
+        if (mListener != null) {
+            mListener.onVideoCompleted();
+            mListener.onReward(new AdReward(reward.getLabel(), reward.getAmount()));
+        }
+    }
+
+    @Override
+    public void onRewardedVideoClicked(@NonNull String adUnitId) {
+        if (mListener != null) {
+            mListener.onAdClicked();
+        }
+    }
+
+    @Override
+    public void onRewardedVideoClosed(@NonNull String adUnitId) {
+        if (mListener != null) {
+            mListener.onVideoClosed();
+        }
+    }
+
+    @Override
+    public void onRewardedVideoPlaybackError(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
+        if (mListener != null) {
+            mListener.onVideoError(new Exception(errorCode.toString()));
+        }
+    }
+}

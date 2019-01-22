@@ -15,6 +15,8 @@ public class FyberInterstitialController implements InterstitialPlacement {
     public FyberInterstitialController(Activity context, InterstitialPlacementListener listener) {
         this.mActivity = context;
         this.mListener = listener;
+
+        InterstitialAd.setOnStatusListener(mInterstitialListener);
     }
 
 
@@ -27,7 +29,6 @@ public class FyberInterstitialController implements InterstitialPlacement {
     @Override
     public void show() {
         InterstitialAd.display(mActivity);
-        InterstitialAd.setOnStatusListener(mInterstitialListener);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class FyberInterstitialController implements InterstitialPlacement {
         return InterstitialAd.isAvailable();
     }
 
-    //----------------------------------- AdListener methods ---------------------------------------
+    //-------------------------------- OnStatusListener methods ------------------------------------
     private final HeyzapAds.OnStatusListener mInterstitialListener = new HeyzapAds.OnStatusListener() {
         @Override
         public void onShow(String tag) {

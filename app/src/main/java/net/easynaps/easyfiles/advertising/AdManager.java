@@ -88,13 +88,12 @@ public class AdManager {
 
     private void setupHistoryRewardedrQueue() {
         Queue<AdNetwork> queue = new ArrayDeque<>();
-        queue.offer(AdNetwork.PUBNATIVE);
         queue.offer(AdNetwork.APPLOVIN);
         queue.offer(AdNetwork.IRONSOURCE);
         queue.offer(AdNetwork.FYBER);
-        queue.offer(AdNetwork.FACEBOOK);
+        //queue.offer(AdNetwork.FACEBOOK);
         queue.offer(AdNetwork.MOPUB);
-        queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
+        //queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_REWARDED_HISTORY, queue);
