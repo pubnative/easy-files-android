@@ -605,5 +605,13 @@
     <string name="no_file_error">Something went wrong, there\'s nothing to open</string>
     <string name="file_read_only">The file opened is a read-only.</string>
     <string name="got_it">Got it!</string>
+
+    <string name="ima_ad_tag_url">
+    <![CDATA[http://pubads.g.doubleclick.net/gampad/ads?sz=640x480
+        &iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s
+        &gdfp_req=1&env=vp&output=vast&unviewed_position_start=1
+        &cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=]]>
+    </string>
+
 </resources>
 

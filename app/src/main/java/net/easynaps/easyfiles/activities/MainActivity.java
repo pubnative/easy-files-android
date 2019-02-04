@@ -70,6 +70,11 @@ import com.mopub.common.privacy.PersonalInfoManager;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
+import com.unity3d.services.UnityServices;
+import com.unity3d.services.monetization.IUnityMonetizationListener;
+import com.unity3d.services.monetization.UnityMonetization;
+import com.unity3d.services.monetization.placementcontent.core.PlacementContent;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.ThemedActivity;
@@ -448,6 +453,23 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         IronSource.init(this, "86721205");
         HeyzapAds.start("5cc49eb119c0330e30cad321071bbee5", this);
         MoPub.onCreate(this);
+        StartAppSDK.init(this, "200773660", true);
+        UnityMonetization.initialize(this, "3024006 ", new IUnityMonetizationListener() {
+            @Override
+            public void onPlacementContentReady(String s, PlacementContent placementContent) {
+
+            }
+
+            @Override
+            public void onPlacementContentStateChange(String s, PlacementContent placementContent, UnityMonetization.PlacementContentState placementContentState, UnityMonetization.PlacementContentState placementContentState1) {
+
+            }
+
+            @Override
+            public void onUnityServicesError(UnityServices.UnityServicesError unityServicesError, String s) {
+
+            }
+        }, true);
     }
 
     @Override

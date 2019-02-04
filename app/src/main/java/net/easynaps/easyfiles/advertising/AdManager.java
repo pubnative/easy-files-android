@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -41,7 +40,7 @@ public class AdManager {
         setupSettingsBannerQueue();
         setupAboutMRectQueue();
         setupHomeInterstitialQueue();
-        setupHistoryRewardedrQueue();
+        setupHistoryRewardedQueue();
     }
 
     private void setupSettingsBannerQueue() {
@@ -54,6 +53,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
+        queue.offer(AdNetwork.STARTAPP);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_BANNER_SETTINGS, queue);
     }
@@ -68,6 +68,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         //queue.offer(AdNetwork.ADMOB);
+        queue.offer(AdNetwork.STARTAPP);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_MRECT_ABOUT, queue);
     }
@@ -82,11 +83,12 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
+        queue.offer(AdNetwork.STARTAPP);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME, queue);
     }
 
-    private void setupHistoryRewardedrQueue() {
+    private void setupHistoryRewardedQueue() {
         Queue<AdNetwork> queue = new ArrayDeque<>();
         queue.offer(AdNetwork.APPLOVIN);
         queue.offer(AdNetwork.IRONSOURCE);
@@ -95,6 +97,9 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         //queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
+        queue.offer(AdNetwork.STARTAPP);
+        queue.offer(AdNetwork.IMA);
+        queue.offer(AdNetwork.UNITY);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_REWARDED_HISTORY, queue);
     }

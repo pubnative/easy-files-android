@@ -8,5 +8,8 @@ public enum AdNetwork {
     FACEBOOK,
     MOPUB,
     GOOGLE_ADS_MANAGER,
-    ADMOB
+    ADMOB,
+    STARTAPP,
+    IMA,
+    UNITY
 }
