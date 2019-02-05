@@ -24,6 +24,7 @@ import net.easynaps.easyfiles.advertising.googleadmanager.GoogleBannerController
 import net.easynaps.easyfiles.advertising.ironsource.IronSourceBannerController;
 import net.easynaps.easyfiles.advertising.mopub.MoPubBannerController;
 import net.easynaps.easyfiles.advertising.pubnative.PubNativeBannerController;
+import net.easynaps.easyfiles.advertising.unity.UnityAdsBannerController;
 import net.easynaps.easyfiles.utils.Utils;
 import net.pubnative.lite.sdk.views.HyBidBannerAdView;
 
@@ -46,6 +47,8 @@ public class BannerPlacementFactory {
                 return createGooglePlacement(context, listener);
             case ADMOB:
                 return createAdmobPlacement(context, listener);
+            case UNITY:
+                return createUnityPlacement(context, listener);
             default:
                 return null;
         }
@@ -134,5 +137,9 @@ public class BannerPlacementFactory {
         adView.setLayoutParams(layoutParams);
 
         return new AdmobBannerController(adView, "ca-app-pub-9176690371168943/7642028987", listener);
+    }
+
+    private AdPlacement createUnityPlacement(Activity context, AdPlacementListener listener) {
+        return new UnityAdsBannerController(context, "3024006", "banner", listener);
     }
 }

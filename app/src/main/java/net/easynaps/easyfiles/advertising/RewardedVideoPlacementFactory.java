@@ -9,6 +9,7 @@ import net.easynaps.easyfiles.advertising.fyber.FyberRewardedVideoController;
 import net.easynaps.easyfiles.advertising.googleadmanager.GoogleRewardedVideoController;
 import net.easynaps.easyfiles.advertising.ironsource.IronSourceRewardedVideoController;
 import net.easynaps.easyfiles.advertising.mopub.MoPubRewardedVideoController;
+import net.easynaps.easyfiles.advertising.unity.UnityAdsRewardedController;
 
 public class RewardedVideoPlacementFactory {
     public RewardedVideoPlacement createAdPlacement(Activity context, AdNetwork adNetwork, RewardedVideoPlacementListener listener) {
@@ -27,6 +28,8 @@ public class RewardedVideoPlacementFactory {
                 return createGooglePlacement(context, listener);
             case ADMOB:
                 return createAdmobPlacement(context, listener);
+            case UNITY:
+                return createUnityPlacement(context, listener);
             default:
                 return null;
         }
@@ -58,5 +61,9 @@ public class RewardedVideoPlacementFactory {
 
     private RewardedVideoPlacement createAdmobPlacement(Activity context, RewardedVideoPlacementListener listener) {
         return new AdmobRewardedVideoController(context, "ca-app-pub-9176690371168943/1061536128", listener);
+    }
+
+    private RewardedVideoPlacement createUnityPlacement(Activity context, RewardedVideoPlacementListener listener) {
+        return new UnityAdsRewardedController(context, "3024006", "rewardedVideo", listener);
     }
 }

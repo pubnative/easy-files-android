@@ -11,6 +11,7 @@ import net.easynaps.easyfiles.advertising.googleadmanager.GoogleInterstitialCont
 import net.easynaps.easyfiles.advertising.ironsource.IronSourceInterstitialController;
 import net.easynaps.easyfiles.advertising.mopub.MoPubInterstitialController;
 import net.easynaps.easyfiles.advertising.pubnative.PubNativeInterstitialController;
+import net.easynaps.easyfiles.advertising.unity.UnityAdsInterstitialController;
 
 public class InterstitialPlacementFactory {
     public InterstitialPlacement createAdPlacement(Activity context, AdNetwork adNetwork, InterstitialPlacementListener listener) {
@@ -31,6 +32,8 @@ public class InterstitialPlacementFactory {
                 return createGooglePlacement(context, listener);
             case ADMOB:
                 return createAdmobPlacement(context, listener);
+            case UNITY:
+                return createUnityPlacement(context, listener);
             default:
                 return null;
         }
@@ -66,5 +69,9 @@ public class InterstitialPlacementFactory {
 
     private InterstitialPlacement createAdmobPlacement(Activity context, InterstitialPlacementListener listener) {
         return new AdmobInterstitialController(context, "ca-app-pub-9176690371168943/2286648571", listener);
+    }
+
+    private InterstitialPlacement createUnityPlacement(Activity context, InterstitialPlacementListener listener) {
+        return new UnityAdsInterstitialController(context, "3024006", "interstitial", listener);
     }
 }

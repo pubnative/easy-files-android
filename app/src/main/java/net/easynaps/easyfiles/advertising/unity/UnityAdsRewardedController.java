@@ -1,0 +1,105 @@
+package net.easynaps.easyfiles.advertising.unity;
+
+import android.app.Activity;
+
+import com.unity3d.ads.IUnityAdsListener;
+import com.unity3d.ads.UnityAds;
+import com.unity3d.services.IUnityServicesListener;
+import com.unity3d.services.UnityServices;
+import com.unity3d.services.monetization.IUnityMonetizationListener;
+import com.unity3d.services.monetization.UnityMonetization;
+import com.unity3d.services.monetization.placementcontent.ads.IShowAdListener;
+import com.unity3d.services.monetization.placementcontent.ads.ShowAdPlacementContent;
+import com.unity3d.services.monetization.placementcontent.core.PlacementContent;
+
+import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
+import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+
+public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnityMonetizationListener, IShowAdListener {
+    private final String mPlacementId;
+    private final String mGameId;
+    private final Activity mActivity;
+    private final RewardedVideoPlacementListener mListener;
+
+    public UnityAdsRewardedController(Activity context, String gameId, String placementId, RewardedVideoPlacementListener listener) {
+        this.mGameId = gameId;
+        this.mPlacementId = placementId;
+        this.mActivity = context;
+        this.mListener = listener;
+    }
+
+
+    //------------------------------ InterstitialPlacement methods ---------------------------------
+    @Override
+    public void loadAd() {
+        UnityMonetization.initialize(mActivity, mGameId, this, true);
+    }
+
+    @Override
+    public void show() {
+        PlacementContent placementContent = UnityMonetization.getPlacementContent(mPlacementId);
+        if (placementContent.getType().equalsIgnoreCase("SHOW_AD")) {
+            ShowAdPlacementContent showAdPlacementContent = (ShowAdPlacementContent) placementContent;
+            showAdPlacementContent.show(mActivity, this);
+        }
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public boolean isReady() {
+        return UnityMonetization.isReady(mPlacementId);
+    }
+
+    //--------------------------------- IShowAdListener methods ------------------------------------
+    @Override
+    public void onAdFinished(String placementId, UnityAds.FinishState finishState) {
+        if (mListener != null) {
+            if (finishState == UnityAds.FinishState.COMPLETED) {
+                mListener.onVideoCompleted();
+                if (placementId.equalsIgnoreCase(mPlacementId)) {
+                    mListener.onReward(new AdReward("", 0));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onAdStarted(String s) {
+        if (mListener != null) {
+            mListener.onVideoStarted();
+        }
+    }
+
+    //--------------------------- IUnityMonetizationListener methods -------------------------------
+    @Override
+    public void onPlacementContentReady(String placementId, PlacementContent placementContent) {
+        if (placementId.equalsIgnoreCase(mPlacementId)) {
+            mListener.onVideoLoaded();
+        }
+    }
+
+    @Override
+    public void onPlacementContentStateChange(String placementId, PlacementContent placementContent, UnityMonetization.PlacementContentState placementContentState, UnityMonetization.PlacementContentState placementContentState1) {
+
+    }
+
+    @Override
+    public void onUnityServicesError(UnityServices.UnityServicesError unityServicesError, String message) {
+
+    }
+}
