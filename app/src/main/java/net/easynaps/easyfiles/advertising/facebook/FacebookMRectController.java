@@ -7,18 +7,24 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
 import com.facebook.ads.AdView;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdPlacement;
 import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.AdType;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FacebookMRectController implements AdPlacement, AdListener {
     private final AdView mAdView;
     private final AdPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public FacebookMRectController(AdView adView, AdPlacementListener listener) {
         this.mAdView = adView;
         mAdView.setAdListener(this);
 
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(adView.getContext(), AdType.MRECT, AdNetwork.FACEBOOK);
     }
 
     //---------------------------------- AdPlacement methods ---------------------------------------
@@ -29,6 +35,7 @@ public class FacebookMRectController implements AdPlacement, AdListener {
 
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mAdView.loadAd();
     }
 
@@ -40,6 +47,7 @@ public class FacebookMRectController implements AdPlacement, AdListener {
     //----------------------------------- AdListener methods ---------------------------------------
     @Override
     public void onAdLoaded(Ad ad) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }
@@ -47,6 +55,7 @@ public class FacebookMRectController implements AdPlacement, AdListener {
 
     @Override
     public void onError(Ad ad, AdError adError) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(new Exception(adError.getErrorMessage()));
         }
@@ -54,11 +63,12 @@ public class FacebookMRectController implements AdPlacement, AdListener {
 
     @Override
     public void onLoggingImpression(Ad ad) {
-
+        mAnalyticsSession.confirmImpression();
     }
 
     @Override
     public void onAdClicked(Ad ad) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

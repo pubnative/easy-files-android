@@ -5,12 +5,16 @@ import android.view.View;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubView;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdPlacement;
 import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.AdType;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdListener {
     private final MoPubView mAdView;
     private final AdPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public MoPubBannerController(MoPubView adView, String adUnitId, AdPlacementListener listener) {
         mAdView = adView;
@@ -19,6 +23,8 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
         mAdView.setAutorefreshEnabled(false);
 
         mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(adView.getContext(), AdType.BANNER, AdNetwork.MOPUB);
     }
 
     //---------------------------------- AdPlacement methods ---------------------------------------
@@ -29,6 +35,7 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
 
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mAdView.loadAd();
     }
 
@@ -40,6 +47,7 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
     //------------------------------- BannerAdListener methods -------------------------------------
     @Override
     public void onBannerLoaded(MoPubView banner) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }
@@ -47,6 +55,7 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
 
     @Override
     public void onBannerFailed(MoPubView banner, MoPubErrorCode errorCode) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(new Exception(errorCode.toString()));
         }
@@ -54,6 +63,7 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
 
     @Override
     public void onBannerClicked(MoPubView banner) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }
@@ -61,11 +71,11 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
 
     @Override
     public void onBannerExpanded(MoPubView banner) {
-
+        mAnalyticsSession.confirmOpened();
     }
 
     @Override
     public void onBannerCollapsed(MoPubView banner) {
-
+        mAnalyticsSession.confirmClosed();
     }
 }

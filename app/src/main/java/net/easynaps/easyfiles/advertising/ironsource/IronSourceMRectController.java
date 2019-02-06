@@ -7,13 +7,17 @@ import com.ironsource.mediationsdk.IronSourceBannerLayout;
 import com.ironsource.mediationsdk.logger.IronSourceError;
 import com.ironsource.mediationsdk.sdk.BannerListener;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdPlacement;
 import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.AdType;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class IronSourceMRectController implements AdPlacement, BannerListener {
     private final IronSourceBannerLayout mAdView;
     private final String mPlacementName;
     private final AdPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public IronSourceMRectController(IronSourceBannerLayout adView, String placementName, AdPlacementListener listener) {
         this.mAdView = adView;
@@ -21,6 +25,8 @@ public class IronSourceMRectController implements AdPlacement, BannerListener {
         this.mPlacementName = placementName;
 
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(adView.getContext(), AdType.MRECT, AdNetwork.IRONSOURCE);
     }
 
     //---------------------------------- AdPlacement methods ---------------------------------------
@@ -31,6 +37,7 @@ public class IronSourceMRectController implements AdPlacement, BannerListener {
 
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         IronSource.loadBanner(mAdView, mPlacementName);
     }
 
@@ -43,6 +50,7 @@ public class IronSourceMRectController implements AdPlacement, BannerListener {
     //-------------------------------- BannerListener methods --------------------------------------
     @Override
     public void onBannerAdLoaded() {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }
@@ -50,6 +58,7 @@ public class IronSourceMRectController implements AdPlacement, BannerListener {
 
     @Override
     public void onBannerAdLoadFailed(IronSourceError ironSourceError) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(new Exception(ironSourceError.getErrorMessage()));
         }
@@ -57,6 +66,7 @@ public class IronSourceMRectController implements AdPlacement, BannerListener {
 
     @Override
     public void onBannerAdClicked() {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }
@@ -64,16 +74,16 @@ public class IronSourceMRectController implements AdPlacement, BannerListener {
 
     @Override
     public void onBannerAdScreenPresented() {
-
+        mAnalyticsSession.confirmOpened();
     }
 
     @Override
     public void onBannerAdScreenDismissed() {
-
+        mAnalyticsSession.confirmClosed();
     }
 
     @Override
     public void onBannerAdLeftApplication() {
-
+        mAnalyticsSession.confirmLeftApplication();
     }
 }

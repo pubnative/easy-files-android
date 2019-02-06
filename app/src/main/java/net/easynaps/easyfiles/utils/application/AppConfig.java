@@ -20,6 +20,7 @@ import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 
 import net.easynaps.easyfiles.R;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalytics;
 import net.easynaps.easyfiles.database.UtilsHandler;
 import net.easynaps.easyfiles.utils.LruBitmapCache;
 import net.easynaps.easyfiles.utils.ScreenUtils;
@@ -66,6 +67,8 @@ public class AppConfig extends GlideApplication {
         // disabling file exposure method check for api n+
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
+        AdAnalytics.getInstance(this);
 
         HyBid.initialize(getString(R.string.pnlite_app_token), this, success -> {
 
