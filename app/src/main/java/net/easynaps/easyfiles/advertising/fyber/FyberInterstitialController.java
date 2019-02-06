@@ -5,18 +5,24 @@ import android.app.Activity;
 import com.heyzap.sdk.ads.HeyzapAds;
 import com.heyzap.sdk.ads.InterstitialAd;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FyberInterstitialController implements InterstitialPlacement {
     private final Activity mActivity;
     private final InterstitialPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public FyberInterstitialController(Activity context, InterstitialPlacementListener listener) {
         this.mActivity = context;
         this.mListener = listener;
 
         InterstitialAd.setOnStatusListener(mInterstitialListener);
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.INTERSTITIAL, AdNetwork.FYBER);
     }
 
 

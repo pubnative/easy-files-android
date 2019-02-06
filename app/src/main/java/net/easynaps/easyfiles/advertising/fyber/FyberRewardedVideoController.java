@@ -5,12 +5,16 @@ import android.app.Activity;
 import com.heyzap.sdk.ads.HeyzapAds;
 import com.heyzap.sdk.ads.IncentivizedAd;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FyberRewardedVideoController implements RewardedVideoPlacement {
     private final Activity mActivity;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public FyberRewardedVideoController(Activity context, RewardedVideoPlacementListener listener) {
         this.mActivity = context;
@@ -18,6 +22,8 @@ public class FyberRewardedVideoController implements RewardedVideoPlacement {
 
         IncentivizedAd.setOnStatusListener(mInterstitialListener);
         IncentivizedAd.setOnIncentiveResultListener(mRewardedListener);
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.FYBER);
     }
 
     //------------------------------ RewardedVideoPlacement methods --------------------------------

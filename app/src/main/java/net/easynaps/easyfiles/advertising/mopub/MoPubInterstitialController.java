@@ -5,17 +5,23 @@ import android.app.Activity;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class MoPubInterstitialController implements InterstitialPlacement, MoPubInterstitial.InterstitialAdListener {
     private final MoPubInterstitial mInterstitial;
     private final InterstitialPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public MoPubInterstitialController(Activity context, String adUnitId, InterstitialPlacementListener listener) {
         this.mInterstitial = new MoPubInterstitial(context, adUnitId);
         mInterstitial.setInterstitialAdListener(this);
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.INTERSTITIAL, AdNetwork.MOPUB);
     }
 
 

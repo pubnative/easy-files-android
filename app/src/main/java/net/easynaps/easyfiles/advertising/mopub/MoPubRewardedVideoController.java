@@ -8,21 +8,27 @@ import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubRewardedVideoListener;
 import com.mopub.mobileads.MoPubRewardedVideos;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 import java.util.Set;
 
 public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoPubRewardedVideoListener {
     private final String mAdUnitId;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
-    public MoPubRewardedVideoController(String adUnitId, RewardedVideoPlacementListener listener) {
+    public MoPubRewardedVideoController(Activity context, String adUnitId, RewardedVideoPlacementListener listener) {
         this.mAdUnitId = adUnitId;
         this.mListener = listener;
 
         MoPubRewardedVideos.setRewardedVideoListener(this);
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.MOPUB);
     }
 
     //------------------------------ RewardedVideoPlacement methods --------------------------------

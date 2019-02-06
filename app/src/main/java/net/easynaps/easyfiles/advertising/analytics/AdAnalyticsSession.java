@@ -50,6 +50,18 @@ public class AdAnalyticsSession {
         mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_LEFT_APP, mType, mNetwork, getElapsedTime()));
     }
 
+    public void confirmInterstitialShow() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_INTERSTITIAL_SHOW, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmInterstitialShown() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_INTERSTITIAL_SHOWN, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmInterstitialDismissed() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_INTERSTITIAL_DISMISSED, mType, mNetwork, getElapsedTime()));
+    }
+
     private long getElapsedTime() {
         return System.currentTimeMillis() - mInitialTime;
     }

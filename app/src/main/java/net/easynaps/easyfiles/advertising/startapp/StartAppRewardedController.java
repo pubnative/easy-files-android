@@ -1,15 +1,23 @@
 package net.easynaps.easyfiles.advertising.startapp;
 
+import android.app.Activity;
+
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class StartAppRewardedController implements RewardedVideoPlacement {
     private final String mAdUnitId;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
-    public StartAppRewardedController(String adUnitId, RewardedVideoPlacementListener listener) {
+    public StartAppRewardedController(Activity context, String adUnitId, RewardedVideoPlacementListener listener) {
         this.mAdUnitId = adUnitId;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.STARTAPP);
     }
 
     //------------------------------ RewardedVideoPlacement methods --------------------------------

@@ -12,6 +12,9 @@ public class AdEvent {
     public static final String EVENT_OPENED = "ad_opened";
     public static final String EVENT_CLOSED = "ad_closed";
     public static final String EVENT_LEFT_APP = "ad_left_app";
+    public static final String EVENT_INTERSTITIAL_SHOW = "ad_interstitial_show";
+    public static final String EVENT_INTERSTITIAL_SHOWN = "ad_interstitial_shown";
+    public static final String EVENT_INTERSTITIAL_DISMISSED = "ad_interstitial_dismissed";
 
 
     private final String name;

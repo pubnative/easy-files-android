@@ -12,14 +12,18 @@ import com.applovin.sdk.AppLovinAdSize;
 import com.applovin.sdk.AppLovinErrorCodes;
 import com.applovin.sdk.AppLovinSdk;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class AppLovinInterstitialController implements InterstitialPlacement,
         AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener {
     private final AppLovinInterstitialAdDialog mInterstitial;
     private final Activity mActivity;
     private final InterstitialPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     private AppLovinAd mAd;
 
@@ -30,17 +34,21 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
 
         this.mActivity = context;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.INTERSTITIAL, AdNetwork.APPLOVIN);
     }
 
 
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         AppLovinSdk.getInstance(mActivity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, this);
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.showAndRender(mAd);
     }
 
@@ -56,6 +64,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
     //----------------------------- AppLovinAdLoadListener methods ---------------------------------
     @Override
     public void adReceived(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmLoaded();
         mAd = appLovinAd;
         if (mListener != null) {
             mListener.onAdLoaded();
@@ -64,6 +73,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
 
     @Override
     public void failedToReceiveAd(int errorCode) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             switch (errorCode) {
                 case AppLovinErrorCodes.NO_FILL:
@@ -78,6 +88,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
     //--------------------------- AppLovinAdDisplayListener methods --------------------------------
     @Override
     public void adDisplayed(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onAdShown();
         }
@@ -85,6 +96,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
 
     @Override
     public void adHidden(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onAdDismissed();
         }
@@ -93,6 +105,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
     //---------------------------- AppLovinAdClickListener methods ---------------------------------
     @Override
     public void adClicked(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

@@ -6,17 +6,23 @@ import com.ironsource.mediationsdk.IronSource;
 import com.ironsource.mediationsdk.logger.IronSourceError;
 import com.ironsource.mediationsdk.sdk.InterstitialListener;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class IronSourceInterstitialController implements InterstitialPlacement {
     private final String mPlacementName;
     private final InterstitialPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
-    public IronSourceInterstitialController(String placementName, InterstitialPlacementListener listener) {
+    public IronSourceInterstitialController(Activity context, String placementName, InterstitialPlacementListener listener) {
         this.mPlacementName = placementName;
         this.mListener = listener;
         IronSource.setInterstitialListener(mInterstitialListener);
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.INTERSTITIAL, AdNetwork.IRONSOURCE);
     }
 
 

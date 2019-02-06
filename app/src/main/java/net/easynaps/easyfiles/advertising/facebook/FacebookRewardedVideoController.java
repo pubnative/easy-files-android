@@ -7,17 +7,23 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.RewardedVideoAd;
 import com.facebook.ads.RewardedVideoAdListener;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FacebookRewardedVideoController implements RewardedVideoPlacement, RewardedVideoAdListener {
     private final RewardedVideoAd mAd;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public FacebookRewardedVideoController(Activity context, String placementId, RewardedVideoPlacementListener listener) {
         this.mAd = new RewardedVideoAd(context, placementId);
         mAd.setAdListener(this);
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.FACEBOOK);
     }
 
 

@@ -7,17 +7,23 @@ import com.facebook.ads.AdError;
 import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FacebookInterstitialController implements InterstitialPlacement, InterstitialAdListener {
     private final InterstitialAd mInterstitial;
     private final InterstitialPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public FacebookInterstitialController(Activity context, String placementId, InterstitialPlacementListener listener) {
         this.mInterstitial = new InterstitialAd(context, placementId);
         mInterstitial.setAdListener(this);
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.INTERSTITIAL, AdNetwork.FACEBOOK);
     }
 
 

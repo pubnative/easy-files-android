@@ -11,9 +11,12 @@ import com.applovin.sdk.AppLovinAdRewardListener;
 import com.applovin.sdk.AppLovinAdVideoPlaybackListener;
 import com.applovin.sdk.AppLovinErrorCodes;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 import java.util.Map;
 
@@ -23,12 +26,15 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     private final AppLovinIncentivizedInterstitial mInterstitial;
     private final Activity mActivity;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public AppLovinRewardedVideoController(Activity context, RewardedVideoPlacementListener listener) {
         this.mInterstitial = AppLovinIncentivizedInterstitial.create(context);
 
         this.mActivity = context;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.APPLOVIN);
     }
 
 

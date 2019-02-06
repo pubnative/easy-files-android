@@ -8,15 +8,19 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class GoogleRewardedVideoController implements RewardedVideoPlacement {
     private final RewardedVideoAd mAd;
     private final Activity mActivity;
     private final String mAdUnitId;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public GoogleRewardedVideoController(Activity context, String adUnitId, RewardedVideoPlacementListener listener) {
         this.mAd = MobileAds.getRewardedVideoAdInstance(context);
@@ -25,6 +29,8 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
         this.mAdUnitId = adUnitId;
         this.mActivity = context;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.GOOGLE_ADS_MANAGER);
     }
 
     //------------------------------ RewardedVideoPlacement methods --------------------------------

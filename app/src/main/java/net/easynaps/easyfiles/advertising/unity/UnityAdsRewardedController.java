@@ -2,9 +2,7 @@ package net.easynaps.easyfiles.advertising.unity;
 
 import android.app.Activity;
 
-import com.unity3d.ads.IUnityAdsListener;
 import com.unity3d.ads.UnityAds;
-import com.unity3d.services.IUnityServicesListener;
 import com.unity3d.services.UnityServices;
 import com.unity3d.services.monetization.IUnityMonetizationListener;
 import com.unity3d.services.monetization.UnityMonetization;
@@ -12,21 +10,27 @@ import com.unity3d.services.monetization.placementcontent.ads.IShowAdListener;
 import com.unity3d.services.monetization.placementcontent.ads.ShowAdPlacementContent;
 import com.unity3d.services.monetization.placementcontent.core.PlacementContent;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnityMonetizationListener, IShowAdListener {
     private final String mPlacementId;
     private final String mGameId;
     private final Activity mActivity;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsRewardedController(Activity context, String gameId, String placementId, RewardedVideoPlacementListener listener) {
         this.mGameId = gameId;
         this.mPlacementId = placementId;
         this.mActivity = context;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.UNITY);
     }
 
 

@@ -7,19 +7,25 @@ import com.ironsource.mediationsdk.logger.IronSourceError;
 import com.ironsource.mediationsdk.model.Placement;
 import com.ironsource.mediationsdk.sdk.RewardedVideoListener;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class IronSourceRewardedVideoController implements RewardedVideoPlacement {
     private final String mPlacementName;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
-    public IronSourceRewardedVideoController(String placementName, RewardedVideoPlacementListener listener) {
+    public IronSourceRewardedVideoController(Activity context, String placementName, RewardedVideoPlacementListener listener) {
         this.mPlacementName = placementName;
         this.mListener = listener;
 
         IronSource.setRewardedVideoListener(mRewardedListener);
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.IRONSOURCE);
     }
 
     //------------------------------ RewardedVideoPlacement methods --------------------------------
