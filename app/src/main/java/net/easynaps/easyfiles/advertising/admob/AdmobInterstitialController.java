@@ -96,6 +96,7 @@ public class AdmobInterstitialController implements InterstitialPlacement {
         @Override
         public void onAdOpened() {
             super.onAdOpened();
+            mAnalyticsSession.confirmImpression();
             mAnalyticsSession.confirmInterstitialShown();
         }
 

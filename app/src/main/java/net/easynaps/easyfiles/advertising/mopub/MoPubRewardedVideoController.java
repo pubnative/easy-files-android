@@ -34,11 +34,13 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
     //------------------------------ RewardedVideoPlacement methods --------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         MoPubRewardedVideos.loadRewardedVideo(mAdUnitId);
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         MoPubRewardedVideos.showRewardedVideo(mAdUnitId);
     }
 
@@ -65,6 +67,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
     //--------------------------- MoPubRewardedVideoListener methods -------------------------------
     @Override
     public void onRewardedVideoLoadSuccess(@NonNull String adUnitId) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onVideoLoaded();
         }
@@ -72,6 +75,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void onRewardedVideoLoadFailure(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onVideoError(new Exception(errorCode.toString()));
         }
@@ -79,6 +83,9 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void onRewardedVideoStarted(@NonNull String adUnitId) {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
+        mAnalyticsSession.confirmVideoStarted();
         if (mListener != null) {
             mListener.onVideoStarted();
         }
@@ -86,6 +93,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void onRewardedVideoCompleted(@NonNull Set<String> adUnitIds, @NonNull MoPubReward reward) {
+        mAnalyticsSession.confirmVideoFinished();
         if (mListener != null) {
             mListener.onVideoCompleted();
             mListener.onReward(new AdReward(reward.getLabel(), reward.getAmount()));
@@ -94,6 +102,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void onRewardedVideoClicked(@NonNull String adUnitId) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }
@@ -101,6 +110,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void onRewardedVideoClosed(@NonNull String adUnitId) {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onVideoClosed();
         }
@@ -108,6 +118,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void onRewardedVideoPlaybackError(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
+        mAnalyticsSession.confirmVideoError();
         if (mListener != null) {
             mListener.onVideoError(new Exception(errorCode.toString()));
         }

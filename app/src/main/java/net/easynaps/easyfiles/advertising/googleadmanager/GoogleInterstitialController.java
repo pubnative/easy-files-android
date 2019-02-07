@@ -31,11 +31,13 @@ public class GoogleInterstitialController implements InterstitialPlacement {
     @Override
     public void loadAd() {
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        mAnalyticsSession.start();
         mInterstitial.loadAd(adRequest);
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.show();
     }
 
@@ -54,6 +56,7 @@ public class GoogleInterstitialController implements InterstitialPlacement {
         @Override
         public void onAdLoaded() {
             super.onAdLoaded();
+            mAnalyticsSession.confirmLoaded();
             if (mListener != null) {
                 mListener.onAdLoaded();
             }
@@ -62,6 +65,7 @@ public class GoogleInterstitialController implements InterstitialPlacement {
         @Override
         public void onAdFailedToLoad(int errorCode) {
             super.onAdFailedToLoad(errorCode);
+            mAnalyticsSession.confirmError();
             if (mListener != null) {
                 switch (errorCode) {
                     case PublisherAdRequest.ERROR_CODE_INTERNAL_ERROR:
@@ -83,6 +87,7 @@ public class GoogleInterstitialController implements InterstitialPlacement {
         @Override
         public void onAdClicked() {
             super.onAdClicked();
+            mAnalyticsSession.confirmClick();
             if (mListener != null) {
                 mListener.onAdClicked();
             }
@@ -91,16 +96,20 @@ public class GoogleInterstitialController implements InterstitialPlacement {
         @Override
         public void onAdOpened() {
             super.onAdOpened();
+            mAnalyticsSession.confirmImpression();
+            mAnalyticsSession.confirmInterstitialShown();
         }
 
         @Override
         public void onAdLeftApplication() {
             super.onAdLeftApplication();
+            mAnalyticsSession.confirmLeftApplication();
         }
 
         @Override
         public void onAdClosed() {
             super.onAdClosed();
+            mAnalyticsSession.confirmInterstitialDismissed();
         }
     };
 }

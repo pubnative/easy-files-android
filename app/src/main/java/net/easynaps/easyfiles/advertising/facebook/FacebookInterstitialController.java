@@ -30,11 +30,13 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mInterstitial.loadAd();
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.show();
     }
 
@@ -51,6 +53,7 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
     //------------------------------ InterstitialAdListener methods --------------------------------
     @Override
     public void onAdLoaded(Ad ad) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }
@@ -58,6 +61,7 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
 
     @Override
     public void onError(Ad ad, AdError adError) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(new Exception(adError.getErrorMessage()));
         }
@@ -65,6 +69,7 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
 
     @Override
     public void onInterstitialDisplayed(Ad ad) {
+        mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onAdShown();
         }
@@ -72,6 +77,7 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
 
     @Override
     public void onInterstitialDismissed(Ad ad) {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onAdDismissed();
         }
@@ -79,11 +85,12 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
 
     @Override
     public void onLoggingImpression(Ad ad) {
-
+        mAnalyticsSession.confirmImpression();
     }
 
     @Override
     public void onAdClicked(Ad ad) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

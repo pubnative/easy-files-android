@@ -28,11 +28,13 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mInterstitial.load();
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.show();
     }
 
@@ -49,6 +51,7 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
     //----------------------------- MoPubInterstitial listener methods -----------------------------
     @Override
     public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }
@@ -56,6 +59,7 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
 
     @Override
     public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(new Exception(errorCode.toString()));
         }
@@ -63,6 +67,8 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
 
     @Override
     public void onInterstitialShown(MoPubInterstitial interstitial) {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onAdShown();
         }
@@ -70,6 +76,7 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
 
     @Override
     public void onInterstitialDismissed(MoPubInterstitial interstitial) {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onAdDismissed();
         }
@@ -77,6 +84,7 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
 
     @Override
     public void onInterstitialClicked(MoPubInterstitial interstitial) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

@@ -29,11 +29,13 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         IronSource.loadInterstitial();
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         IronSource.showInterstitial(mPlacementName);
     }
 
@@ -51,6 +53,7 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
     private final InterstitialListener mInterstitialListener = new InterstitialListener() {
         @Override
         public void onInterstitialAdReady() {
+            mAnalyticsSession.confirmLoaded();
             if (mListener != null) {
                 mListener.onAdLoaded();
             }
@@ -58,6 +61,7 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
 
         @Override
         public void onInterstitialAdLoadFailed(IronSourceError ironSourceError) {
+            mAnalyticsSession.confirmError();
             if (mListener != null) {
                 mListener.onAdError(new Exception(ironSourceError.getErrorMessage()));
             }
@@ -65,11 +69,12 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
 
         @Override
         public void onInterstitialAdOpened() {
-
+            mAnalyticsSession.confirmOpened();
         }
 
         @Override
         public void onInterstitialAdClosed() {
+            mAnalyticsSession.confirmInterstitialDismissed();
             if (mListener != null) {
                 mListener.onAdDismissed();
             }
@@ -77,6 +82,8 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
 
         @Override
         public void onInterstitialAdShowSucceeded() {
+            mAnalyticsSession.confirmImpression();
+            mAnalyticsSession.confirmInterstitialShown();
             if (mListener != null) {
                 mListener.onAdShown();
             }
@@ -84,11 +91,12 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
 
         @Override
         public void onInterstitialAdShowFailed(IronSourceError ironSourceError) {
-
+            mAnalyticsSession.confirmInterstitialShowError();
         }
 
         @Override
         public void onInterstitialAdClicked() {
+            mAnalyticsSession.confirmClick();
             if (mListener != null) {
                 mListener.onAdClicked();
             }

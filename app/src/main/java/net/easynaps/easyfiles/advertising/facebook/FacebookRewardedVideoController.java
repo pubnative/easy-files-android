@@ -30,11 +30,13 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mAd.loadAd();
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mAd.show();
     }
 
@@ -61,6 +63,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
     //------------------------------ RewardedVideoAdListener methods --------------------------------
     @Override
     public void onAdLoaded(Ad ad) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onVideoLoaded();
         }
@@ -68,6 +71,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
 
     @Override
     public void onError(Ad ad, AdError adError) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onVideoError(new Exception(adError.getErrorMessage()));
         }
@@ -75,6 +79,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
 
     @Override
     public void onLoggingImpression(Ad ad) {
+        mAnalyticsSession.confirmImpression();
         if (mListener != null) {
             mListener.onVideoOpened();
         }
@@ -82,6 +87,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
 
     @Override
     public void onRewardedVideoCompleted() {
+        mAnalyticsSession.confirmVideoFinished();
         if (mListener != null) {
             mListener.onVideoCompleted();
         }
@@ -89,6 +95,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
 
     @Override
     public void onRewardedVideoClosed() {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onVideoClosed();
         }
@@ -96,6 +103,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
 
     @Override
     public void onAdClicked(Ad ad) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

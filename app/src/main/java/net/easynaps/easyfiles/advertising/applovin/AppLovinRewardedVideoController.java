@@ -41,11 +41,13 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mInterstitial.preload(this);
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.show(mActivity, this, this, this, this);
     }
 
@@ -71,6 +73,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     //----------------------------- AppLovinAdLoadListener methods ---------------------------------
     @Override
     public void adReceived(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onVideoLoaded();
         }
@@ -78,6 +81,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
 
     @Override
     public void failedToReceiveAd(int errorCode) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             switch (errorCode) {
                 case AppLovinErrorCodes.NO_FILL:
@@ -92,6 +96,8 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     //--------------------------- AppLovinAdDisplayListener methods --------------------------------
     @Override
     public void adDisplayed(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onVideoOpened();
         }
@@ -99,6 +105,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
 
     @Override
     public void adHidden(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onVideoClosed();
         }
@@ -107,6 +114,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     //---------------------------- AppLovinAdClickListener methods ---------------------------------
     @Override
     public void adClicked(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }
@@ -115,6 +123,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     //------------------------- AppLovinAdVideoPlaybackListener methods ----------------------------
     @Override
     public void videoPlaybackBegan(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmVideoStarted();
         if (mListener != null) {
             mListener.onVideoStarted();
         }
@@ -122,6 +131,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
 
     @Override
     public void videoPlaybackEnded(AppLovinAd appLovinAd, double percentViewed, boolean fullyWatched) {
+        mAnalyticsSession.confirmVideoFinished();
         if (mListener != null) {
             mListener.onVideoCompleted();
         }
@@ -130,6 +140,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
     //---------------------------- AppLovinAdRewardListener methods --------------------------------
     @Override
     public void userRewardVerified(AppLovinAd appLovinAd, Map<String, String> response) {
+        mAnalyticsSession.confirmReward();
         if (mListener != null) {
             mListener.onReward(null);
         }
@@ -137,21 +148,21 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
 
     @Override
     public void userOverQuota(AppLovinAd appLovinAd, Map<String, String> response) {
-
+        mAnalyticsSession.confirmUserOverQuota();
     }
 
     @Override
     public void userRewardRejected(AppLovinAd appLovinAd, Map<String, String> response) {
-
+        mAnalyticsSession.confirmRewardRejected();
     }
 
     @Override
     public void validationRequestFailed(AppLovinAd appLovinAd, int errorCode) {
-
+        mAnalyticsSession.confirmValidationRequestFailed();
     }
 
     @Override
     public void userDeclinedToViewAd(AppLovinAd appLovinAd) {
-
+        mAnalyticsSession.confirmDeclinedToViewAd();
     }
 }

@@ -9,6 +9,9 @@ public class AdAnalytics {
     private static final String KEY_AD_TYPE = "ad_type";
     private static final String KEY_SDK_NAME = "sdk_name";
     private static final String KEY_TIME_ELAPSED = "time_elapsed";
+    private static final String KEY_CATEGORY = "category";
+
+    private static final String CATEGORY_ADVERTISING = "advertising";
 
 
     private static volatile AdAnalytics instance;
@@ -35,6 +38,7 @@ public class AdAnalytics {
 
     public void sendEvent(AdEvent event) {
         Bundle bundle = new Bundle();
+        bundle.putString(KEY_CATEGORY, CATEGORY_ADVERTISING);
         bundle.putString(KEY_AD_TYPE, event.getAdType());
         bundle.putString(KEY_SDK_NAME, event.getSdkName());
 

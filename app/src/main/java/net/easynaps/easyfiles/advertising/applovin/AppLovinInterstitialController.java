@@ -88,6 +88,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
     //--------------------------- AppLovinAdDisplayListener methods --------------------------------
     @Override
     public void adDisplayed(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmImpression();
         mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onAdShown();

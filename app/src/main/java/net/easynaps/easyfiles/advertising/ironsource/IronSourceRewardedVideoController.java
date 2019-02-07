@@ -31,11 +31,12 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
     //------------------------------ RewardedVideoPlacement methods --------------------------------
     @Override
     public void loadAd() {
-
+        mAnalyticsSession.start();
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         IronSource.showRewardedVideo(mPlacementName);
     }
 
@@ -64,6 +65,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
         @Override
         public void onRewardedVideoAvailabilityChanged(boolean available) {
             if (available) {
+                mAnalyticsSession.confirmLoaded();
                 if (mListener != null) {
                     mListener.onVideoLoaded();
                 }
@@ -72,6 +74,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdShowFailed(IronSourceError ironSourceError) {
+            mAnalyticsSession.confirmError();
             if (mListener != null) {
                 mListener.onVideoError(new Exception(ironSourceError.getErrorMessage()));
             }
@@ -79,6 +82,8 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdOpened() {
+            mAnalyticsSession.confirmImpression();
+            mAnalyticsSession.confirmInterstitialShown();
             if (mListener != null) {
                 mListener.onVideoOpened();
             }
@@ -86,6 +91,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdClosed() {
+            mAnalyticsSession.confirmInterstitialDismissed();
             if (mListener != null) {
                 mListener.onVideoClosed();
             }
@@ -93,6 +99,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdStarted() {
+            mAnalyticsSession.confirmVideoStarted();
             if (mListener != null) {
                 mListener.onVideoStarted();
             }
@@ -100,6 +107,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdEnded() {
+            mAnalyticsSession.confirmVideoFinished();
             if (mListener != null) {
                 mListener.onVideoCompleted();
             }
@@ -107,6 +115,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdClicked(Placement placement) {
+            mAnalyticsSession.confirmClick();
             if (mListener != null) {
                 mListener.onAdClicked();
             }
@@ -114,6 +123,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
         @Override
         public void onRewardedVideoAdRewarded(Placement placement) {
+            mAnalyticsSession.confirmReward();
             if (mListener != null) {
                 mListener.onReward(new AdReward(placement.getRewardName(), placement.getRewardAmount()));
             }

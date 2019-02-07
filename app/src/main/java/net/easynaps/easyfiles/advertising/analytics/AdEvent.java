@@ -14,7 +14,19 @@ public class AdEvent {
     public static final String EVENT_LEFT_APP = "ad_left_app";
     public static final String EVENT_INTERSTITIAL_SHOW = "ad_interstitial_show";
     public static final String EVENT_INTERSTITIAL_SHOWN = "ad_interstitial_shown";
+    public static final String EVENT_INTERSTITIAL_SHOW_ERROR = "ad_interstitial_show_error";
     public static final String EVENT_INTERSTITIAL_DISMISSED = "ad_interstitial_dismissed";
+    public static final String EVENT_AUDIO_STARTED = "ad_audio_started";
+    public static final String EVENT_AUDIO_FINISHED = "ad_audio_finished";
+    public static final String EVENT_VIDEO_STARTED = "ad_video_started";
+    public static final String EVENT_VIDEO_FINISHED = "ad_video_finished";
+    public static final String EVENT_VIDEO_INCOMPLETE = "ad_video_incomplete";
+    public static final String EVENT_VIDEO_ERROR = "ad_video_error";
+    public static final String EVENT_REWARD = "ad_reward";
+    public static final String EVENT_REWARD_REJECTED = "ad_reward_rejected";
+    public static final String EVENT_DECLINED_TO_VIEW_AD = "ad_declined_to_view";
+    public static final String EVENT_USER_OVER_QUOTA = "ad_user_over_quota";
+    public static final String EVENT_VALIDATION_REQUEST_FAILED = "ad_validation_request_failed";
 
 
     private final String name;

@@ -29,11 +29,13 @@ public class StartAppInterstitialController implements InterstitialPlacement, Ad
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mInterstitial.loadAd(this);
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.showAd(this);
     }
 
@@ -49,32 +51,33 @@ public class StartAppInterstitialController implements InterstitialPlacement, Ad
     //--------------------------------- AdEventListener methods ------------------------------------
     @Override
     public void onReceiveAd(Ad ad) {
-
+        mAnalyticsSession.confirmLoaded();
     }
 
     @Override
     public void onFailedToReceiveAd(Ad ad) {
-
+        mAnalyticsSession.confirmError();
     }
 
     //-------------------------------- AdDisplayListener methods -----------------------------------
     @Override
     public void adHidden(Ad ad) {
-
+        mAnalyticsSession.confirmInterstitialDismissed();
     }
 
     @Override
     public void adDisplayed(Ad ad) {
-
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
     }
 
     @Override
     public void adClicked(Ad ad) {
-
+        mAnalyticsSession.confirmClick();
     }
 
     @Override
     public void adNotDisplayed(Ad ad) {
-
+        mAnalyticsSession.confirmInterstitialShowError();
     }
 }

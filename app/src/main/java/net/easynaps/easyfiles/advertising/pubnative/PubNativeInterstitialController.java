@@ -25,11 +25,13 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mInterstitial.load();
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mInterstitial.show();
     }
 
@@ -46,6 +48,7 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
     //---------------------------- HyBidInterstitialAd listener methods ----------------------------
     @Override
     public void onInterstitialLoaded() {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }
@@ -53,6 +56,7 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
 
     @Override
     public void onInterstitialLoadFailed(Throwable error) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(error);
         }
@@ -60,6 +64,8 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
 
     @Override
     public void onInterstitialImpression() {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onAdShown();
         }
@@ -67,6 +73,7 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
 
     @Override
     public void onInterstitialDismissed() {
+        mAnalyticsSession.confirmInterstitialDismissed();
         if (mListener != null) {
             mListener.onAdDismissed();
         }
@@ -74,6 +81,7 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
 
     @Override
     public void onInterstitialClick() {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

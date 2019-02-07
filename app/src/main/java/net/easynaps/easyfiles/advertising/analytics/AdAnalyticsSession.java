@@ -58,8 +58,56 @@ public class AdAnalyticsSession {
         mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_INTERSTITIAL_SHOWN, mType, mNetwork, getElapsedTime()));
     }
 
+    public void confirmInterstitialShowError() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_INTERSTITIAL_SHOW_ERROR, mType, mNetwork, getElapsedTime()));
+    }
+
     public void confirmInterstitialDismissed() {
         mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_INTERSTITIAL_DISMISSED, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmAudioStarted() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_AUDIO_STARTED, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmAudioFinished() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_AUDIO_FINISHED, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmVideoStarted() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_VIDEO_STARTED, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmVideoIncomplete() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_VIDEO_INCOMPLETE, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmVideoFinished() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_VIDEO_FINISHED, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmVideoError() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_VIDEO_ERROR, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmReward() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_REWARD, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmRewardRejected() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_REWARD_REJECTED, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmUserOverQuota() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_USER_OVER_QUOTA, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmDeclinedToViewAd() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_DECLINED_TO_VIEW_AD, mType, mNetwork, getElapsedTime()));
+    }
+
+    public void confirmValidationRequestFailed() {
+        mAnalytics.sendEvent(new AdEvent(AdEvent.EVENT_VALIDATION_REQUEST_FAILED, mType, mNetwork, getElapsedTime()));
     }
 
     private long getElapsedTime() {

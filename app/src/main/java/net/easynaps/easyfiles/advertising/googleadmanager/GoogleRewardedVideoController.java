@@ -37,11 +37,13 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
     @Override
     public void loadAd() {
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        mAnalyticsSession.start();
         mAd.loadAd(mAdUnitId, adRequest);
     }
 
     @Override
     public void show() {
+        mAnalyticsSession.confirmInterstitialShow();
         mAd.show();
     }
 
@@ -69,6 +71,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
     private final RewardedVideoAdListener mAdListener = new RewardedVideoAdListener() {
         @Override
         public void onRewardedVideoAdLoaded() {
+            mAnalyticsSession.confirmLoaded();
             if (mListener != null) {
                 mListener.onVideoLoaded();
             }
@@ -76,6 +79,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewardedVideoAdFailedToLoad(int errorCode) {
+            mAnalyticsSession.confirmError();
             if (mListener != null) {
                 switch (errorCode) {
                     case PublisherAdRequest.ERROR_CODE_INTERNAL_ERROR:
@@ -96,6 +100,8 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewardedVideoAdOpened() {
+            mAnalyticsSession.confirmImpression();
+            mAnalyticsSession.confirmInterstitialShown();
             if (mListener != null) {
                 mListener.onVideoOpened();
             }
@@ -103,6 +109,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewardedVideoAdClosed() {
+            mAnalyticsSession.confirmInterstitialDismissed();
             if (mListener != null) {
                 mListener.onVideoClosed();
             }
@@ -110,6 +117,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewardedVideoAdLeftApplication() {
+            mAnalyticsSession.confirmLeftApplication();
             if (mListener != null) {
                 mListener.onAdClicked();
             }
@@ -117,6 +125,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewardedVideoStarted() {
+            mAnalyticsSession.confirmVideoStarted();
             if (mListener != null) {
                 mListener.onVideoStarted();
             }
@@ -124,6 +133,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewardedVideoCompleted() {
+            mAnalyticsSession.confirmVideoFinished();
             if (mListener != null) {
                 mListener.onVideoCompleted();
             }
@@ -131,6 +141,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
 
         @Override
         public void onRewarded(RewardItem rewardItem) {
+            mAnalyticsSession.confirmReward();
             if (mListener != null) {
                 mListener.onReward(new AdReward(rewardItem.getType(), rewardItem.getAmount()));
             }

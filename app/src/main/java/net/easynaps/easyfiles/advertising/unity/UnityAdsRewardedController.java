@@ -37,6 +37,7 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         UnityMonetization.initialize(mActivity, mGameId, this, true);
     }
 
@@ -72,10 +73,11 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
     //--------------------------------- IShowAdListener methods ------------------------------------
     @Override
     public void onAdFinished(String placementId, UnityAds.FinishState finishState) {
-        if (mListener != null) {
-            if (finishState == UnityAds.FinishState.COMPLETED) {
-                mListener.onVideoCompleted();
-                if (placementId.equalsIgnoreCase(mPlacementId)) {
+        if (finishState == UnityAds.FinishState.COMPLETED) {
+            if (placementId.equalsIgnoreCase(mPlacementId)) {
+                mAnalyticsSession.confirmVideoFinished();
+                if (mListener != null) {
+                    mListener.onVideoCompleted();
                     mListener.onReward(new AdReward("", 0));
                 }
             }
@@ -84,6 +86,9 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
 
     @Override
     public void onAdStarted(String s) {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
+        mAnalyticsSession.confirmVideoStarted();
         if (mListener != null) {
             mListener.onVideoStarted();
         }
@@ -93,6 +98,7 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
     @Override
     public void onPlacementContentReady(String placementId, PlacementContent placementContent) {
         if (placementId.equalsIgnoreCase(mPlacementId)) {
+            mAnalyticsSession.confirmLoaded();
             mListener.onVideoLoaded();
         }
     }
