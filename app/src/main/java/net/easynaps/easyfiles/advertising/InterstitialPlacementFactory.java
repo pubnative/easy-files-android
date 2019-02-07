@@ -48,7 +48,7 @@ public class InterstitialPlacementFactory {
     }
 
     private InterstitialPlacement createIronSourcePlacement(Activity context, InterstitialPlacementListener listener) {
-        return new IronSourceInterstitialController("EasyFilesInterstitial", listener);
+        return new IronSourceInterstitialController(context,"EasyFilesInterstitial", listener);
     }
 
     private InterstitialPlacement createFyberPlacement(Activity context, InterstitialPlacementListener listener) {

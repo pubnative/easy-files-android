@@ -40,7 +40,7 @@ public class RewardedVideoPlacementFactory {
     }
 
     private RewardedVideoPlacement createIronSourcePlacement(Activity context, RewardedVideoPlacementListener listener) {
-        return new IronSourceRewardedVideoController("EasyFilesRewardedVideo", listener);
+        return new IronSourceRewardedVideoController(context,"EasyFilesRewardedVideo", listener);
     }
 
     private RewardedVideoPlacement createFyberPlacement(Activity context, RewardedVideoPlacementListener listener) {
@@ -52,7 +52,7 @@ public class RewardedVideoPlacementFactory {
     }
 
     private RewardedVideoPlacement createMoPubPlacement(Activity context, RewardedVideoPlacementListener listener) {
-        return new MoPubRewardedVideoController("5c91eec9ed0e47ea972ae8f6ae97d77c", listener);
+        return new MoPubRewardedVideoController(context,"5c91eec9ed0e47ea972ae8f6ae97d77c", listener);
     }
 
     private RewardedVideoPlacement createGooglePlacement(Activity context, RewardedVideoPlacementListener listener) {
