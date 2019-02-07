@@ -10,14 +10,18 @@ import com.unity3d.services.monetization.IUnityMonetizationListener;
 import com.unity3d.services.monetization.UnityMonetization;
 import com.unity3d.services.monetization.placementcontent.core.PlacementContent;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdPlacement;
 import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.AdType;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class UnityAdsBannerController implements AdPlacement, IUnityMonetizationListener, IUnityBannerListener {
     private View mAdView;
     private final Activity mContext;
     private final String mPlacementId;
     private final AdPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsBannerController(Activity context, String gameId, String placementId, AdPlacementListener listener) {
         mContext = context;
@@ -25,6 +29,8 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
         mListener = listener;
 
         UnityMonetization.initialize(context, gameId, this, true);
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.BANNER, AdNetwork.UNITY);
     }
 
     //---------------------------------- AdPlacement methods ---------------------------------------
@@ -35,6 +41,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
 
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         UnityBanners.loadBanner(mContext, mPlacementId);
     }
 
@@ -62,6 +69,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
     //------------------------------ IUnityBannerListener methods ----------------------------------
     @Override
     public void onUnityBannerLoaded(String placementId, View view) {
+        mAnalyticsSession.confirmLoaded();
         mAdView = view;
         if (mListener != null) {
             mListener.onAdLoaded();
@@ -70,6 +78,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
 
     @Override
     public void onUnityBannerError(String placementId) {
+        mAnalyticsSession.confirmError();
         if (mListener != null) {
             mListener.onAdError(new Exception("Error fetching unity ad."));
         }
@@ -82,7 +91,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
 
     @Override
     public void onUnityBannerShow(String placementId) {
-
+        mAnalyticsSession.confirmImpression();
     }
 
     @Override
@@ -92,6 +101,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
 
     @Override
     public void onUnityBannerClick(String placementId) {
+        mAnalyticsSession.confirmClick();
         if (mListener != null) {
             mListener.onAdClicked();
         }

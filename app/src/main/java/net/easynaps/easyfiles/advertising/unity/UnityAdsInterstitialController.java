@@ -10,26 +10,33 @@ import com.unity3d.services.monetization.placementcontent.ads.IShowAdListener;
 import com.unity3d.services.monetization.placementcontent.ads.ShowAdPlacementContent;
 import com.unity3d.services.monetization.placementcontent.core.PlacementContent;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.InterstitialPlacement;
 import net.easynaps.easyfiles.advertising.InterstitialPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class UnityAdsInterstitialController implements InterstitialPlacement, IUnityMonetizationListener, IShowAdListener {
     private final String mPlacementId;
     private final String mGameId;
     private final Activity mActivity;
     private final InterstitialPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsInterstitialController(Activity context, String gameId, String placementId, InterstitialPlacementListener listener) {
         this.mGameId = gameId;
         this.mPlacementId = placementId;
         this.mActivity = context;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.INTERSTITIAL, AdNetwork.UNITY);
     }
 
 
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         UnityMonetization.initialize(mActivity, mGameId, this, true);
     }
 
@@ -38,6 +45,7 @@ public class UnityAdsInterstitialController implements InterstitialPlacement, IU
         PlacementContent placementContent = UnityMonetization.getPlacementContent(mPlacementId);
         if (placementContent.getType().equalsIgnoreCase("SHOW_AD")) {
             ShowAdPlacementContent showAdPlacementContent = (ShowAdPlacementContent) placementContent;
+            mAnalyticsSession.confirmInterstitialShow();
             showAdPlacementContent.show(mActivity, this);
         }
     }
@@ -60,6 +68,8 @@ public class UnityAdsInterstitialController implements InterstitialPlacement, IU
 
     @Override
     public void onAdStarted(String s) {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
         if (mListener != null) {
             mListener.onAdShown();
         }
@@ -69,6 +79,7 @@ public class UnityAdsInterstitialController implements InterstitialPlacement, IU
     @Override
     public void onPlacementContentReady(String placementId, PlacementContent placementContent) {
         if (placementId.equalsIgnoreCase(mPlacementId)) {
+            mAnalyticsSession.confirmLoaded();
             mListener.onAdLoaded();
         }
     }

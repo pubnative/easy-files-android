@@ -2,9 +2,7 @@ package net.easynaps.easyfiles.advertising.unity;
 
 import android.app.Activity;
 
-import com.unity3d.ads.IUnityAdsListener;
 import com.unity3d.ads.UnityAds;
-import com.unity3d.services.IUnityServicesListener;
 import com.unity3d.services.UnityServices;
 import com.unity3d.services.monetization.IUnityMonetizationListener;
 import com.unity3d.services.monetization.UnityMonetization;
@@ -12,27 +10,34 @@ import com.unity3d.services.monetization.placementcontent.ads.IShowAdListener;
 import com.unity3d.services.monetization.placementcontent.ads.ShowAdPlacementContent;
 import com.unity3d.services.monetization.placementcontent.core.PlacementContent;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdReward;
+import net.easynaps.easyfiles.advertising.AdType;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacement;
 import net.easynaps.easyfiles.advertising.RewardedVideoPlacementListener;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnityMonetizationListener, IShowAdListener {
     private final String mPlacementId;
     private final String mGameId;
     private final Activity mActivity;
     private final RewardedVideoPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsRewardedController(Activity context, String gameId, String placementId, RewardedVideoPlacementListener listener) {
         this.mGameId = gameId;
         this.mPlacementId = placementId;
         this.mActivity = context;
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(context, AdType.REWARDED_VIDEO, AdNetwork.UNITY);
     }
 
 
     //------------------------------ InterstitialPlacement methods ---------------------------------
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         UnityMonetization.initialize(mActivity, mGameId, this, true);
     }
 
@@ -68,10 +73,11 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
     //--------------------------------- IShowAdListener methods ------------------------------------
     @Override
     public void onAdFinished(String placementId, UnityAds.FinishState finishState) {
-        if (mListener != null) {
-            if (finishState == UnityAds.FinishState.COMPLETED) {
-                mListener.onVideoCompleted();
-                if (placementId.equalsIgnoreCase(mPlacementId)) {
+        if (finishState == UnityAds.FinishState.COMPLETED) {
+            if (placementId.equalsIgnoreCase(mPlacementId)) {
+                mAnalyticsSession.confirmVideoFinished();
+                if (mListener != null) {
+                    mListener.onVideoCompleted();
                     mListener.onReward(new AdReward("", 0));
                 }
             }
@@ -80,6 +86,9 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
 
     @Override
     public void onAdStarted(String s) {
+        mAnalyticsSession.confirmImpression();
+        mAnalyticsSession.confirmInterstitialShown();
+        mAnalyticsSession.confirmVideoStarted();
         if (mListener != null) {
             mListener.onVideoStarted();
         }
@@ -89,6 +98,7 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
     @Override
     public void onPlacementContentReady(String placementId, PlacementContent placementContent) {
         if (placementId.equalsIgnoreCase(mPlacementId)) {
+            mAnalyticsSession.confirmLoaded();
             mListener.onVideoLoaded();
         }
     }

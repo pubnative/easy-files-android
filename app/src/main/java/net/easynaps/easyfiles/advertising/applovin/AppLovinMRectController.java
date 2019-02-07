@@ -9,13 +9,17 @@ import com.applovin.sdk.AppLovinAdDisplayListener;
 import com.applovin.sdk.AppLovinAdLoadListener;
 import com.applovin.sdk.AppLovinErrorCodes;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdPlacement;
 import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.AdType;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class AppLovinMRectController implements AdPlacement,
         AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener {
     private final AppLovinAdView mAdView;
     private final AdPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public AppLovinMRectController(AppLovinAdView adView, AdPlacementListener listener) {
         this.mAdView = adView;
@@ -23,6 +27,8 @@ public class AppLovinMRectController implements AdPlacement,
         mAdView.setAdDisplayListener(this);
         mAdView.setAdClickListener(this);
         mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(adView.getContext(), AdType.MRECT, AdNetwork.APPLOVIN);
     }
 
     //---------------------------------- AdPlacement methods ---------------------------------------
@@ -33,6 +39,7 @@ public class AppLovinMRectController implements AdPlacement,
 
     @Override
     public void loadAd() {
+        mAnalyticsSession.start();
         mAdView.loadNextAd();
     }
 
@@ -44,6 +51,7 @@ public class AppLovinMRectController implements AdPlacement,
     //----------------------------- AppLovinAdLoadListener methods ---------------------------------
     @Override
     public void adReceived(AppLovinAd appLovinAd) {
+        mAnalyticsSession.confirmLoaded();
         if (mListener != null) {
             mListener.onAdLoaded();
         }

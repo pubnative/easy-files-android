@@ -6,12 +6,16 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
 
+import net.easynaps.easyfiles.advertising.AdNetwork;
 import net.easynaps.easyfiles.advertising.AdPlacement;
 import net.easynaps.easyfiles.advertising.AdPlacementListener;
+import net.easynaps.easyfiles.advertising.AdType;
+import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class GoogleBannerController implements AdPlacement {
     private final PublisherAdView mAdView;
     private final AdPlacementListener mListener;
+    private final AdAnalyticsSession mAnalyticsSession;
 
     public GoogleBannerController(PublisherAdView adView, String adUnitId, AdPlacementListener listener) {
         this.mAdView = adView;
@@ -19,6 +23,8 @@ public class GoogleBannerController implements AdPlacement {
         mAdView.setAdListener(mAdListener);
 
         this.mListener = listener;
+
+        mAnalyticsSession = new AdAnalyticsSession(adView.getContext(), AdType.BANNER, AdNetwork.GOOGLE_ADS_MANAGER);
     }
 
     //---------------------------------- AdPlacement methods ---------------------------------------
@@ -30,6 +36,7 @@ public class GoogleBannerController implements AdPlacement {
     @Override
     public void loadAd() {
         PublisherAdRequest adRequest = new PublisherAdRequest.Builder().build();
+        mAnalyticsSession.start();
         mAdView.loadAd(adRequest);
     }
 
@@ -43,6 +50,7 @@ public class GoogleBannerController implements AdPlacement {
         @Override
         public void onAdLoaded() {
             super.onAdLoaded();
+            mAnalyticsSession.confirmLoaded();
             if (mListener != null) {
                 mListener.onAdLoaded();
             }
@@ -51,6 +59,7 @@ public class GoogleBannerController implements AdPlacement {
         @Override
         public void onAdFailedToLoad(int errorCode) {
             super.onAdFailedToLoad(errorCode);
+            mAnalyticsSession.confirmError();
             if (mListener != null) {
                 switch (errorCode) {
                     case PublisherAdRequest.ERROR_CODE_INTERNAL_ERROR:
@@ -72,6 +81,7 @@ public class GoogleBannerController implements AdPlacement {
         @Override
         public void onAdClicked() {
             super.onAdClicked();
+            mAnalyticsSession.confirmClick();
             if (mListener != null) {
                 mListener.onAdClicked();
             }
@@ -80,16 +90,19 @@ public class GoogleBannerController implements AdPlacement {
         @Override
         public void onAdOpened() {
             super.onAdOpened();
+            mAnalyticsSession.confirmOpened();
         }
 
         @Override
         public void onAdLeftApplication() {
             super.onAdLeftApplication();
+            mAnalyticsSession.confirmLeftApplication();
         }
 
         @Override
         public void onAdClosed() {
             super.onAdClosed();
+            mAnalyticsSession.confirmClosed();
         }
     };
 }
