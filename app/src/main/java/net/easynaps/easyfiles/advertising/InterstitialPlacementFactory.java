@@ -11,6 +11,7 @@ import net.easynaps.easyfiles.advertising.googleadmanager.GoogleInterstitialCont
 import net.easynaps.easyfiles.advertising.ironsource.IronSourceInterstitialController;
 import net.easynaps.easyfiles.advertising.mopub.MoPubInterstitialController;
 import net.easynaps.easyfiles.advertising.pubnative.PubNativeInterstitialController;
+import net.easynaps.easyfiles.advertising.startapp.StartAppInterstitialController;
 import net.easynaps.easyfiles.advertising.unity.UnityAdsInterstitialController;
 
 public class InterstitialPlacementFactory {
@@ -32,6 +33,8 @@ public class InterstitialPlacementFactory {
                 return createGooglePlacement(context, listener);
             case ADMOB:
                 return createAdmobPlacement(context, listener);
+            case STARTAPP:
+                return createStartAppPlacement(context, listener);
             case UNITY:
                 return createUnityPlacement(context, listener);
             default:
@@ -48,7 +51,7 @@ public class InterstitialPlacementFactory {
     }
 
     private InterstitialPlacement createIronSourcePlacement(Activity context, InterstitialPlacementListener listener) {
-        return new IronSourceInterstitialController(context,"EasyFilesInterstitial", listener);
+        return new IronSourceInterstitialController(context, "EasyFilesInterstitial", listener);
     }
 
     private InterstitialPlacement createFyberPlacement(Activity context, InterstitialPlacementListener listener) {
@@ -69,6 +72,10 @@ public class InterstitialPlacementFactory {
 
     private InterstitialPlacement createAdmobPlacement(Activity context, InterstitialPlacementListener listener) {
         return new AdmobInterstitialController(context, "ca-app-pub-9176690371168943/2286648571", listener);
+    }
+
+    private InterstitialPlacement createStartAppPlacement(Activity context, InterstitialPlacementListener listener) {
+        return new StartAppInterstitialController(context, listener);
     }
 
     private InterstitialPlacement createUnityPlacement(Activity context, InterstitialPlacementListener listener) {

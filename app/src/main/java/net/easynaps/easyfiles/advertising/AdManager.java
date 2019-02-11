@@ -53,7 +53,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
-        //queue.offer(AdNetwork.STARTAPP);
+        queue.offer(AdNetwork.STARTAPP);
         queue.offer(AdNetwork.UNITY);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_BANNER_SETTINGS, queue);
@@ -69,7 +69,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         //queue.offer(AdNetwork.ADMOB);
-        //queue.offer(AdNetwork.STARTAPP);
+        queue.offer(AdNetwork.STARTAPP);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_MRECT_ABOUT, queue);
     }
@@ -84,7 +84,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
-        //queue.offer(AdNetwork.STARTAPP);
+        queue.offer(AdNetwork.STARTAPP);
         queue.offer(AdNetwork.UNITY);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME, queue);
@@ -99,7 +99,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         //queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
-        //queue.offer(AdNetwork.STARTAPP);
+        queue.offer(AdNetwork.STARTAPP);
         //queue.offer(AdNetwork.IMA);
         queue.offer(AdNetwork.UNITY);
 

@@ -14,6 +14,7 @@ import com.ironsource.mediationsdk.ISBannerSize;
 import com.ironsource.mediationsdk.IronSource;
 import com.ironsource.mediationsdk.IronSourceBannerLayout;
 import com.mopub.mobileads.MoPubView;
+import com.startapp.android.publish.ads.banner.Banner;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.advertising.admob.AdmobBannerController;
@@ -24,6 +25,7 @@ import net.easynaps.easyfiles.advertising.googleadmanager.GoogleBannerController
 import net.easynaps.easyfiles.advertising.ironsource.IronSourceBannerController;
 import net.easynaps.easyfiles.advertising.mopub.MoPubBannerController;
 import net.easynaps.easyfiles.advertising.pubnative.PubNativeBannerController;
+import net.easynaps.easyfiles.advertising.startapp.StartAppBannerController;
 import net.easynaps.easyfiles.advertising.unity.UnityAdsBannerController;
 import net.easynaps.easyfiles.utils.Utils;
 import net.pubnative.lite.sdk.views.HyBidBannerAdView;
@@ -47,6 +49,8 @@ public class BannerPlacementFactory {
                 return createGooglePlacement(context, listener);
             case ADMOB:
                 return createAdmobPlacement(context, listener);
+            case STARTAPP:
+                return createStartAppPlacement(context, listener);
             case UNITY:
                 return createUnityPlacement(context, listener);
             default:
@@ -137,6 +141,15 @@ public class BannerPlacementFactory {
         adView.setLayoutParams(layoutParams);
 
         return new AdmobBannerController(adView, "ca-app-pub-9176690371168943/7642028987", listener);
+    }
+
+    private AdPlacement createStartAppPlacement(Activity context, AdPlacementListener listener) {
+        Banner adView = new Banner(context);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(Utils.dpToPx(context, 320), Utils.dpToPx(context, 50));
+        layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+        adView.setLayoutParams(layoutParams);
+
+        return new StartAppBannerController(adView, listener);
     }
 
     private AdPlacement createUnityPlacement(Activity context, AdPlacementListener listener) {

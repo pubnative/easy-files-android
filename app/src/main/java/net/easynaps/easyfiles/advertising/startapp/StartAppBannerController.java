@@ -16,7 +16,7 @@ public class StartAppBannerController implements AdPlacement, BannerListener {
     private final AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
-    public StartAppBannerController(Banner adView, String adUnitId, AdPlacementListener listener) {
+    public StartAppBannerController(Banner adView, AdPlacementListener listener) {
         mAdView = adView;
 
         mListener = listener;
@@ -33,27 +33,35 @@ public class StartAppBannerController implements AdPlacement, BannerListener {
     @Override
     public void loadAd() {
         mAnalyticsSession.start();
-        //mAdView.load;
+        mAdView.loadAd();
     }
 
     @Override
     public void destroy() {
-        //mAdView.destroy();
     }
 
     //-------------------------------- BannerListener methods --------------------------------------
     @Override
     public void onReceiveAd(View view) {
         mAnalyticsSession.confirmLoaded();
+        if (mListener != null) {
+            mListener.onAdLoaded();
+        }
     }
 
     @Override
     public void onFailedToReceiveAd(View view) {
         mAnalyticsSession.confirmError();
+        if (mListener != null) {
+            mListener.onAdError(new Exception("Error loading StartApp MRect"));
+        }
     }
 
     @Override
     public void onClick(View view) {
         mAnalyticsSession.confirmClick();
+        if (mListener != null) {
+            mListener.onAdClicked();
+        }
     }
 }

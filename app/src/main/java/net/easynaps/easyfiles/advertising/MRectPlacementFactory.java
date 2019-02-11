@@ -14,6 +14,7 @@ import com.ironsource.mediationsdk.ISBannerSize;
 import com.ironsource.mediationsdk.IronSource;
 import com.ironsource.mediationsdk.IronSourceBannerLayout;
 import com.mopub.mobileads.MoPubView;
+import com.startapp.android.publish.ads.banner.Mrec;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.advertising.admob.AdmobMRectController;
@@ -24,6 +25,7 @@ import net.easynaps.easyfiles.advertising.googleadmanager.GoogleMRectController;
 import net.easynaps.easyfiles.advertising.ironsource.IronSourceMRectController;
 import net.easynaps.easyfiles.advertising.mopub.MoPubMRectController;
 import net.easynaps.easyfiles.advertising.pubnative.PubNativeMRectController;
+import net.easynaps.easyfiles.advertising.startapp.StartAppMRectController;
 import net.easynaps.easyfiles.utils.Utils;
 import net.pubnative.lite.sdk.views.HyBidMRectAdView;
 
@@ -46,6 +48,8 @@ public class MRectPlacementFactory {
                 return createGooglePlacement(context, listener);
             case ADMOB:
                 return createAdmobPlacement(context, listener);
+            case STARTAPP:
+                return createStartAppPlacement(context, listener);
             default:
                 return null;
         }
@@ -122,6 +126,15 @@ public class MRectPlacementFactory {
         adView.setLayoutParams(layoutParams);
 
         return new GoogleMRectController(adView, "/219576711/EasyFilesMrect   size (300, 250)", listener);
+    }
+
+    private AdPlacement createStartAppPlacement(Activity context, AdPlacementListener listener) {
+        Mrec adView = new Mrec(context);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(Utils.dpToPx(context, 300), Utils.dpToPx(context, 250));
+        layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+        adView.setLayoutParams(layoutParams);
+
+        return new StartAppMRectController(adView, listener);
     }
 
     private AdPlacement createAdmobPlacement(Activity context, AdPlacementListener listener) {

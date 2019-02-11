@@ -18,7 +18,7 @@ public class StartAppInterstitialController implements InterstitialPlacement, Ad
     private final InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
-    public StartAppInterstitialController(Activity context, String adUnitId, InterstitialPlacementListener listener) {
+    public StartAppInterstitialController(Activity context, InterstitialPlacementListener listener) {
         this.mInterstitial = new StartAppAd(context);
         this.mListener = listener;
 
@@ -52,28 +52,43 @@ public class StartAppInterstitialController implements InterstitialPlacement, Ad
     @Override
     public void onReceiveAd(Ad ad) {
         mAnalyticsSession.confirmLoaded();
+        if (mListener != null) {
+            mListener.onAdLoaded();
+        }
     }
 
     @Override
     public void onFailedToReceiveAd(Ad ad) {
         mAnalyticsSession.confirmError();
+        if (mListener != null) {
+            mListener.onAdError(new Exception(ad.getErrorMessage()));
+        }
     }
 
     //-------------------------------- AdDisplayListener methods -----------------------------------
     @Override
     public void adHidden(Ad ad) {
         mAnalyticsSession.confirmInterstitialDismissed();
+        if (mListener != null) {
+            mListener.onAdDismissed();
+        }
     }
 
     @Override
     public void adDisplayed(Ad ad) {
         mAnalyticsSession.confirmImpression();
         mAnalyticsSession.confirmInterstitialShown();
+        if (mListener != null) {
+            mListener.onAdShown();
+        }
     }
 
     @Override
     public void adClicked(Ad ad) {
         mAnalyticsSession.confirmClick();
+        if (mListener != null) {
+            mListener.onAdClicked();
+        }
     }
 
     @Override
