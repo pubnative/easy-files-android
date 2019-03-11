@@ -8,13 +8,13 @@ buildscript {
             url "https://dl.bintray.com/ironsource-mobile/android-sdk"
         }
         maven {
-            url  "https://fyber.bintray.com/fairbid-maven"
+            url "https://fyber.bintray.com/fairbid-maven"
         }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.google.gms:google-services:4.2.0'
-        classpath 'io.fabric.tools:gradle:1.27.0'
+        classpath 'io.fabric.tools:gradle:1.27.1'
     }
 }
 
@@ -30,7 +30,7 @@ allprojects {
             url "https://dl.bintray.com/ironsource-mobile/android-sdk"
         }
         maven {
-            url  "https://fyber.bintray.com/fairbid-maven"
+            url "https://fyber.bintray.com/fairbid-maven"
         }
     }
 }

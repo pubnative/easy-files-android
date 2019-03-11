@@ -16,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.applovin.sdk.AppLovinSdk;
-import com.appspector.sdk.AppSpector;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 
