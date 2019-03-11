@@ -5,9 +5,9 @@ import net.easynaps.easyfiles.advertising.AdType;
 
 public class AdEvent {
     public static final String EVENT_START_LOADING = "ad_start_loading";
-    public static final String EVENT_LOADED = "ad_start_loading";
-    public static final String EVENT_LOAD_ERROR = "ad_start_loading";
-    public static final String EVENT_IMPRESSION = "ad_start_loading";
+    public static final String EVENT_LOADED = "ad_loaded";
+    public static final String EVENT_LOAD_ERROR = "ad_load_error";
+    public static final String EVENT_IMPRESSION = "ad_impression";
     public static final String EVENT_CLICK = "ad_click";
     public static final String EVENT_OPENED = "ad_opened";
     public static final String EVENT_CLOSED = "ad_closed";

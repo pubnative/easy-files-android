@@ -3,6 +3,7 @@ package net.easynaps.easyfiles.advertising.unity;
 import android.app.Activity;
 import android.view.View;
 
+import com.unity3d.ads.UnityAds;
 import com.unity3d.services.UnityServices;
 import com.unity3d.services.banners.IUnityBannerListener;
 import com.unity3d.services.banners.UnityBanners;

@@ -84,7 +84,7 @@ public class AdManager {
         queue.offer(AdNetwork.MOPUB);
         queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
         queue.offer(AdNetwork.ADMOB);
-        queue.offer(AdNetwork.STARTAPP);
+        //queue.offer(AdNetwork.STARTAPP);
         queue.offer(AdNetwork.UNITY);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME, queue);
