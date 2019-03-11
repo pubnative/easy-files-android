@@ -15,6 +15,7 @@ public class FyberInterstitialController implements InterstitialPlacement {
     private final Activity mActivity;
     private final InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
+    private boolean mIsShown = false;
 
     public FyberInterstitialController(Activity context, InterstitialPlacementListener listener) {
         this.mActivity = context;
@@ -37,6 +38,7 @@ public class FyberInterstitialController implements InterstitialPlacement {
     public void show() {
         mAnalyticsSession.confirmInterstitialShow();
         InterstitialAd.display(mActivity);
+        mIsShown = true;
     }
 
     @Override
@@ -83,17 +85,21 @@ public class FyberInterstitialController implements InterstitialPlacement {
 
         @Override
         public void onAvailable(String tag) {
-            mAnalyticsSession.confirmLoaded();
-            if (mListener != null) {
-                mListener.onAdLoaded();
+            if (!mIsShown) {
+                mAnalyticsSession.confirmLoaded();
+                if (mListener != null) {
+                    mListener.onAdLoaded();
+                }
             }
         }
 
         @Override
         public void onFailedToFetch(String tag) {
-            mAnalyticsSession.confirmError();
-            if (mListener != null) {
-                mListener.onAdError(new Exception("Fyber - No ad was received."));
+            if (!mIsShown) {
+                mAnalyticsSession.confirmError();
+                if (mListener != null) {
+                    mListener.onAdError(new Exception("Fyber - No ad was received."));
+                }
             }
         }
 

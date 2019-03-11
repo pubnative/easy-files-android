@@ -76,16 +76,16 @@ public class AdManager {
 
     private void setupHomeInterstitialQueue() {
         Queue<AdNetwork> queue = new ArrayDeque<>();
-        queue.offer(AdNetwork.PUBNATIVE);
-        queue.offer(AdNetwork.APPLOVIN);
-        queue.offer(AdNetwork.IRONSOURCE);
+        //queue.offer(AdNetwork.PUBNATIVE);
+        //queue.offer(AdNetwork.APPLOVIN);
+        //queue.offer(AdNetwork.IRONSOURCE);
         queue.offer(AdNetwork.FYBER);
         //queue.offer(AdNetwork.FACEBOOK);
-        queue.offer(AdNetwork.MOPUB);
-        queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
-        queue.offer(AdNetwork.ADMOB);
+        //queue.offer(AdNetwork.MOPUB);
+        //queue.offer(AdNetwork.GOOGLE_ADS_MANAGER);
+        //queue.offer(AdNetwork.ADMOB);
         //queue.offer(AdNetwork.STARTAPP);
-        queue.offer(AdNetwork.UNITY);
+        //queue.offer(AdNetwork.UNITY);
 
         mNetworkMap.put(EasyFilesAdConstants.PLACEMENT_INTERSTITIAL_HOME, queue);
     }
