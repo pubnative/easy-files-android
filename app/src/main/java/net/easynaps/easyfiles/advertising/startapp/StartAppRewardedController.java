@@ -16,7 +16,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class StartAppRewardedController implements RewardedVideoPlacement, AdEventListener, AdDisplayListener, VideoListener {
     private final StartAppAd mInterstitial;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public StartAppRewardedController(Activity context, RewardedVideoPlacementListener listener) {
@@ -53,6 +53,7 @@ public class StartAppRewardedController implements RewardedVideoPlacement, AdEve
 
     @Override
     public void destroy() {
+        mListener = null;
     }
 
     @Override

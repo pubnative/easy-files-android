@@ -15,7 +15,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class StartAppInterstitialController implements InterstitialPlacement, AdEventListener, AdDisplayListener {
     private final StartAppAd mInterstitial;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public StartAppInterstitialController(Activity context, InterstitialPlacementListener listener) {
@@ -41,6 +41,7 @@ public class StartAppInterstitialController implements InterstitialPlacement, Ad
 
     @Override
     public void destroy() {
+        mListener = null;
     }
 
     @Override

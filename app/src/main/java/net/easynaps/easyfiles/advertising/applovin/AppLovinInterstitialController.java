@@ -22,7 +22,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
         AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener {
     private final AppLovinInterstitialAdDialog mInterstitial;
     private final Activity mActivity;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     private AppLovinAd mAd;
@@ -54,6 +54,7 @@ public class AppLovinInterstitialController implements InterstitialPlacement,
 
     @Override
     public void destroy() {
+        mListener = null;
     }
 
     @Override

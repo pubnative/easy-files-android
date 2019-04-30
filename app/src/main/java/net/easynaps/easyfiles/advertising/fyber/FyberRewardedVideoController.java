@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FyberRewardedVideoController implements RewardedVideoPlacement {
     private final Activity mActivity;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public FyberRewardedVideoController(Activity context, RewardedVideoPlacementListener listener) {
@@ -51,7 +51,7 @@ public class FyberRewardedVideoController implements RewardedVideoPlacement {
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

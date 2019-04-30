@@ -21,7 +21,7 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
     private final String mPlacementId;
     private final String mGameId;
     private final Activity mActivity;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsRewardedController(Activity context, String gameId, String placementId, RewardedVideoPlacementListener listener) {
@@ -62,7 +62,7 @@ public class UnityAdsRewardedController implements RewardedVideoPlacement, IUnit
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

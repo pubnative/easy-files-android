@@ -11,7 +11,7 @@ import net.pubnative.lite.sdk.interstitial.HyBidInterstitialAd;
 
 public class PubNativeInterstitialController implements InterstitialPlacement, HyBidInterstitialAd.Listener {
     private final HyBidInterstitialAd mInterstitial;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public PubNativeInterstitialController(Activity context, String zoneId, InterstitialPlacementListener listener) {
@@ -38,6 +38,7 @@ public class PubNativeInterstitialController implements InterstitialPlacement, H
     @Override
     public void destroy() {
         mInterstitial.destroy();
+        mListener = null;
     }
 
     @Override

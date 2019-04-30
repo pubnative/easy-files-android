@@ -14,7 +14,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class IronSourceInterstitialController implements InterstitialPlacement {
     private final String mPlacementName;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public IronSourceInterstitialController(Activity context, String placementName, InterstitialPlacementListener listener) {
@@ -41,7 +41,7 @@ public class IronSourceInterstitialController implements InterstitialPlacement {
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

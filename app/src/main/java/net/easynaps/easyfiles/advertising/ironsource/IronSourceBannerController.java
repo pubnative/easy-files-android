@@ -16,7 +16,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 public class IronSourceBannerController implements AdPlacement, BannerListener {
     private final IronSourceBannerLayout mAdView;
     private final String mPlacementName;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public IronSourceBannerController(IronSourceBannerLayout adView, String placementName, AdPlacementListener listener) {
@@ -43,6 +43,7 @@ public class IronSourceBannerController implements AdPlacement, BannerListener {
 
     @Override
     public void destroy() {
+        mListener = null;
     }
 
     //-------------------------------- BannerListener methods --------------------------------------

@@ -13,7 +13,7 @@ import net.pubnative.lite.sdk.views.PNAdView;
 public class PubNativeBannerController implements AdPlacement, PNAdView.Listener {
     private final HyBidBannerAdView mAdView;
     private final String mZoneId;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public PubNativeBannerController(HyBidBannerAdView adView, String zoneId, AdPlacementListener listener) {
@@ -39,6 +39,7 @@ public class PubNativeBannerController implements AdPlacement, PNAdView.Listener
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //---------------------------- HyBidBannerAdView listener methods ------------------------------

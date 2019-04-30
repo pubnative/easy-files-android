@@ -15,7 +15,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FacebookRewardedVideoController implements RewardedVideoPlacement, RewardedVideoAdListener {
     private final RewardedVideoAd mAd;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public FacebookRewardedVideoController(Activity context, String placementId, RewardedVideoPlacementListener listener) {
@@ -53,6 +53,7 @@ public class FacebookRewardedVideoController implements RewardedVideoPlacement, 
     @Override
     public void destroy() {
         mAd.destroy();
+        mListener = null;
     }
 
     @Override

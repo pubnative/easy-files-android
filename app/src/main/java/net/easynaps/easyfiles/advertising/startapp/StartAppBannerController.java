@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class StartAppBannerController implements AdPlacement, BannerListener {
     private final Banner mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public StartAppBannerController(Banner adView, AdPlacementListener listener) {
@@ -38,6 +38,7 @@ public class StartAppBannerController implements AdPlacement, BannerListener {
 
     @Override
     public void destroy() {
+        mListener = null;
     }
 
     //-------------------------------- BannerListener methods --------------------------------------

@@ -19,7 +19,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
     private final RewardedVideoAd mAd;
     private final Activity mActivity;
     private final String mAdUnitId;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public GoogleRewardedVideoController(Activity context, String adUnitId, RewardedVideoPlacementListener listener) {
@@ -60,6 +60,7 @@ public class GoogleRewardedVideoController implements RewardedVideoPlacement {
     @Override
     public void destroy() {
         mAd.destroy(mActivity);
+        mListener = null;
     }
 
     @Override

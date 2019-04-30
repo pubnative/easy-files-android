@@ -15,7 +15,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FacebookBannerController implements AdPlacement, AdListener {
     private final AdView mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public FacebookBannerController(AdView adView, AdPlacementListener listener) {
@@ -42,6 +42,7 @@ public class FacebookBannerController implements AdPlacement, AdListener {
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //----------------------------------- AdListener methods ---------------------------------------

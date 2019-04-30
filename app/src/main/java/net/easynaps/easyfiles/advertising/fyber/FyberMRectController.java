@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FyberMRectController implements AdPlacement, HeyzapAds.BannerListener {
     private final BannerAdView mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public FyberMRectController(BannerAdView adView, AdPlacementListener listener) {
@@ -40,6 +40,7 @@ public class FyberMRectController implements AdPlacement, HeyzapAds.BannerListen
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //-------------------------------- BannerListener methods --------------------------------------

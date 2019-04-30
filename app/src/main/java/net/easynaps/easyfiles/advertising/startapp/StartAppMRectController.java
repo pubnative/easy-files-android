@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class StartAppMRectController implements AdPlacement, BannerListener {
     private final Mrec mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public StartAppMRectController(Mrec adView, AdPlacementListener listener) {
@@ -38,7 +38,7 @@ public class StartAppMRectController implements AdPlacement, BannerListener {
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     //-------------------------------- BannerListener methods --------------------------------------

@@ -20,7 +20,7 @@ public class UnityAdsInterstitialController implements InterstitialPlacement, IU
     private final String mPlacementId;
     private final String mGameId;
     private final Activity mActivity;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsInterstitialController(Activity context, String gameId, String placementId, InterstitialPlacementListener listener) {
@@ -52,7 +52,7 @@ public class UnityAdsInterstitialController implements InterstitialPlacement, IU
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

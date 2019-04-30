@@ -14,7 +14,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class AdmobMRectController implements AdPlacement {
     private final AdView mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public AdmobMRectController(AdView adView, String adUnitId, AdPlacementListener listener) {
@@ -43,6 +43,7 @@ public class AdmobMRectController implements AdPlacement {
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //----------------------------------- AdListener methods ---------------------------------------

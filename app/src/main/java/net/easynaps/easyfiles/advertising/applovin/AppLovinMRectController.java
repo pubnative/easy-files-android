@@ -18,7 +18,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 public class AppLovinMRectController implements AdPlacement,
         AppLovinAdLoadListener, AppLovinAdDisplayListener, AppLovinAdClickListener {
     private final AppLovinAdView mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public AppLovinMRectController(AppLovinAdView adView, AdPlacementListener listener) {
@@ -46,6 +46,7 @@ public class AppLovinMRectController implements AdPlacement,
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //----------------------------- AppLovinAdLoadListener methods ---------------------------------

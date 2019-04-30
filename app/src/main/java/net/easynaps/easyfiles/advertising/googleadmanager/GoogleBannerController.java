@@ -14,7 +14,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class GoogleBannerController implements AdPlacement {
     private final PublisherAdView mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public GoogleBannerController(PublisherAdView adView, String adUnitId, AdPlacementListener listener) {
@@ -43,6 +43,7 @@ public class GoogleBannerController implements AdPlacement {
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //----------------------------------- AdListener methods ---------------------------------------

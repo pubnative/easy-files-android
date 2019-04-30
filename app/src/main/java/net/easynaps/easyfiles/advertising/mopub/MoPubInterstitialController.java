@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class MoPubInterstitialController implements InterstitialPlacement, MoPubInterstitial.InterstitialAdListener {
     private final MoPubInterstitial mInterstitial;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public MoPubInterstitialController(Activity context, String adUnitId, InterstitialPlacementListener listener) {
@@ -41,6 +41,7 @@ public class MoPubInterstitialController implements InterstitialPlacement, MoPub
     @Override
     public void destroy() {
         mInterstitial.destroy();
+        mListener = null;
     }
 
     @Override

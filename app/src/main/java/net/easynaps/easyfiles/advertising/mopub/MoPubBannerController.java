@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdListener {
     private final MoPubView mAdView;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public MoPubBannerController(MoPubView adView, String adUnitId, AdPlacementListener listener) {
@@ -42,6 +42,7 @@ public class MoPubBannerController implements AdPlacement, MoPubView.BannerAdLis
     @Override
     public void destroy() {
         mAdView.destroy();
+        mListener = null;
     }
 
     //------------------------------- BannerAdListener methods -------------------------------------

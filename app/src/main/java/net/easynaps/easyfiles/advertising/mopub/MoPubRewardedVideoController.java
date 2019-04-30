@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoPubRewardedVideoListener {
     private final String mAdUnitId;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public MoPubRewardedVideoController(Activity context, String adUnitId, RewardedVideoPlacementListener listener) {
@@ -56,7 +56,7 @@ public class MoPubRewardedVideoController implements RewardedVideoPlacement, MoP
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

@@ -13,7 +13,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FyberInterstitialController implements InterstitialPlacement {
     private final Activity mActivity;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
     private boolean mIsShown = false;
 
@@ -43,7 +43,7 @@ public class FyberInterstitialController implements InterstitialPlacement {
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

@@ -15,7 +15,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class FacebookInterstitialController implements InterstitialPlacement, InterstitialAdListener {
     private final InterstitialAd mInterstitial;
-    private final InterstitialPlacementListener mListener;
+    private InterstitialPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public FacebookInterstitialController(Activity context, String placementId, InterstitialPlacementListener listener) {
@@ -43,6 +43,7 @@ public class FacebookInterstitialController implements InterstitialPlacement, In
     @Override
     public void destroy() {
         mInterstitial.destroy();
+        mListener = null;
     }
 
     @Override

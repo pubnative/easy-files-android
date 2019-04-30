@@ -21,7 +21,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
     private View mAdView;
     private final Activity mContext;
     private final String mPlacementId;
-    private final AdPlacementListener mListener;
+    private AdPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public UnityAdsBannerController(Activity context, String gameId, String placementId, AdPlacementListener listener) {
@@ -49,6 +49,7 @@ public class UnityAdsBannerController implements AdPlacement, IUnityMonetization
     @Override
     public void destroy() {
         UnityBanners.destroy();
+        mListener = null;
     }
 
     //--------------------------- IUnityMonetizationListener methods -------------------------------

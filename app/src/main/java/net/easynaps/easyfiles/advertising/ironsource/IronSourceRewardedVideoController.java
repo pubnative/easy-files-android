@@ -16,7 +16,7 @@ import net.easynaps.easyfiles.advertising.analytics.AdAnalyticsSession;
 
 public class IronSourceRewardedVideoController implements RewardedVideoPlacement {
     private final String mPlacementName;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public IronSourceRewardedVideoController(Activity context, String placementName, RewardedVideoPlacementListener listener) {
@@ -52,7 +52,7 @@ public class IronSourceRewardedVideoController implements RewardedVideoPlacement
 
     @Override
     public void destroy() {
-
+        mListener = null;
     }
 
     @Override

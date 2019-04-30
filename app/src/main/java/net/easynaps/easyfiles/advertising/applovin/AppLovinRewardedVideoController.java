@@ -25,7 +25,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
         AppLovinAdRewardListener, AppLovinAdVideoPlaybackListener {
     private final AppLovinIncentivizedInterstitial mInterstitial;
     private final Activity mActivity;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public AppLovinRewardedVideoController(Activity context, RewardedVideoPlacementListener listener) {
@@ -63,6 +63,7 @@ public class AppLovinRewardedVideoController implements RewardedVideoPlacement,
 
     @Override
     public void destroy() {
+        mListener = null;
     }
 
     @Override

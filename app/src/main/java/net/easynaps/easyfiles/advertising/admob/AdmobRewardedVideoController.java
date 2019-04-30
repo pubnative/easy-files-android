@@ -19,7 +19,7 @@ public class AdmobRewardedVideoController implements RewardedVideoPlacement {
     private final RewardedVideoAd mAd;
     private final Activity mActivity;
     private final String mAdUnitId;
-    private final RewardedVideoPlacementListener mListener;
+    private RewardedVideoPlacementListener mListener;
     private final AdAnalyticsSession mAnalyticsSession;
 
     public AdmobRewardedVideoController(Activity context, String adUnitId, RewardedVideoPlacementListener listener) {
@@ -60,6 +60,7 @@ public class AdmobRewardedVideoController implements RewardedVideoPlacement {
     @Override
     public void destroy() {
         mAd.destroy(mActivity);
+        mListener = null;
     }
 
     @Override
