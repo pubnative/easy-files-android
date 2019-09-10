@@ -10,6 +10,7 @@ buildscript {
         maven {
             url "https://fyber.bintray.com/fairbid-maven"
         }
+        maven { url "https://artifactory.appodeal.com/appodeal" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -32,6 +33,7 @@ allprojects {
         maven {
             url "https://fyber.bintray.com/fairbid-maven"
         }
+        maven { url "https://artifactory.appodeal.com/appodeal" }
     }
 }
 
