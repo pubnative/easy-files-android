@@ -11,7 +11,8 @@ public enum AdNetwork {
     ADMOB("Admob"),
     STARTAPP("StartApp"),
     IMA("InteractiveMediaAds"),
-    UNITY("UnityAds");
+    UNITY("UnityAds"),
+    APPODEAL("Appodeal");
 
     private String name;
 
