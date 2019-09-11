@@ -6,6 +6,8 @@ import android.widget.FrameLayout;
 
 import com.applovin.adview.AppLovinAdView;
 import com.applovin.sdk.AppLovinAdSize;
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.BannerView;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
@@ -19,6 +21,7 @@ import com.startapp.android.publish.ads.banner.Banner;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.advertising.admob.AdmobBannerController;
 import net.easynaps.easyfiles.advertising.applovin.AppLovinBannerController;
+import net.easynaps.easyfiles.advertising.appodeal.AppodealBannerController;
 import net.easynaps.easyfiles.advertising.facebook.FacebookBannerController;
 import net.easynaps.easyfiles.advertising.fyber.FyberBannerController;
 import net.easynaps.easyfiles.advertising.googleadmanager.GoogleBannerController;
@@ -53,6 +56,8 @@ public class BannerPlacementFactory {
                 return createStartAppPlacement(context, listener);
             case UNITY:
                 return createUnityPlacement(context, listener);
+            case APPODEAL:
+                return createAppodealPlacement(context, listener);
             default:
                 return null;
         }
@@ -155,4 +160,10 @@ public class BannerPlacementFactory {
     private AdPlacement createUnityPlacement(Activity context, AdPlacementListener listener) {
         return new UnityAdsBannerController(context, "3024006", "banner", listener);
     }
+
+    private AdPlacement createAppodealPlacement(Activity context, AdPlacementListener listener){
+        BannerView adView = Appodeal.getBannerView(context);
+        return new AppodealBannerController(adView, listener, context);
+    }
+
 }
