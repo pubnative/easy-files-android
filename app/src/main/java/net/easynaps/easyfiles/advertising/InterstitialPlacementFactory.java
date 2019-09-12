@@ -5,6 +5,7 @@ import android.app.Activity;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.advertising.admob.AdmobInterstitialController;
 import net.easynaps.easyfiles.advertising.applovin.AppLovinInterstitialController;
+import net.easynaps.easyfiles.advertising.appodeal.AppodealInterstitialController;
 import net.easynaps.easyfiles.advertising.facebook.FacebookInterstitialController;
 import net.easynaps.easyfiles.advertising.fyber.FyberInterstitialController;
 import net.easynaps.easyfiles.advertising.googleadmanager.GoogleInterstitialController;
@@ -37,6 +38,8 @@ public class InterstitialPlacementFactory {
                 return createStartAppPlacement(context, listener);
             case UNITY:
                 return createUnityPlacement(context, listener);
+            case APPODEAL:
+                return createAppodealPlacement(context, listener);
             default:
                 return null;
         }
@@ -80,5 +83,9 @@ public class InterstitialPlacementFactory {
 
     private InterstitialPlacement createUnityPlacement(Activity context, InterstitialPlacementListener listener) {
         return new UnityAdsInterstitialController(context, "3024006", "interstitial", listener);
+    }
+
+    private InterstitialPlacement createAppodealPlacement(Activity context, InterstitialPlacementListener listener) {
+        return new AppodealInterstitialController(context, listener);
     }
 }
