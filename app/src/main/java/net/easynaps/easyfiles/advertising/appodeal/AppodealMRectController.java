@@ -45,7 +45,7 @@ public class AppodealMRectController implements AdPlacement, MrecCallbacks {
 
     @Override
     public void destroy() {
-        Appodeal.destroy(Appodeal.BANNER);
+        Appodeal.destroy(Appodeal.MREC);
         mListener = null;
     }
 
