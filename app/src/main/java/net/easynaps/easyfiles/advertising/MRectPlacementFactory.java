@@ -6,6 +6,8 @@ import android.widget.FrameLayout;
 
 import com.applovin.adview.AppLovinAdView;
 import com.applovin.sdk.AppLovinAdSize;
+import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.MrecView;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
@@ -19,6 +21,7 @@ import com.startapp.android.publish.ads.banner.Mrec;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.advertising.admob.AdmobMRectController;
 import net.easynaps.easyfiles.advertising.applovin.AppLovinMRectController;
+import net.easynaps.easyfiles.advertising.appodeal.AppodealMRectController;
 import net.easynaps.easyfiles.advertising.facebook.FacebookMRectController;
 import net.easynaps.easyfiles.advertising.fyber.FyberMRectController;
 import net.easynaps.easyfiles.advertising.googleadmanager.GoogleMRectController;
@@ -50,6 +53,8 @@ public class MRectPlacementFactory {
                 return createAdmobPlacement(context, listener);
             case STARTAPP:
                 return createStartAppPlacement(context, listener);
+            case APPODEAL:
+                return createAppodealPlacement(context, listener);
             default:
                 return null;
         }
@@ -147,5 +152,10 @@ public class MRectPlacementFactory {
         adView.setLayoutParams(layoutParams);
 
         return new AdmobMRectController(adView, "PLACEMENT_ID", listener);
+    }
+
+    private AdPlacement createAppodealPlacement(Activity context, AdPlacementListener listener){
+        MrecView adView = Appodeal.getMrecView(context);
+        return new AppodealMRectController(adView, listener, context);
     }
 }
