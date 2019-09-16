@@ -54,6 +54,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.appodeal.ads.Appodeal;
 import com.cloudrail.si.CloudRail;
 import com.cloudrail.si.exceptions.AuthenticationException;
 import com.cloudrail.si.exceptions.ParseException;
@@ -454,6 +455,8 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         HeyzapAds.start("5cc49eb119c0330e30cad321071bbee5", this);
         MoPub.onCreate(this);
         StartAppSDK.init(this, "200773660", true);
+        Appodeal.setAutoCache(Appodeal.BANNER|Appodeal.MREC|Appodeal.INTERSTITIAL|Appodeal.REWARDED_VIDEO, false);
+        Appodeal.initialize(this, "2557715e2a0f16c31dec90e25a13a3c0aefa565c8aa6af25", Appodeal.BANNER|Appodeal.MREC|Appodeal.INTERSTITIAL|Appodeal.REWARDED_VIDEO, false);
     }
 
     @Override

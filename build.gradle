@@ -10,9 +10,10 @@ buildscript {
         maven {
             url "https://fyber.bintray.com/fairbid-maven"
         }
+        maven { url "https://artifactory.appodeal.com/appodeal" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.google.gms:google-services:4.3.0'
         classpath 'io.fabric.tools:gradle:1.30.0'
     }
@@ -32,6 +33,7 @@ allprojects {
         maven {
             url "https://fyber.bintray.com/fairbid-maven"
         }
+        maven { url "https://artifactory.appodeal.com/appodeal" }
     }
 }
 

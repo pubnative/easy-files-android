@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import net.easynaps.easyfiles.advertising.admob.AdmobRewardedVideoController;
 import net.easynaps.easyfiles.advertising.applovin.AppLovinRewardedVideoController;
+import net.easynaps.easyfiles.advertising.appodeal.AppodealRewardedVideoController;
 import net.easynaps.easyfiles.advertising.facebook.FacebookRewardedVideoController;
 import net.easynaps.easyfiles.advertising.fyber.FyberRewardedVideoController;
 import net.easynaps.easyfiles.advertising.googleadmanager.GoogleRewardedVideoController;
@@ -33,6 +34,8 @@ public class RewardedVideoPlacementFactory {
                 return createStartAppPlacement(context, listener);
             case UNITY:
                 return createUnityPlacement(context, listener);
+            case APPODEAL:
+                return createAppodealPlacement(context, listener);
             default:
                 return null;
         }
@@ -72,5 +75,9 @@ public class RewardedVideoPlacementFactory {
 
     private RewardedVideoPlacement createUnityPlacement(Activity context, RewardedVideoPlacementListener listener) {
         return new UnityAdsRewardedController(context, "3024006", "rewardedVideo", listener);
+    }
+
+    private RewardedVideoPlacement createAppodealPlacement(Activity context, RewardedVideoPlacementListener listener) {
+        return new AppodealRewardedVideoController(context, listener);
     }
 }
