@@ -157,8 +157,8 @@ dependencies {
     //Multiple dex files
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'net.pubnative:hybid.sdk:0.6.0'
-    implementation 'net.pubnative:hybid.adapters.mopub:0.6.0'
+    implementation 'net.pubnative:hybid.sdk:0.6.3'
+    implementation 'net.pubnative:hybid.adapters.mopub:0.6.3'
     implementation('com.mopub:mopub-sdk:5.6.0@aar') {
         transitive = true
         exclude module: 'libAvid-mopub'
