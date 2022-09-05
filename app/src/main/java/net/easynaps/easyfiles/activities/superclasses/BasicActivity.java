@@ -2,6 +2,8 @@ package net.easynaps.easyfiles.activities.superclasses;
 
 import android.support.v7.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import net.easynaps.easyfiles.utils.application.AppConfig;
 import net.easynaps.easyfiles.utils.color.ColorPreference;
 import net.easynaps.easyfiles.utils.provider.UtilitiesProvider;

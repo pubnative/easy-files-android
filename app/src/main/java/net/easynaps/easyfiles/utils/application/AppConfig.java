@@ -11,13 +11,12 @@ import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.database.UtilsHandler;
@@ -72,12 +71,12 @@ public class AppConfig extends GlideApplication {
 
         });
 
-        SdkConfiguration sdkConfiguration = new SdkConfiguration
+        /*SdkConfiguration sdkConfiguration = new SdkConfiguration
                 .Builder(getString(R.string.mopub_banner_ad_unit_id))
                 .build();
         MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
 
-        });
+        });*/
     }
 
     @Override

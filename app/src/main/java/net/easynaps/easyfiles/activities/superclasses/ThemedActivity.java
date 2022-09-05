@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -17,6 +16,8 @@ import net.easynaps.easyfiles.utils.color.ColorUsage;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_ROOTMODE;
+
+import androidx.core.app.ActivityCompat;
 
 public class ThemedActivity extends PreferenceActivity {
 

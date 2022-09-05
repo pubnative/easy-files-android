@@ -62,11 +62,8 @@ import com.cloudrail.si.services.Box;
 import com.cloudrail.si.services.Dropbox;
 import com.cloudrail.si.services.GoogleDrive;
 import com.cloudrail.si.services.OneDrive;
-import com.mopub.common.MoPub;
-import com.mopub.common.privacy.ConsentDialogListener;
-import com.mopub.common.privacy.PersonalInfoManager;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import net.easynaps.easyfiles.R;
@@ -139,10 +136,16 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_HIDDENFILES;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_VIEW;
 
-public class MainActivity extends ThemedActivity implements OnRequestPermissionsResultCallback,
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
+public class MainActivity extends ThemedActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
-        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks,
-        LoaderManager.LoaderCallbacks<Cursor>, MoPubInterstitial.InterstitialAdListener {
+        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks {
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -739,7 +742,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     public void goToMain(String path) {
-        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //title.setText(R.string.app_name);
         TabFragment tabFragment = new TabFragment();
         if (path != null && path.length() > 0) {
@@ -2131,30 +2134,6 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         mInterstitial.load();
     }
 
-    @Override
-    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-        mInterstitial.show();
-    }
-
-    @Override
-    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-        Log.e(TAG, errorCode.toString());
-    }
-
-    @Override
-    public void onInterstitialShown(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialClicked(MoPubInterstitial interstitial) {
-
-    }
 
     private final Runnable consentRunnable = new Runnable() {
         @Override
@@ -2206,24 +2185,4 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         }
     }
 
-    private void showMoPubConsent() {
-        final PersonalInfoManager infoManager = MoPub.getPersonalInformationManager();
-        if (infoManager.shouldShowConsentDialog()) {
-            infoManager.loadConsentDialog(new ConsentDialogListener() {
-                @Override
-                public void onConsentDialogLoaded() {
-                    if (isActive) {
-                        infoManager.showConsentDialog();
-                    }
-                }
-
-                @Override
-                public void onConsentDialogLoadFailed(@NonNull MoPubErrorCode moPubErrorCode) {
-
-                }
-            });
-        } else {
-            loadInterstitial();
-        }
-    }
 }

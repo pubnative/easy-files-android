@@ -6,14 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +23,7 @@ import com.cloudrail.si.services.Box;
 import com.cloudrail.si.services.Dropbox;
 import com.cloudrail.si.services.GoogleDrive;
 import com.cloudrail.si.services.OneDrive;
+import com.google.android.material.navigation.NavigationView;
 
 import net.easynaps.easyfiles.BuildConfig;
 import net.easynaps.easyfiles.R;
@@ -66,6 +59,13 @@ import java.util.Collections;
 import static android.os.Build.VERSION.SDK_INT;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_SIDEBAR_FOLDERS;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_SIDEBAR_QUICKACCESSES;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
 

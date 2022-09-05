@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
@@ -145,7 +147,7 @@ public class AppsListFragment extends ListFragment implements LoaderManager.Load
     }
 
     @Override
-    public void onLoadFinished(Loader<AppListLoader.AppsDataPair> loader, AppListLoader.AppsDataPair data) {
+    public void onLoadFinished(@NonNull Loader<AppListLoader.AppsDataPair> loader, AppListLoader.AppsDataPair data) {
         // set new data to adapter
         adapter.setData(data.first);
         modelProvider.setItemList(data.second);

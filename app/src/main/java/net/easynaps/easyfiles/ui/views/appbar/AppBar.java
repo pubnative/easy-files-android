@@ -1,15 +1,17 @@
 package net.easynaps.easyfiles.ui.views.appbar;
 
 import android.content.SharedPreferences;
-import android.support.annotation.StringRes;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
+import android.widget.Toolbar;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants;
 
 import static android.os.Build.VERSION.SDK_INT;
+
+import androidx.annotation.StringRes;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 public class AppBar {
 

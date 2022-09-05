@@ -1,8 +1,8 @@
 package net.easynaps.easyfiles.utils;
 
-import android.support.annotation.Nullable;
-
 import android.view.MenuItem;
+
+import androidx.annotation.Nullable;
 
 import com.cloudrail.si.interfaces.CloudStorage;
 import com.cloudrail.si.services.Box;
@@ -397,7 +397,8 @@ public class DataUtils {
      * @param path the path to find
      * @return the id of the longest containing MenuMetadata.path in getDrawerMetadata() or null
      */
-    public @Nullable Integer findLongestContainingDrawerItem(CharSequence path) {
+    public @Nullable
+    Integer findLongestContainingDrawerItem(CharSequence path) {
         return tree.getValueForLongestKeyPrefixing(path);
     }
 

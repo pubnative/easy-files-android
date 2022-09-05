@@ -10,10 +10,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
+
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -39,6 +40,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.android.material.textfield.TextInputLayout;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
@@ -999,7 +1001,7 @@ public class GeneralDialogCreation {
     }
 
     public static void showChangePathsDialog(final MainActivity mainActivity, final SharedPreferences prefs) {
-        final MaterialDialog.Builder a = new MaterialDialog.Builder(mainActivity);
+        final MaterialDialog.Builder a = new MaterialDialog.Builder(context);
         a.input(null, mainActivity.getCurrentMainFragment().getCurrentPath(), false,
                 (dialog, charSequence) -> {
                     boolean isAccessible = FileUtils.isPathAccessible(charSequence.toString(), prefs);

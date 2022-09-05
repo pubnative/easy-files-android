@@ -11,8 +11,11 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatEditText;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.material.textfield.TextInputLayout;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;

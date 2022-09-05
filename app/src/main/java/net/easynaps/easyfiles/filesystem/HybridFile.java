@@ -8,6 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.provider.DocumentFile;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
+
 import com.cloudrail.si.interfaces.CloudStorage;
 import com.cloudrail.si.types.SpaceAllocation;
 

@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;

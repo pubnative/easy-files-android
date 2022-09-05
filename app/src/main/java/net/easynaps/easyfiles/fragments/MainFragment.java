@@ -33,6 +33,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.material.appbar.AppBarLayout;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
@@ -103,7 +105,19 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_PERMISSIONS;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_USE_CIRCULAR_IMAGES;
 
-public class MainFragment extends android.support.v4.app.Fragment implements BottomBarButtonPath {
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+public class MainFragment extends Fragment implements BottomBarButtonPath {
 
     public ActionMode mActionMode;
     public int sortby, dsort, asc;
@@ -140,7 +154,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
     private boolean stopAnims = true;
     private SwipeRefreshLayout nofilesview;
 
-    private android.support.v7.widget.RecyclerView listView;
+    private RecyclerView listView;
     private UtilitiesProvider utilsProvider;
     private HashMap<String, Bundle> scrolls = new HashMap<>();
     private MainFragment ma = this;
@@ -207,7 +221,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.main_frag, container, false);
         setRetainInstance(true);
-        listView = (android.support.v7.widget.RecyclerView) rootView.findViewById(R.id.listView);
+        listView = (RecyclerView) rootView.findViewById(R.id.listView);
         mToolbarContainer = getMainActivity().getAppbar().getAppbarLayout();
         fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroll);
         fastScroller.setPressedHandleColor(accentColor);
