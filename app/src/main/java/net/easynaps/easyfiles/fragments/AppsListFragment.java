@@ -17,7 +17,6 @@ import androidx.loader.content.Loader;
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
 
-import net.easynaps.easyfiles.GlideApp;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;

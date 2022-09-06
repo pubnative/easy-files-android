@@ -4,8 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.provider.DocumentFile;
 import android.util.Log;
 
 import androidx.annotation.NonNull;

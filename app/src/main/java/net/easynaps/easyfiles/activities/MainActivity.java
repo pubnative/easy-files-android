@@ -27,16 +27,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.service.quicksettings.TileService;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -1497,6 +1487,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
     @Override
     public void onNewIntent(Intent i) {
+        super.onNewIntent(i);
         intent = i;
         path = i.getStringExtra("path");
 

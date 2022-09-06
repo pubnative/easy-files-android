@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import net.easynaps.easyfiles.GlideApp;
+import androidx.recyclerview.widget.RecyclerView;
+
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.adapters.data.CompressedObjectParcelable;
 import net.easynaps.easyfiles.adapters.holders.CompressedItemViewHolder;
