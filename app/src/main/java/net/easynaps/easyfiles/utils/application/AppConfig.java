@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -67,6 +66,7 @@ public class AppConfig extends GlideApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
+        // todo Add hybid demo token
         PNLite.initialize(getString(R.string.pnlite_app_token), this, success -> {
 
         });

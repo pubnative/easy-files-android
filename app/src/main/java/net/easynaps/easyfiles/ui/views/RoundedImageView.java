@@ -12,12 +12,11 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.utils.Utils;
 
-public class RoundedImageView extends ImageView {
+public class RoundedImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     private static final float BACKGROUND_CIRCLE_MARGIN_PERCENTUAL = 0.015f;
 

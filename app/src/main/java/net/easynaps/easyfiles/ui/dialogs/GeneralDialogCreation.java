@@ -14,7 +14,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -1001,7 +1000,7 @@ public class GeneralDialogCreation {
     }
 
     public static void showChangePathsDialog(final MainActivity mainActivity, final SharedPreferences prefs) {
-        final MaterialDialog.Builder a = new MaterialDialog.Builder(context);
+        final MaterialDialog.Builder a = new MaterialDialog.Builder(mainActivity.getApplicationContext());
         a.input(null, mainActivity.getCurrentMainFragment().getCurrentPath(), false,
                 (dialog, charSequence) -> {
                     boolean isAccessible = FileUtils.isPathAccessible(charSequence.toString(), prefs);

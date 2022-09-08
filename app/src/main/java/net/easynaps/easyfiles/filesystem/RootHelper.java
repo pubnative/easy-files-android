@@ -1,6 +1,7 @@
 package net.easynaps.easyfiles.filesystem;
 
-import android.support.v4.provider.DocumentFile;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.exceptions.ShellNotRunningException;

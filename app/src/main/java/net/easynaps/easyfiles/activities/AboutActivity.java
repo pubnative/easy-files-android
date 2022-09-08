@@ -5,22 +5,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubView;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;
@@ -31,7 +29,7 @@ import net.pubnative.lite.sdk.api.RequestManager;
 import net.pubnative.lite.sdk.models.Ad;
 import net.pubnative.lite.sdk.utils.PrebidUtils;
 
-public class AboutActivity extends BasicActivity implements View.OnClickListener, MoPubView.BannerAdListener {
+public class AboutActivity extends BasicActivity implements View.OnClickListener {
 
     private static final String TAG = "AboutActivity";
 
@@ -44,7 +42,7 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
     private int mCount=0;
     private Snackbar snackbar;
     private SharedPreferences mSharedPref;
-    private MoPubView mMRectView;
+    //private MoPubView mMRectView;
 
     private static final String KEY_PREF_STUDIO = "studio";
 
@@ -91,9 +89,10 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
             mTitleTextView.setAlpha(Math.abs(verticalOffset / (float) appBarLayout.getTotalScrollRange()));
         });
 
-        mMRectView = findViewById(R.id.mrect_mopub);
+        // todo Substitute with a HyBid Mrect
+        /*mMRectView = findViewById(R.id.mrect_mopub);
         mMRectView.setBannerAdListener(this);
-        mMRectView.setAutorefreshEnabled(false);
+        mMRectView.setAutorefreshEnabled(false);*/
 
         loadAd();
     }
@@ -184,37 +183,13 @@ public class AboutActivity extends BasicActivity implements View.OnClickListener
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mMRectView.destroy();
+        //mMRectView.destroy();
     }
 
     private void loadAd() {
-        mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
-        mMRectView.loadAd();
+        /*mMRectView.setAdUnitId(getString(R.string.mopub_mrect_ad_unit_id));
+        mMRectView.loadAd();*/
     }
 
-    @Override
-    public void onBannerLoaded(MoPubView banner) {
-        mMRectView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onBannerFailed(MoPubView banner, MoPubErrorCode errorCode) {
-        Log.e(TAG, errorCode.toString());
-    }
-
-    @Override
-    public void onBannerClicked(MoPubView banner) {
-        mMRectView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onBannerExpanded(MoPubView banner) {
-
-    }
-
-    @Override
-    public void onBannerCollapsed(MoPubView banner) {
-
-    }
 
 }

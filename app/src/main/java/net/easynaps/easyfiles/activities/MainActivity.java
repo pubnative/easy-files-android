@@ -27,16 +27,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.service.quicksettings.TileService;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -116,6 +106,7 @@ import net.easynaps.easyfiles.utils.files.FileUtils;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 import net.pubnative.lite.sdk.HyBid;
 import net.pubnative.lite.sdk.consent.UserConsentActivity;
+import net.pubnative.lite.sdk.interstitial.HyBidInterstitialAd;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -261,7 +252,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
     private PasteHelper pasteHelper;
 
-    private MoPubInterstitial mInterstitial;
+    private HyBidInterstitialAd mInterstitial;
 
     /**
      * Called when the activity is first created.
@@ -428,8 +419,9 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
             }
         });
 
-        mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
-        mInterstitial.setInterstitialAdListener(this);
+        // todo change this interstitial to Hybid interstitial
+        /*mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
+        mInterstitial.setInterstitialAdListener(this);*/
 
         if (savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
@@ -1226,6 +1218,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     }
 
     protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
         if (requestCode == Drawer.image_selector_request_code) {
             drawer.onActivityResult(requestCode, responseCode, intent);
         } else if (requestCode == 3) {
@@ -1247,7 +1240,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
             // After confirmation, update stored value of folder.
             // Persist access permissions.
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
@@ -1318,9 +1311,10 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         } else if (requestCode == REQUEST_CODE_SAF && responseCode != Activity.RESULT_OK) {
             // otg access not provided
             drawer.resetPendingPath();
+
+            //todo recheck all this consent stuff
         } else if (requestCode == REQUEST_CODE_CONSENT) {
             setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
-            showMoPubConsent();
         }
     }
 
@@ -1497,6 +1491,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
     @Override
     public void onNewIntent(Intent i) {
+        super.onNewIntent(i);
         intent = i;
         path = i.getStringExtra("path");
 
@@ -1557,6 +1552,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 77) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 drawer.refreshDrawer();
@@ -2134,7 +2130,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         mInterstitial.load();
     }
 
-
+    // todo recheck all this consent stuff as well
     private final Runnable consentRunnable = new Runnable() {
         @Override
         public void run() {
@@ -2143,7 +2139,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
                     Intent intent = HyBid.getUserDataManager().getConsentScreenIntent(MainActivity.this);
                     startActivityForResult(intent, REQUEST_CODE_CONSENT);
                 } else {
-                    showMoPubConsent();
+                    //showMoPubConsent();
                 }
             }
         }

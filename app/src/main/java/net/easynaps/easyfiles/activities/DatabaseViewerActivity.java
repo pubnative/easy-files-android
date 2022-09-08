@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -18,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -37,6 +35,9 @@ import java.util.ArrayList;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_COLORED_NAVIGATION;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 public class DatabaseViewerActivity extends ThemedActivity {
 

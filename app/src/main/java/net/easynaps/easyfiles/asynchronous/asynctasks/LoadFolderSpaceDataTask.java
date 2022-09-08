@@ -3,9 +3,9 @@ package net.easynaps.easyfiles.asynchronous.asynctasks;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.util.Pair;
 import android.text.SpannableString;
 import android.text.format.Formatter;
+import android.util.Pair;
 import android.view.View;
 
 import com.afollestad.materialdialogs.Theme;

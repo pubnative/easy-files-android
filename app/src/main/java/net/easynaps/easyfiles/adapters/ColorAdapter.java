@@ -1,17 +1,15 @@
 package net.easynaps.easyfiles.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Checkable;
-import android.widget.ImageView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.ui.views.CheckableCircleView;
@@ -24,7 +22,8 @@ public class ColorAdapter extends ArrayAdapter<Integer> implements AdapterView.O
 
     private LayoutInflater inflater;
     private ColorUsage usage;
-    private @ColorInt int selectedColor;
+    private @ColorInt
+    int selectedColor;
     private OnColorSelected onColorSelected;
 
     /**
