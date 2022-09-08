@@ -7,22 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.RequestBuilder;
 
-import net.easynaps.easyfiles.GlideApp;
-import net.easynaps.easyfiles.GlideRequest;
 
 import java.util.Collections;
 import java.util.List;
 
 public class AppsAdapterPreloadModel implements ListPreloader.PreloadModelProvider<String> {
 
-    private GlideRequest<Drawable> request;
+    private RequestBuilder<Drawable> request;
     private List<String> items;
 
     public AppsAdapterPreloadModel(Fragment f) {
-        request = GlideApp.with(f).asDrawable().fitCenter();
+        request = Glide.with(f).asDrawable().fitCenter();
     }
 
     public void setItemList(List<String> items) {

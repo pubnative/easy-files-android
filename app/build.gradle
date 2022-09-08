@@ -147,6 +147,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:19.0.0'
     implementation 'net.pubnative:hybid.sdk:2.16.0-development_kotlin.9717'
+
+    implementation 'androidx.palette:palette:1.0.0'
 }
 
 configurations.all {

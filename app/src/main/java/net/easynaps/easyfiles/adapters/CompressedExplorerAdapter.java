@@ -16,7 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.adapters.data.CompressedObjectParcelable;
@@ -177,6 +180,7 @@ public class CompressedExplorerAdapter extends RecyclerView.Adapter<CompressedIt
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(final CompressedItemViewHolder holder, int position) {
         if (!stoppedAnimation) {
@@ -194,13 +198,13 @@ public class CompressedExplorerAdapter extends RecyclerView.Adapter<CompressedIt
                     utilsProvider.getAppTheme(), compressedExplorerFragment.getResources().getDisplayMetrics()));
 
         if (rowItem.type == CompressedObjectParcelable.TYPE_GOBACK) {
-            GlideApp.with(compressedExplorerFragment).load(R.drawable.ic_arrow_left_white_24dp).into(holder.genericIcon);
+            Glide.with(compressedExplorerFragment).load(R.drawable.ic_arrow_left_white_24dp).into(holder.genericIcon);
             gradientDrawable.setColor(Utils.getColor(context, R.color.goback_item));
             holder.txtTitle.setText("..");
             holder.txtDesc.setText("");
             holder.date.setText(R.string.goback);
         } else {
-            GlideApp.with(compressedExplorerFragment).load(rowItem.iconData.image).into(holder.genericIcon);
+            Glide.with(compressedExplorerFragment).load(rowItem.iconData.image).into(holder.genericIcon);
 
             final StringBuilder stringBuilder = new StringBuilder(rowItem.name);
             if (compressedExplorerFragment.showLastModified)

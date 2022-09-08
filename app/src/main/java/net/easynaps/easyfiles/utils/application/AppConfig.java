@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.StrictMode;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -66,10 +67,8 @@ public class AppConfig extends GlideApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        // todo Add hybid demo token
-        PNLite.initialize(getString(R.string.pnlite_app_token), this, success -> {
-
-        });
+        HyBid.initialize("dde3c298b47648459f8ada4a982fa92d", this, initializedSuccessfully ->
+                Log.d(TAG, "HyBid: onInitialisationFinished"));
 
         /*SdkConfiguration sdkConfiguration = new SdkConfiguration
                 .Builder(getString(R.string.mopub_banner_ad_unit_id))
