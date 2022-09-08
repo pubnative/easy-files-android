@@ -825,7 +825,6 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
      * @param isBackButton is it the back button aka '..'
      * @param position the position
      * @param e the list item
-     * @param imageView the check {@link net.pubnative.easyfiles.ui.views.RoundedImageView} that is to be animated
      */
     public void onListItemClicked(boolean isBackButton, int position, LayoutElementParcelable e, ImageView imageView) {
         if (results) {
@@ -993,7 +992,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
      * @param back if we're coming back from any directory and want the scroll to be restored
      * @param openMode the mode in which the directory should be opened
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     public void loadlist(final String path, final boolean back, final OpenMode openMode) {
         if (mActionMode != null) mActionMode.finish();
 
@@ -1043,7 +1042,6 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
      * @param results  is the list of elements a result from search
      * @param grid     whether to set grid view or list view
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setListElements(ArrayList<LayoutElementParcelable> bitmap, boolean back, String path,
                                 final OpenMode openMode, boolean results, boolean grid) {
         if (bitmap != null) {
@@ -1058,7 +1056,6 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void reloadListElements(boolean back, boolean results, boolean grid) {
         if (isAdded()) {
             boolean isOtg = CURRENT_PATH.equals(OTGUtil.PREFIX_OTG + "/"),

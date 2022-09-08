@@ -203,7 +203,6 @@ public class TabFragment extends Fragment
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updatepaths(int pos) {
         if (tabHandler == null)
             tabHandler = new TabHandler(getActivity());

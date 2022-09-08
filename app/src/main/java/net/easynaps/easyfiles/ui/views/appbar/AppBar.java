@@ -2,7 +2,6 @@ package net.easynaps.easyfiles.ui.views.appbar;
 
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.widget.Toolbar;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
@@ -12,6 +11,7 @@ import static android.os.Build.VERSION.SDK_INT;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
 
@@ -44,7 +44,7 @@ public class AppBar {
         }
     }
 
-    public androidx.appcompat.widget.Toolbar getToolbar() {
+    public Toolbar getToolbar() {
         return toolbar;
     }
 
@@ -60,7 +60,6 @@ public class AppBar {
         return appbarLayout;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setTitle(String title) {
         if (toolbar != null) toolbar.setTitle(title);
     }

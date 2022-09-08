@@ -4,12 +4,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_encrypt_password"
         android:layout_width="match_parent"
         app:errorEnabled="true"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -17,15 +17,15 @@
             android:hint="@string/password"
             android:id="@+id/edit_text_dialog_encrypt_password"
             android:layout_gravity="center_horizontal" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_encrypt_password_confirm"
         android:layout_width="match_parent"
         app:errorEnabled="true"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -33,5 +33,5 @@
             android:hint="@string/password_repeat"
             android:id="@+id/edit_text_dialog_encrypt_password_confirm"
             android:layout_gravity="center_horizontal" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

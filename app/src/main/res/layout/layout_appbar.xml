@@ -1,103 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.AppBarLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/action_bar"
-        android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbar_theme"
-        app:popupTheme="?attr/popup"
         app:contentInsetLeft="72dp"
         app:contentInsetStart="72dp"
         app:layout_scrollFlags="scroll|enterAlways"
-        >
+        app:popupTheme="?attr/popup">
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
-        android:layout_below="@id/action_bar"
         android:id="@+id/buttonbarframe"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="72dp"
-        android:background="?android:attr/selectableItemBackground">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/action_bar"
+        android:background="?android:attr/selectableItemBackground"
+        android:minHeight="72dp">
 
         <HorizontalScrollView
-            android:paddingRight="16dp"
-            android:scrollbars="none"
             android:id="@+id/scroll"
-            android:paddingLeft="72dp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="72dp"
+            android:paddingRight="16dp"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/buttons"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </LinearLayout>
+                android:orientation="horizontal"
+                android:visibility="gone"></LinearLayout>
         </HorizontalScrollView>
+
         <LinearLayout
             android:id="@+id/pathbar"
-            android:paddingRight="16dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:clickable="false"
             android:layout_gravity="center_vertical"
+            android:clickable="false"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingRight="16dp">
 
             <HorizontalScrollView
-                android:scrollbars="none"
                 android:id="@+id/scroll1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:paddingLeft="72dp"
-                android:paddingTop="5dp">
+                android:paddingTop="5dp"
+                android:scrollbars="none">
 
                 <LinearLayout
-                    android:clickable="false"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:clickable="false">
 
                     <TextView
-                        android:clickable="false"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/fullpath"
                         style="@android:style/TextAppearance.Medium"
-                        android:textColor="@android:color/white"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fullpath" />
+                        android:clickable="false"
+                        android:textColor="@android:color/white" />
+
                     <TextView
-                        android:clickable="false"
-                        android:layout_width="wrap_content"
-                        style="@android:style/TextAppearance.Medium"
-                        android:textColor="@android:color/white"
-                        android:layout_height="wrap_content"
                         android:id="@+id/fullpath_anim"
-                        android:visibility="gone"/>
+                        style="@android:style/TextAppearance.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
             </HorizontalScrollView>
+
             <TextView
-                android:clickable="false"
+                android:id="@+id/pathname"
                 android:layout_width="wrap_content"
-                android:textSize="12sp"
-                android:paddingBottom="8dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="72dp"
-                android:textColor="@android:color/white"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:id="@+id/pathname" />
+                android:clickable="false"
+                android:paddingLeft="72dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="8dp"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
 
         </LinearLayout>
     </FrameLayout>
-</android.support.design.widget.AppBarLayout>
+</com.google.android.material.appbar.AppBarLayout>

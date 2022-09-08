@@ -738,7 +738,6 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void goToMain(String path) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //title.setText(R.string.app_name);
@@ -1149,7 +1148,6 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updatePaths(int pos) {
         TabFragment tabFragment = getTabFragment();
         if (tabFragment != null)
