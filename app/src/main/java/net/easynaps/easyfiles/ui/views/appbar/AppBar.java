@@ -44,7 +44,7 @@ public class AppBar {
         }
     }
 
-    public Toolbar getToolbar() {
+    public androidx.appcompat.widget.Toolbar getToolbar() {
         return toolbar;
     }
 

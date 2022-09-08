@@ -59,6 +59,7 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_USE_CIRCULAR_IMAGES;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
@@ -151,7 +152,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 // start actionmode if not already started
                 // null condition if there is config change
                 mainFrag.selection = true;
-                mainFrag.mActionMode = mainFrag.getMainActivity().startSupportActionMode(mainFrag.mActionModeCallback);
+                mainFrag.mActionMode = mainFrag.getMainActivity().startSupportActionMode((ActionMode.Callback) mainFrag.mActionModeCallback);
             }
         }
 

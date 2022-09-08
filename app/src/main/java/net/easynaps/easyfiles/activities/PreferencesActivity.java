@@ -11,14 +11,11 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.Toolbar;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -43,6 +40,7 @@ import static android.os.Build.VERSION.SDK_INT;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class PreferencesActivity extends ThemedActivity {
     private static final String TAG = PreferencesActivity.class.getSimpleName();

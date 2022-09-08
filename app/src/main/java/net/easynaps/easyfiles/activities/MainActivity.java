@@ -128,15 +128,17 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_VIEW;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 public class MainActivity extends ThemedActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
-        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks {
+        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks, LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -257,6 +259,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     /**
      * Called when the activity is first created.
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -648,6 +651,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
         if (!drawer.isLocked()) {
@@ -659,6 +663,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         } else onbackpressed();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void onbackpressed() {
         Fragment fragment = getFragmentAtFrame();
         if (getAppbar().getSearchView().isShown()) {
@@ -733,6 +738,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void goToMain(String path) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //title.setText(R.string.app_name);
@@ -767,6 +773,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem s = menu.findItem(R.id.view);
@@ -863,6 +870,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     }
 
     // called when the user exits the action mode
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
@@ -1076,6 +1084,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
      * {@link #getStorageDirectories()}
      */
     BroadcastReceiver mOtgReceiver = new BroadcastReceiver() {
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_ATTACHED)) {
@@ -1140,6 +1149,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updatePaths(int pos) {
         TabFragment tabFragment = getTabFragment();
         if (tabFragment != null)
@@ -1489,6 +1499,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         supportInvalidateOptionsMenu();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onNewIntent(Intent i) {
         super.onNewIntent(i);
@@ -1885,7 +1896,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, final Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, final Cursor data) {
 
         if (data == null) {
             /*Toast.makeText(this, getResources().getString(R.string.cloud_error_failed_restart),
@@ -2181,4 +2192,8 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
 }

@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "net.easynaps.easyfiles"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 33
         versionCode 302
         versionName "0.3.2"

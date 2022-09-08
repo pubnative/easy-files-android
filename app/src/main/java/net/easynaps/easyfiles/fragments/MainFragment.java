@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.Formatter;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -94,6 +93,7 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_USE_CIRCULAR_IMAGES;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.view.ActionMode;
 import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
@@ -107,9 +107,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import javax.security.auth.callback.Callback;
+
 public class MainFragment extends Fragment implements BottomBarButtonPath {
 
-    public ActionMode mActionMode;
+    public androidx.appcompat.view.ActionMode mActionMode;
     public int sortby, dsort, asc;
     public String home;
     public boolean selection, results = false;
@@ -434,7 +436,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
         }
     }
 
-    public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+    public Callback mActionModeCallback = new Callback() {
         private void hideOption(int id, Menu menu) {
             MenuItem item = menu.findItem(id);
             item.setVisible(false);
@@ -991,6 +993,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
      * @param back if we're coming back from any directory and want the scroll to be restored
      * @param openMode the mode in which the directory should be opened
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void loadlist(final String path, final boolean back, final OpenMode openMode) {
         if (mActionMode != null) mActionMode.finish();
 
@@ -1040,6 +1043,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
      * @param results  is the list of elements a result from search
      * @param grid     whether to set grid view or list view
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setListElements(ArrayList<LayoutElementParcelable> bitmap, boolean back, String path,
                                 final OpenMode openMode, boolean results, boolean grid) {
         if (bitmap != null) {
@@ -1054,6 +1058,7 @@ public class MainFragment extends Fragment implements BottomBarButtonPath {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void reloadListElements(boolean back, boolean results, boolean grid) {
         if (isAdded()) {
             boolean isOtg = CURRENT_PATH.equals(OTGUtil.PREFIX_OTG + "/"),

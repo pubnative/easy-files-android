@@ -15,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Toolbar;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 import static android.os.Build.VERSION.SDK_INT;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_COLORED_NAVIGATION;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
