@@ -2,9 +2,10 @@ package net.easynaps.easyfiles.ui.views.preference;
 
 import android.content.Context;
 import android.preference.PreferenceCategory;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 import net.easynaps.easyfiles.utils.PreferenceUtils;
 import net.easynaps.easyfiles.utils.color.ColorPreference;

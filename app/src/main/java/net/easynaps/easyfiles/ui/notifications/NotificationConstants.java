@@ -5,8 +5,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 import net.easynaps.easyfiles.R;
 
@@ -54,7 +55,7 @@ public class NotificationConstants {
                 case TYPE_FTP:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         notification.setCategory(Notification.CATEGORY_SERVICE);
-                        notification.setVisibility(Notification.VISIBILITY_PUBLIC);
+                        notification.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                     }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         notification.setPriority(Notification.PRIORITY_MAX);

@@ -11,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextWatcher;
@@ -35,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import net.easynaps.easyfiles.R;
@@ -61,6 +61,8 @@ import java.util.TimerTask;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_COLORED_NAVIGATION;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_TEXTEDITOR_NEWSTACK;
 
+import androidx.appcompat.widget.Toolbar;
+
 public class TextEditorActivity extends ThemedActivity implements TextWatcher, View.OnClickListener {
 
     public EditText mInput, searchEditText;
@@ -69,7 +71,7 @@ public class TextEditorActivity extends ThemedActivity implements TextWatcher, V
     private Timer mTimer;
     private boolean mModified;
     private Typeface mInputTypefaceDefault, mInputTypefaceMono;
-    private android.support.v7.widget.Toolbar toolbar;
+    private Toolbar toolbar;
     ScrollView scrollView;
 
     /*

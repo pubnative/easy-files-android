@@ -4,11 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -40,6 +38,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_CHANGEPATHS;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 public class BottomBar implements View.OnTouchListener{
     private static final int PATH_ANIM_START_DELAY = 0;
@@ -116,6 +119,7 @@ public class BottomBar implements View.OnTouchListener{
                 return true;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 Fragment fragmentAtFrame = mainActivity.getFragmentAtFrame();
@@ -175,6 +179,7 @@ public class BottomBar implements View.OnTouchListener{
         return buttons.getVisibility() == View.VISIBLE;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void showButtons(final BottomBarButtonPath buttonPathInterface) {
         final String path = buttonPathInterface.getPath();
         if (buttons.getVisibility() == View.VISIBLE) {
@@ -292,6 +297,7 @@ public class BottomBar implements View.OnTouchListener{
         frame.setVisibility(visibility);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updatePath(@NonNull final String news, boolean results, String query, OpenMode openmode,
                            int folderCount, int fileCount, BottomBarButtonPath buttonPathInterface) {
 

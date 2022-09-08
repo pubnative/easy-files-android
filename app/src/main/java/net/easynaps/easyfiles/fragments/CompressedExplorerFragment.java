@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.junrar.Archive;
+import com.google.android.material.appbar.AppBarLayout;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
@@ -52,6 +53,7 @@ import static net.easynaps.easyfiles.filesystem.compressed.CompressedHelper.SEPA
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_COLORED_NAVIGATION;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -106,6 +108,7 @@ public class CompressedExplorerFragment extends Fragment implements BottomBarBut
         utilsProvider = ((BasicActivity) getActivity()).getUtilsProvider();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.main_frag, container, false);
@@ -133,6 +136,7 @@ public class CompressedExplorerFragment extends Fragment implements BottomBarBut
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
@@ -207,6 +211,7 @@ public class CompressedExplorerFragment extends Fragment implements BottomBarBut
         outState.putBoolean(KEY_OPEN, isOpen);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void onRestoreInstanceState(Bundle savedInstanceState) {
         compressedFile = new File(Uri.parse(savedInstanceState.getString(KEY_URI)).getPath());
         files = savedInstanceState.getParcelableArrayList(KEY_CACHE_FILES);
@@ -373,6 +378,7 @@ public class CompressedExplorerFragment extends Fragment implements BottomBarBut
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void changePath(String folder) {
         if(folder == null) folder = "";
@@ -402,15 +408,18 @@ public class CompressedExplorerFragment extends Fragment implements BottomBarBut
         return R.drawable.ic_compressed_white_24dp;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void refresh() {
         changePath(relativeDirectory);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void updateBottomBar() {
         String path = !isRootRelativePath()? compressedFile.getName() + SEPARATOR + relativeDirectory : compressedFile.getName();
         mainActivity.getAppbar().getBottomBar().updatePath(path, false, null, OpenMode.FILE, folder, file, this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void createViews(ArrayList<CompressedObjectParcelable> items, String dir) {
         if (compressedExplorerAdapter == null) {
             compressedExplorerAdapter = new CompressedExplorerAdapter(getActivity(), utilsProvider, items, this, decompressor);
@@ -456,6 +465,7 @@ public class CompressedExplorerFragment extends Fragment implements BottomBarBut
         return !isRootRelativePath();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void goBack() {
         changePath(new File(relativeDirectory).getParent());
     }

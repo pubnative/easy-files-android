@@ -2,7 +2,8 @@ package net.easynaps.easyfiles.adapters.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
+
+import androidx.annotation.DrawableRes;
 
 public class IconDataParcelable implements Parcelable {
 

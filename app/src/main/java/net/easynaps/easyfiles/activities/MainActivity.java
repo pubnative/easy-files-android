@@ -106,6 +106,7 @@ import net.easynaps.easyfiles.utils.files.FileUtils;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 import net.pubnative.lite.sdk.HyBid;
 import net.pubnative.lite.sdk.consent.UserConsentActivity;
+import net.pubnative.lite.sdk.interstitial.HyBidInterstitialAd;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -127,15 +128,17 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_VIEW;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 public class MainActivity extends ThemedActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
-        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks {
+        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks, LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -251,11 +254,12 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
     private PasteHelper pasteHelper;
 
-    private MoPubInterstitial mInterstitial;
+    private HyBidInterstitialAd mInterstitial;
 
     /**
      * Called when the activity is first created.
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -418,8 +422,9 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
             }
         });
 
-        mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
-        mInterstitial.setInterstitialAdListener(this);
+        // todo change this interstitial to Hybid interstitial
+        /*mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
+        mInterstitial.setInterstitialAdListener(this);*/
 
         if (savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
@@ -646,6 +651,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
         if (!drawer.isLocked()) {
@@ -657,6 +663,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         } else onbackpressed();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void onbackpressed() {
         Fragment fragment = getFragmentAtFrame();
         if (getAppbar().getSearchView().isShown()) {
@@ -731,6 +738,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void goToMain(String path) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //title.setText(R.string.app_name);
@@ -765,6 +773,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem s = menu.findItem(R.id.view);
@@ -861,6 +870,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     }
 
     // called when the user exits the action mode
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
@@ -1074,6 +1084,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
      * {@link #getStorageDirectories()}
      */
     BroadcastReceiver mOtgReceiver = new BroadcastReceiver() {
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_ATTACHED)) {
@@ -1138,6 +1149,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void updatePaths(int pos) {
         TabFragment tabFragment = getTabFragment();
         if (tabFragment != null)
@@ -1216,6 +1228,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     }
 
     protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
         if (requestCode == Drawer.image_selector_request_code) {
             drawer.onActivityResult(requestCode, responseCode, intent);
         } else if (requestCode == 3) {
@@ -1237,7 +1250,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
             // After confirmation, update stored value of folder.
             // Persist access permissions.
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
@@ -1308,9 +1321,10 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         } else if (requestCode == REQUEST_CODE_SAF && responseCode != Activity.RESULT_OK) {
             // otg access not provided
             drawer.resetPendingPath();
+
+            //todo recheck all this consent stuff
         } else if (requestCode == REQUEST_CODE_CONSENT) {
             setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
-            showMoPubConsent();
         }
     }
 
@@ -1485,6 +1499,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         supportInvalidateOptionsMenu();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onNewIntent(Intent i) {
         super.onNewIntent(i);
@@ -1548,6 +1563,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 77) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 drawer.refreshDrawer();
@@ -1880,7 +1896,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, final Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, final Cursor data) {
 
         if (data == null) {
             /*Toast.makeText(this, getResources().getString(R.string.cloud_error_failed_restart),
@@ -2125,7 +2141,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         mInterstitial.load();
     }
 
-
+    // todo recheck all this consent stuff as well
     private final Runnable consentRunnable = new Runnable() {
         @Override
         public void run() {
@@ -2134,7 +2150,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
                     Intent intent = HyBid.getUserDataManager().getConsentScreenIntent(MainActivity.this);
                     startActivityForResult(intent, REQUEST_CODE_CONSENT);
                 } else {
-                    showMoPubConsent();
+                    //showMoPubConsent();
                 }
             }
         }
@@ -2176,4 +2192,8 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         }
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
 }

@@ -25,7 +25,7 @@ android {
 
     defaultConfig {
         applicationId "net.easynaps.easyfiles"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 33
         versionCode 302
         versionName "0.3.2"
@@ -138,6 +138,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.1'
     implementation 'com.android.support:support-annotations:28.0.0'
     annotationProcessor 'androidx.annotation:annotation:1.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation 'com.github.jahirfiquitiva:FABsMenu:1.1.4'//Floating Action Buttons Menu (aka expandable FAB)
 
@@ -150,6 +151,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:21.1.0'
     implementation 'net.pubnative:hybid.sdk:2.16.0-development_kotlin.9717'
+
+    implementation 'androidx.palette:palette:1.0.0'
 }
 
 configurations.all {

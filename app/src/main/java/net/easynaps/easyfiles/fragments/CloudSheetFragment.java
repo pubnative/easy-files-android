@@ -1,5 +1,6 @@
 package net.easynaps.easyfiles.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class CloudSheetFragment extends BottomSheetDialogFragment implements Vie
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);

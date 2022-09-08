@@ -4,9 +4,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
 
 import com.cloudrail.si.interfaces.CloudStorage;

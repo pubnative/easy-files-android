@@ -3,7 +3,6 @@ package net.easynaps.easyfiles.asynchronous.asynctasks.ssh;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import net.easynaps.easyfiles.R;
@@ -22,6 +21,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static net.easynaps.easyfiles.filesystem.ssh.SshConnectionPool.SSH_CONNECT_TIMEOUT;
+
+import androidx.annotation.NonNull;
 
 /**
  * {@link AsyncTask} to obtain SSH host fingerprint.

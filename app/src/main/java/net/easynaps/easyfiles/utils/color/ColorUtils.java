@@ -2,7 +2,7 @@ package net.easynaps.easyfiles.utils.color;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.ui.icons.Icons;

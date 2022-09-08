@@ -11,18 +11,12 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import net.easynaps.easyfiles.R;
@@ -44,7 +38,11 @@ import net.pubnative.lite.sdk.utils.PrebidUtils;
 
 import static android.os.Build.VERSION.SDK_INT;
 
-public class PreferencesActivity extends ThemedActivity implements MoPubView.BannerAdListener {
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+
+public class PreferencesActivity extends ThemedActivity {
     private static final String TAG = PreferencesActivity.class.getSimpleName();
 
     //Start is the first activity you see
@@ -65,7 +63,7 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
 
     private Parcelable[] fragmentsListViewParcelables = new Parcelable[NUMBER_OF_PREFERENCES];
 
-    private MoPubView mBannerView;
+    //private MoPubView mBannerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +73,7 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
         Toolbar toolbar = findViewById(R.id.toolbar);
         invalidateRecentsColorAndIcon();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayOptions(android.support.v7.app.ActionBar.DISPLAY_HOME_AS_UP | android.support.v7.app.ActionBar.DISPLAY_SHOW_TITLE);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         invalidateToolbarColor();
         invalidateNavBar();
 
@@ -87,9 +85,10 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
             selectItem(0);
         }
 
-        mBannerView = findViewById(R.id.banner_mopub);
+        // todo set a Hybid Banner here
+        /*mBannerView = findViewById(R.id.banner_mopub);
         mBannerView.setBannerAdListener(this);
-        mBannerView.setAutorefreshEnabled(false);
+        mBannerView.setAutorefreshEnabled(false);*/
 
         loadAd();
     }
@@ -122,7 +121,7 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mBannerView.destroy();
+        //mBannerView.destroy();
     }
 
     @Override
@@ -278,11 +277,11 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     }
 
     private void loadAd() {
-        mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
-        mBannerView.loadAd();
+        /*mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
+        mBannerView.loadAd();*/
     }
 
-    @Override
+    /*@Override
     public void onBannerLoaded(MoPubView banner) {
         mBannerView.setVisibility(View.VISIBLE);
     }
@@ -305,5 +304,5 @@ public class PreferencesActivity extends ThemedActivity implements MoPubView.Ban
     @Override
     public void onBannerCollapsed(MoPubView banner) {
 
-    }
+    }*/
 }

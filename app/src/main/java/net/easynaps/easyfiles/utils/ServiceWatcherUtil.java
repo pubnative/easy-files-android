@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.v4.app.NotificationCompat;
 import android.text.format.Formatter;
 import android.util.Log;
 
@@ -16,6 +15,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static net.easynaps.easyfiles.utils.ServiceWatcherUtil.ServiceWatcherInteractionInterface.*;
 import static net.easynaps.easyfiles.utils.ServiceWatcherUtil.ServiceWatcherInteractionInterface.STATE_UNSET;
+
+import androidx.core.app.NotificationCompat;
 
 public class ServiceWatcherUtil {
 

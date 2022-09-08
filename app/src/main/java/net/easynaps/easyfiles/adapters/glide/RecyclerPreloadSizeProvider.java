@@ -1,8 +1,9 @@
 package net.easynaps.easyfiles.adapters.glide;
 
-import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.request.target.SizeReadyCallback;

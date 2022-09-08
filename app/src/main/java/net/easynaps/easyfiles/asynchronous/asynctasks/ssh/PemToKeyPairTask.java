@@ -2,11 +2,12 @@ package net.easynaps.easyfiles.asynchronous.asynctasks.ssh;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hierynomus.sshj.userauth.keyprovider.OpenSSHKeyV1KeyFile;
