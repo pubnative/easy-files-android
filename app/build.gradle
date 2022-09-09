@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
 
     //For tests
     androidTestImplementation 'junit:junit:4.13.2'//tests the app logic
@@ -151,7 +152,7 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'//Multiple dex files
 
-    implementation 'com.google.firebase:firebase-core:21.1.0'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'net.pubnative:hybid.sdk:2.16.0-development_kotlin.9717'
 
     implementation 'androidx.palette:palette:1.0.0'
