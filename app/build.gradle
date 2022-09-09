@@ -31,7 +31,13 @@ android {
         versionName "0.3.2"
         multiDexEnabled true
 
-        vectorDrawables.useSupportLibrary = true;
+        vectorDrawables.useSupportLibrary = true
+
+        configurations.all {
+            resolutionStrategy {
+                force 'androidx.core:core:1.6.0'
+            }
+        }
     }
 
     buildTypes {
