@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">EasyFiles</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -523,14 +522,14 @@
     <string name="cloud_token_lost">Token lost, please sign-in again</string>
     <string name="monofont">Monospace Font</string>
     <string name="showHeaders">Show Headers</string>
-	
-	<!--FROM HERE ON STRINGS ARE EXCLUSIVELY USED IN plurals.xml-->
-	<string name="noitems">No items</string>
-	<string name="item">item</string>
-	<string name="items">items</string>
-	
-	<string name="byte_singular">byte</string>
-	<string name="bytes">bytes</string>
+
+    <!--FROM HERE ON STRINGS ARE EXCLUSIVELY USED IN plurals.xml-->
+    <string name="noitems">No items</string>
+    <string name="item">item</string>
+    <string name="items">items</string>
+
+    <string name="byte_singular">byte</string>
+    <string name="bytes">bytes</string>
     <!-- end of plurals -->
 
     <string name="no_name">File should have a name</string>
@@ -563,7 +562,7 @@
     <string name="failed_no_connection">Failed to load files. Please check your connection.</string>
 
     <string name="update">UPDATE</string>
-	<string name="scp_con">SCP/SFTP Connection</string>
+    <string name="scp_con">SCP/SFTP Connection</string>
     <string name="scp_port">Port</string>
     <string name="ssh_host_key_verification_prompt">The authenticity of host \'%s\' can\'t be established.\n\n%s key fingerprint is %s.\n\nPlease tap \"Yes\" to confirm identity; otherwise, please tap \"No\".</string>
     <string name="ssh_host_key_verification_prompt_title">Verify Host</string>
@@ -581,7 +580,7 @@
     </string>
     <string name="ssh_key_prompt_passphrase">Please enter key passphrase.</string>
     <string name="addshortcut_not_supported_by_launcher">Shortcuts creation is not supported by your launcher.</string>
-    
+
     <string name="selectcolorconfig">Select color config</string>
     <string name="customize">Customize</string>
     <string name="custom">Custom</string>

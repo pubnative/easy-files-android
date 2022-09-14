@@ -254,7 +254,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
     private PasteHelper pasteHelper;
 
-    private HyBidInterstitialAd mInterstitial;
+//    private HyBidInterstitialAd mInterstitial;
 
     /**
      * Called when the activity is first created.
@@ -1131,7 +1131,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
         /*if (mainFragment!=null)
             mainFragment = null;*/
-        mInterstitial.destroy();
+//        mInterstitial.destroy();
     }
 
     /**
@@ -1605,7 +1605,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
                 }
             } else {
                 Toast.makeText(this, R.string.grantfailed, Toast.LENGTH_SHORT).show();
-                requestStoragePermission();
+//                requestStoragePermission();
             }
         }
     }
@@ -2135,9 +2135,9 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
     public void onLoaderReset(Loader<Cursor> loader) {
     }
 
-    private void loadInterstitial() {
-        mInterstitial.load();
-    }
+//    private void loadInterstitial() {
+//        mInterstitial.load();
+//    }
 
     // todo recheck all this consent stuff as well
     private final Runnable consentRunnable = new Runnable() {

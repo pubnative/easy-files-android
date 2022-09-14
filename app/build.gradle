@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'kotlin-android'
 }
 
 android {
@@ -11,17 +12,12 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-
     packagingOptions {
-        exclude 'proguard-project.txt'
-        exclude 'project.properties'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/DEPENDENCIES'
+        resources {
+            excludes += ['proguard-project.txt', 'project.properties', 'META-INF/LICENSE.txt', 'META-INF/LICENSE', 'META-INF/NOTICE.txt', 'META-INF/NOTICE', 'META-INF/DEPENDENCIES.txt', 'META-INF/DEPENDENCIES']
+        }
     }
+
 
     defaultConfig {
         applicationId "net.easynaps.easyfiles"
@@ -32,12 +28,6 @@ android {
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
-
-        configurations.all {
-            resolutionStrategy {
-                force 'androidx.core:core:1.6.0'
-            }
-        }
     }
 
     buildTypes {
@@ -53,9 +43,6 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -67,6 +54,9 @@ android {
             includeAndroidResources = true
         }
     }
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -75,6 +65,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //For tests
     androidTestImplementation 'junit:junit:4.13.2'//tests the app logic
@@ -131,7 +122,7 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'//Nice charts and graphs
 
-    implementation 'com.github.npgall:concurrent-trees:2.6.1'//Concurrent tries
+    implementation 'com.github.npgall:concurrent-trees:2.6.1'//Concurrent triesat lea
 
     //SFTP
     implementation 'com.hierynomus:sshj:0.26.0'
