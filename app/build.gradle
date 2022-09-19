@@ -68,7 +68,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //For tests
-    androidTestImplementation 'junit:junit:4.13.2'//tests the app logic
+    androidTestImplementation 'junit:junit:4.12.0'//tests the app logic
     testImplementation "org.robolectric:robolectric:4.6.1"//tests android interaction
 
     //Detect memory leaks

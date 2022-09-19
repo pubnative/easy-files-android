@@ -69,13 +69,7 @@ public class AppConfig extends GlideApplication {
 
         HyBid.initialize("dde3c298b47648459f8ada4a982fa92d", this, initializedSuccessfully ->
                 Log.d(TAG, "HyBid: onInitialisationFinished"));
-
-        /*SdkConfiguration sdkConfiguration = new SdkConfiguration
-                .Builder(getString(R.string.mopub_banner_ad_unit_id))
-                .build();
-        MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
-
-        });*/
+        HyBid.setTestMode(true);
     }
 
     @Override

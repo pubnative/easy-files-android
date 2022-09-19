@@ -158,14 +158,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--            <com.mopub.mobileads.MoPubView-->
-            <!--                android:id="@+id/mrect_mopub"-->
-            <!--                android:layout_width="300dp"-->
-            <!--                android:layout_height="250dp"-->
-            <!--                android:layout_gravity="center_horizontal"-->
-            <!--                android:layout_marginTop="16dp"-->
-            <!--                android:visibility="gone"/>-->
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

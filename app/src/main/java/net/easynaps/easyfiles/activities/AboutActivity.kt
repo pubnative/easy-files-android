@@ -192,7 +192,6 @@ class AboutActivity : BasicActivity(), View.OnClickListener, HyBidAdView.Listene
         private const val HEADER_HEIGHT = 1024
         private const val HEADER_WIDTH = 500
 
-        //private MoPubView mMRectView;
         private const val KEY_PREF_STUDIO = "studio"
     }
 

@@ -1,42 +1,38 @@
 package net.easynaps.easyfiles.activities
 
-import net.easynaps.easyfiles.activities.superclasses.ThemedActivity
-import android.preference.PreferenceFragment
-import android.os.Parcelable
-import net.easynaps.easyfiles.activities.PreferencesActivity
-import android.os.Bundle
-import net.easynaps.easyfiles.R
-import net.easynaps.easyfiles.fragments.preference_fragments.ColorPref
-import android.content.Intent
-import net.easynaps.easyfiles.activities.MainActivity
-import android.view.MenuItem
 import android.app.Activity
-import android.os.Build.VERSION
 import android.app.ActivityManager.TaskDescription
-import android.graphics.drawable.BitmapDrawable
-import net.easynaps.easyfiles.utils.color.ColorUsage
-import com.readystatesoftware.systembartint.SystemBarTintManager
-import android.view.ViewGroup.MarginLayoutParams
-import android.view.View
-import com.readystatesoftware.systembartint.SystemBarTintManager.SystemBarConfig
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants
-import android.view.WindowManager
-import net.easynaps.easyfiles.utils.PreferenceUtils
+import android.content.Intent
 import android.graphics.Color
-import net.easynaps.easyfiles.utils.theme.AppTheme
-import java.lang.NullPointerException
-import net.easynaps.easyfiles.fragments.preference_fragments.PrefFrag
-import net.easynaps.easyfiles.fragments.preference_fragments.FoldersPref
-import net.easynaps.easyfiles.fragments.preference_fragments.QuickAccessPref
-import net.easynaps.easyfiles.fragments.preference_fragments.AdvancedSearchPref
+import android.graphics.drawable.BitmapDrawable
+import android.os.Build.VERSION
+import android.os.Bundle
+import android.os.Parcelable
+import android.preference.PreferenceFragment
+import android.preference.PreferenceManager
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import android.view.WindowManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import com.readystatesoftware.systembartint.SystemBarTintManager
+import net.easynaps.easyfiles.R
+import net.easynaps.easyfiles.activities.PreferencesActivity
+import net.easynaps.easyfiles.activities.superclasses.ThemedActivity
+import net.easynaps.easyfiles.fragments.preference_fragments.*
+import net.easynaps.easyfiles.utils.PreferenceUtils
 import net.easynaps.easyfiles.utils.Utils
+import net.easynaps.easyfiles.utils.color.ColorUsage
+import net.easynaps.easyfiles.utils.theme.AppTheme
+import net.pubnative.lite.sdk.views.HyBidAdView
+import net.pubnative.lite.sdk.views.HyBidBannerAdView
+import java.security.AccessController.getContext
 
-class PreferencesActivity : ThemedActivity() {
+
+class PreferencesActivity : ThemedActivity(), HyBidAdView.Listener {
     var restartActivity = false
         private set
 
@@ -45,7 +41,8 @@ class PreferencesActivity : ThemedActivity() {
     private var currentFragment: PreferenceFragment? = null
     private val fragmentsListViewParcelables = arrayOfNulls<Parcelable>(NUMBER_OF_PREFERENCES)
 
-    //private MoPubView mBannerView;
+    private var mBannerView: HyBidBannerAdView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.prefsfrag)
@@ -64,10 +61,10 @@ class PreferencesActivity : ThemedActivity() {
             selectItem(0)
         }
 
-        // todo set a Hybid Banner here
-        /*mBannerView = findViewById(R.id.banner_mopub);
-        mBannerView.setBannerAdListener(this);
-        mBannerView.setAutorefreshEnabled(false);*/loadAd()
+        mBannerView = findViewById(R.id.banner_container)
+        mBannerView?.setAutoRefreshTimeInSeconds(15)
+
+        loadAd()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -259,32 +256,8 @@ class PreferencesActivity : ThemedActivity() {
     }
 
     private fun loadAd() {
-        /*mBannerView.setAdUnitId(getString(R.string.mopub_banner_ad_unit_id));
-        mBannerView.loadAd();*/
-    } /*@Override
-    public void onBannerLoaded(MoPubView banner) {
-        mBannerView.setVisibility(View.VISIBLE);
+        mBannerView?.load("5",this)
     }
-
-    @Override
-    public void onBannerFailed(MoPubView banner, MoPubErrorCode errorCode) {
-        Log.e(TAG, errorCode.toString());
-    }
-
-    @Override
-    public void onBannerClicked(MoPubView banner) {
-        mBannerView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onBannerExpanded(MoPubView banner) {
-
-    }
-
-    @Override
-    public void onBannerCollapsed(MoPubView banner) {
-
-    }*/
 
     companion object {
         private val TAG = PreferencesActivity::class.java.simpleName
@@ -297,5 +270,25 @@ class PreferencesActivity : ThemedActivity() {
         const val ADVANCEDSEARCH_PREFERENCE = 4
         private const val KEY_CURRENT_FRAG_OPEN = "current_frag_open"
         private const val NUMBER_OF_PREFERENCES = 5
+    }
+
+    override fun onAdLoaded() {
+        Log.d(TAG, "onAdLoaded")
+        mBannerView?.visibility = View.VISIBLE
+    }
+
+    override fun onAdLoadFailed(p0: Throwable?) {
+        Log.d(TAG, "onAdLoadFailed: " + p0.toString())
+    }
+
+    override fun onAdImpression() {
+        Log.d(TAG, "onAdImpression")
+    }
+
+    override fun onAdClick() {
+        Log.d(TAG, "onAdClicked")
+        if (getContext() != null) {
+            mBannerView?.visibility = View.GONE
+        }
     }
 }

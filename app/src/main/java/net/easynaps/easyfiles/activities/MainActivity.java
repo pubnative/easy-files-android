@@ -104,8 +104,6 @@ import net.easynaps.easyfiles.utils.application.AppConfig;
 import net.easynaps.easyfiles.utils.color.ColorUsage;
 import net.easynaps.easyfiles.utils.files.FileUtils;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
-import net.pubnative.lite.sdk.HyBid;
-import net.pubnative.lite.sdk.consent.UserConsentActivity;
 import net.pubnative.lite.sdk.interstitial.HyBidInterstitialAd;
 
 import java.io.File;
@@ -128,6 +126,7 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_VIEW;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -138,7 +137,10 @@ import androidx.loader.content.Loader;
 
 public class MainActivity extends ThemedActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
-        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks, LoaderManager.LoaderCallbacks<Cursor> {
+        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks, LoaderManager.LoaderCallbacks<Cursor>,
+        HyBidInterstitialAd.Listener {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -254,7 +256,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 
     private PasteHelper pasteHelper;
 
-//    private HyBidInterstitialAd mInterstitial;
+    private HyBidInterstitialAd mInterstitial;
 
     /**
      * Called when the activity is first created.
@@ -422,13 +424,9 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
             }
         });
 
-        // todo change this interstitial to Hybid interstitial
-        /*mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
-        mInterstitial.setInterstitialAdListener(this);*/
-
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
-        }
+        }*/
     }
 
     @Override
@@ -1319,11 +1317,10 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
         } else if (requestCode == REQUEST_CODE_SAF && responseCode != Activity.RESULT_OK) {
             // otg access not provided
             drawer.resetPendingPath();
-
-            //todo recheck all this consent stuff
-        } else if (requestCode == REQUEST_CODE_CONSENT) {
-            setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
         }
+        /*else if (requestCode == REQUEST_CODE_CONSENT) {
+            setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
+        }*/
     }
 
     void initialisePreferences() {
@@ -1380,6 +1377,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
             if (getBoolean(PREFERENCE_COLORED_NAVIGATION))
                 window.setNavigationBarColor(skinStatusBar);
         }
+        loadInterstitial();
     }
 
     /**
@@ -1604,6 +1602,11 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
                     }
                 }
             } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Environment.isExternalStorageManager()) {
+                        return;
+                    }
+                }
                 Toast.makeText(this, R.string.grantfailed, Toast.LENGTH_SHORT).show();
 //                requestStoragePermission();
             }
@@ -2139,8 +2142,7 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
 //        mInterstitial.load();
 //    }
 
-    // todo recheck all this consent stuff as well
-    private final Runnable consentRunnable = new Runnable() {
+    /*private final Runnable consentRunnable = new Runnable() {
         @Override
         public void run() {
             if (isActive) {
@@ -2188,10 +2190,40 @@ public class MainActivity extends ThemedActivity implements ActivityCompat.OnReq
                 return daysPassed >= 30;
             }
         }
-    }
+    }*/
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    private void loadInterstitial() {
+        mInterstitial = new HyBidInterstitialAd(this, "3", this);
+        mInterstitial.load();
+    }
+
+    @Override
+    public void onInterstitialLoaded() {
+        mInterstitial.show();
+    }
+
+    @Override
+    public void onInterstitialLoadFailed(Throwable throwable) {
+        Log.d(LOG_TAG, "onInterstitialLoadFailed");
+    }
+
+    @Override
+    public void onInterstitialImpression() {
+        Log.d(LOG_TAG, "onInterstitialImpression");
+    }
+
+    @Override
+    public void onInterstitialDismissed() {
+        Log.d(LOG_TAG, "onInterstitialDismissed");
+    }
+
+    @Override
+    public void onInterstitialClick() {
+        Log.d(LOG_TAG, "onInterstitialClick");
     }
 }
