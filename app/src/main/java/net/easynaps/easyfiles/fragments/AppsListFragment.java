@@ -3,19 +3,23 @@ package net.easynaps.easyfiles.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.util.ViewPreloadSizeProvider;
 
-import net.easynaps.easyfiles.GlideApp;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;
@@ -55,6 +59,7 @@ public class AppsListFragment extends ListFragment implements LoaderManager.Load
         setHasOptionsMenu(false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -76,7 +81,7 @@ public class AppsListFragment extends ListFragment implements LoaderManager.Load
 
         modelProvider = new AppsAdapterPreloadModel(app);
         ViewPreloadSizeProvider<String> sizeProvider = new ViewPreloadSizeProvider<>();
-        ListPreloader<String> preloader = new ListPreloader<>(GlideApp.with(app), modelProvider,
+        ListPreloader<String> preloader = new ListPreloader<>(Glide.with(app), modelProvider,
                 sizeProvider, GlideConstants.MAX_PRELOAD_APPSADAPTER);
 
         adapter = new AppsAdapter(getContext(), (ThemedActivity) getActivity(), utilsProvider, modelProvider, sizeProvider,
@@ -145,7 +150,7 @@ public class AppsListFragment extends ListFragment implements LoaderManager.Load
     }
 
     @Override
-    public void onLoadFinished(Loader<AppListLoader.AppsDataPair> loader, AppListLoader.AppsDataPair data) {
+    public void onLoadFinished(@NonNull Loader<AppListLoader.AppsDataPair> loader, AppListLoader.AppsDataPair data) {
         // set new data to adapter
         adapter.setData(data.first);
         modelProvider.setItemList(data.second);

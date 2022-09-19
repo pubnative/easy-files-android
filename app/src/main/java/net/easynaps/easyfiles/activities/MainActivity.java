@@ -27,16 +27,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.service.quicksettings.TileService;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -62,11 +52,8 @@ import com.cloudrail.si.services.Box;
 import com.cloudrail.si.services.Dropbox;
 import com.cloudrail.si.services.GoogleDrive;
 import com.cloudrail.si.services.OneDrive;
-import com.mopub.common.MoPub;
-import com.mopub.common.privacy.ConsentDialogListener;
-import com.mopub.common.privacy.PersonalInfoManager;
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import net.easynaps.easyfiles.R;
@@ -117,8 +104,7 @@ import net.easynaps.easyfiles.utils.application.AppConfig;
 import net.easynaps.easyfiles.utils.color.ColorUsage;
 import net.easynaps.easyfiles.utils.files.FileUtils;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
-import net.pubnative.lite.sdk.HyBid;
-import net.pubnative.lite.sdk.consent.UserConsentActivity;
+import net.pubnative.lite.sdk.interstitial.HyBidInterstitialAd;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -139,10 +125,22 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_HIDDENFILES;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_VIEW;
 
-public class MainActivity extends ThemedActivity implements OnRequestPermissionsResultCallback,
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
+public class MainActivity extends ThemedActivity implements ActivityCompat.OnRequestPermissionsResultCallback,
         SmbConnectDialog.SmbConnectionListener, DataUtils.DataChangeListener, RenameBookmark.BookmarkCallback,
-        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks,
-        LoaderManager.LoaderCallbacks<Cursor>, MoPubInterstitial.InterstitialAdListener {
+        SearchWorkerFragment.HelperCallbacks, CloudSheetFragment.CloudConnectionCallbacks, LoaderManager.LoaderCallbacks<Cursor>,
+        HyBidInterstitialAd.Listener {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     public static final Pattern DIR_SEPARATOR = Pattern.compile("/");
     public static final String TAG_ASYNC_HELPER = "async_helper";
@@ -258,11 +256,12 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
     private PasteHelper pasteHelper;
 
-    private MoPubInterstitial mInterstitial;
+    private HyBidInterstitialAd mInterstitial;
 
     /**
      * Called when the activity is first created.
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -425,12 +424,9 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             }
         });
 
-        mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
-        mInterstitial.setInterstitialAdListener(this);
-
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             new Handler(Looper.getMainLooper()).postDelayed(consentRunnable, 4000);
-        }
+        }*/
     }
 
     @Override
@@ -653,6 +649,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
         if (!drawer.isLocked()) {
@@ -664,6 +661,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         } else onbackpressed();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void onbackpressed() {
         Fragment fragment = getFragmentAtFrame();
         if (getAppbar().getSearchView().isShown()) {
@@ -739,7 +737,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     public void goToMain(String path) {
-        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //title.setText(R.string.app_name);
         TabFragment tabFragment = new TabFragment();
         if (path != null && path.length() > 0) {
@@ -772,6 +770,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         return super.onCreateOptionsMenu(menu);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem s = menu.findItem(R.id.view);
@@ -868,6 +867,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     // called when the user exits the action mode
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
@@ -1081,6 +1081,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
      * {@link #getStorageDirectories()}
      */
     BroadcastReceiver mOtgReceiver = new BroadcastReceiver() {
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_ATTACHED)) {
@@ -1128,7 +1129,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
 
         /*if (mainFragment!=null)
             mainFragment = null;*/
-        mInterstitial.destroy();
+//        mInterstitial.destroy();
     }
 
     /**
@@ -1223,6 +1224,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
         if (requestCode == Drawer.image_selector_request_code) {
             drawer.onActivityResult(requestCode, responseCode, intent);
         } else if (requestCode == 3) {
@@ -1244,7 +1246,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             // After confirmation, update stored value of folder.
             // Persist access permissions.
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
@@ -1315,10 +1317,10 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         } else if (requestCode == REQUEST_CODE_SAF && responseCode != Activity.RESULT_OK) {
             // otg access not provided
             drawer.resetPendingPath();
-        } else if (requestCode == REQUEST_CODE_CONSENT) {
-            setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
-            showMoPubConsent();
         }
+        /*else if (requestCode == REQUEST_CODE_CONSENT) {
+            setConsent(responseCode == UserConsentActivity.RESULT_CONSENT_ACCEPTED);
+        }*/
     }
 
     void initialisePreferences() {
@@ -1375,6 +1377,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
             if (getBoolean(PREFERENCE_COLORED_NAVIGATION))
                 window.setNavigationBarColor(skinStatusBar);
         }
+        loadInterstitial();
     }
 
     /**
@@ -1492,8 +1495,10 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
         supportInvalidateOptionsMenu();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onNewIntent(Intent i) {
+        super.onNewIntent(i);
         intent = i;
         path = i.getStringExtra("path");
 
@@ -1554,6 +1559,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 77) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 drawer.refreshDrawer();
@@ -1596,8 +1602,13 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
                     }
                 }
             } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (Environment.isExternalStorageManager()) {
+                        return;
+                    }
+                }
                 Toast.makeText(this, R.string.grantfailed, Toast.LENGTH_SHORT).show();
-                requestStoragePermission();
+//                requestStoragePermission();
             }
         }
     }
@@ -1886,7 +1897,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, final Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, final Cursor data) {
 
         if (data == null) {
             /*Toast.makeText(this, getResources().getString(R.string.cloud_error_failed_restart),
@@ -2127,36 +2138,11 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
     public void onLoaderReset(Loader<Cursor> loader) {
     }
 
-    private void loadInterstitial() {
-        mInterstitial.load();
-    }
+//    private void loadInterstitial() {
+//        mInterstitial.load();
+//    }
 
-    @Override
-    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-        mInterstitial.show();
-    }
-
-    @Override
-    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-        Log.e(TAG, errorCode.toString());
-    }
-
-    @Override
-    public void onInterstitialShown(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialClicked(MoPubInterstitial interstitial) {
-
-    }
-
-    private final Runnable consentRunnable = new Runnable() {
+    /*private final Runnable consentRunnable = new Runnable() {
         @Override
         public void run() {
             if (isActive) {
@@ -2164,7 +2150,7 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
                     Intent intent = HyBid.getUserDataManager().getConsentScreenIntent(MainActivity.this);
                     startActivityForResult(intent, REQUEST_CODE_CONSENT);
                 } else {
-                    showMoPubConsent();
+                    //showMoPubConsent();
                 }
             }
         }
@@ -2204,26 +2190,40 @@ public class MainActivity extends ThemedActivity implements OnRequestPermissions
                 return daysPassed >= 30;
             }
         }
+    }*/
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 
-    private void showMoPubConsent() {
-        final PersonalInfoManager infoManager = MoPub.getPersonalInformationManager();
-        if (infoManager.shouldShowConsentDialog()) {
-            infoManager.loadConsentDialog(new ConsentDialogListener() {
-                @Override
-                public void onConsentDialogLoaded() {
-                    if (isActive) {
-                        infoManager.showConsentDialog();
-                    }
-                }
+    private void loadInterstitial() {
+        mInterstitial = new HyBidInterstitialAd(this, "3", this);
+        mInterstitial.load();
+    }
 
-                @Override
-                public void onConsentDialogLoadFailed(@NonNull MoPubErrorCode moPubErrorCode) {
+    @Override
+    public void onInterstitialLoaded() {
+        mInterstitial.show();
+    }
 
-                }
-            });
-        } else {
-            loadInterstitial();
-        }
+    @Override
+    public void onInterstitialLoadFailed(Throwable throwable) {
+        Log.d(LOG_TAG, "onInterstitialLoadFailed");
+    }
+
+    @Override
+    public void onInterstitialImpression() {
+        Log.d(LOG_TAG, "onInterstitialImpression");
+    }
+
+    @Override
+    public void onInterstitialDismissed() {
+        Log.d(LOG_TAG, "onInterstitialDismissed");
+    }
+
+    @Override
+    public void onInterstitialClick() {
+        Log.d(LOG_TAG, "onInterstitialClick");
     }
 }

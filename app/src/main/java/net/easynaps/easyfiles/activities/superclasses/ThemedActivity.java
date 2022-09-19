@@ -1,14 +1,19 @@
 package net.easynaps.easyfiles.activities.superclasses;
 
+import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
+
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.os.Environment;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import net.easynaps.easyfiles.BuildConfig;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants;
 import net.easynaps.easyfiles.ui.dialogs.ColorPickerDialog;
@@ -17,6 +22,8 @@ import net.easynaps.easyfiles.utils.color.ColorUsage;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_ROOTMODE;
+
+import androidx.core.app.ActivityCompat;
 
 public class ThemedActivity extends PreferenceActivity {
 
@@ -48,7 +55,7 @@ public class ThemedActivity extends PreferenceActivity {
 
     public void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
 
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
@@ -60,8 +67,9 @@ public class ThemedActivity extends PreferenceActivity {
                             getString(R.string.cancel),
                             null});
             materialDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(v -> {
-                ActivityCompat.requestPermissions(ThemedActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 77);
+                ActivityCompat.requestPermissions(ThemedActivity.this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE}, 77);
                 materialDialog.dismiss();
+                askForExternalStorage();
             });
             materialDialog.getActionButton(DialogAction.NEGATIVE).setOnClickListener(v -> {
                 finish();
@@ -71,7 +79,8 @@ public class ThemedActivity extends PreferenceActivity {
 
         } else {
             // Contact permissions have not been granted yet. Request them directly.
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 77);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE}, 77);
+            askForExternalStorage();
         }
     }
 
@@ -104,4 +113,14 @@ public class ThemedActivity extends PreferenceActivity {
         setTheme();
     }
 
+    public void askForExternalStorage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager())
+            {
+                Intent intent = new Intent(ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:" + BuildConfig.APPLICATION_ID));
+                final int APP_STORAGE_ACCESS_REQUEST_CODE = 501; // Any value
+                startActivityForResult(intent, APP_STORAGE_ACCESS_REQUEST_CODE);
+            }
+        }
+    }
 }

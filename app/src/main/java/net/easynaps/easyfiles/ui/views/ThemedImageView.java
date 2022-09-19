@@ -6,10 +6,12 @@ import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 import net.easynaps.easyfiles.activities.superclasses.BasicActivity;
 import net.easynaps.easyfiles.utils.theme.AppTheme;
 
-public class ThemedImageView extends android.support.v7.widget.AppCompatImageView {
+public class ThemedImageView extends AppCompatImageView {
 
     public ThemedImageView(Context context) {
         this(context, null, 0);

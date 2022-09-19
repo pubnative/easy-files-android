@@ -1,15 +1,19 @@
 package net.easynaps.easyfiles.ui.views.appbar;
 
 import android.content.SharedPreferences;
-import android.support.annotation.StringRes;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.Toolbar;
+import android.os.Build;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants;
 
 import static android.os.Build.VERSION.SDK_INT;
+
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 public class AppBar {
 
@@ -21,6 +25,7 @@ public class AppBar {
 
     private AppBarLayout appbarLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public AppBar(MainActivity a, SharedPreferences sharedPref, SearchView.SearchListener searchListener) {
         toolbar = (Toolbar) a.findViewById(R.id.action_bar);
         searchView = new SearchView(this, a, searchListener);
@@ -59,6 +64,7 @@ public class AppBar {
         if (toolbar != null) toolbar.setTitle(title);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void setTitle(@StringRes int title) {
         if (toolbar != null) toolbar.setTitle(title);
     }

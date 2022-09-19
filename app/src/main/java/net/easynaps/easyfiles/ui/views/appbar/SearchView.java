@@ -3,7 +3,6 @@ package net.easynaps.easyfiles.ui.views.appbar;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v7.widget.AppCompatEditText;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -21,6 +20,8 @@ import java.lang.ref.WeakReference;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.os.Build.VERSION.SDK_INT;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 public class SearchView {
 

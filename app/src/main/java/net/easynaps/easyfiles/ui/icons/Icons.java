@@ -1,6 +1,6 @@
 package net.easynaps.easyfiles.ui.icons;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.filesystem.compressed.CompressedHelper;
@@ -178,7 +178,8 @@ public class Icons {
         );
     }
 
-    public static @DrawableRes int loadMimeIcon(String path, boolean isDirectory) {
+    public static @DrawableRes
+    int loadMimeIcon(String path, boolean isDirectory) {
         if(path.equals("..")) return R.drawable.ic_arrow_left_white_24dp;
         if(CompressedHelper.isFileExtractable(path)) return R.drawable.ic_compressed_white_24dp;
 

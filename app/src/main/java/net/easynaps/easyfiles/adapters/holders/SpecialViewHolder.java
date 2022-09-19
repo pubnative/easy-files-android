@@ -1,9 +1,10 @@
 package net.easynaps.easyfiles.adapters.holders;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.utils.Utils;

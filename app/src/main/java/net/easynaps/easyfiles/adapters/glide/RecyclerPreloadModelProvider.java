@@ -1,15 +1,15 @@
 package net.easynaps.easyfiles.adapters.glide;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.ListPreloader;
 import com.bumptech.glide.RequestBuilder;
 
-import net.easynaps.easyfiles.GlideApp;
-import net.easynaps.easyfiles.GlideRequest;
 import net.easynaps.easyfiles.adapters.data.IconDataParcelable;
 
 import java.util.Collections;
@@ -40,9 +40,9 @@ public class RecyclerPreloadModelProvider implements ListPreloader.PreloadModelP
     @Nullable
     public RequestBuilder<Drawable> getPreloadRequestBuilder(IconDataParcelable iconData) {
         if(!showThumbs) {
-            return GlideApp.with(fragment).asDrawable().fitCenter().load(iconData.image);
+            return Glide.with(fragment).asDrawable().fitCenter().load(iconData.image);
         } else {
-            GlideRequest<Drawable> request = GlideApp.with(fragment).asDrawable().centerCrop();
+            RequestBuilder<Drawable> request = Glide.with(fragment).asDrawable().centerCrop();
 
             if (iconData.type == IconDataParcelable.IMAGE_FROMFILE) {
                 return request.load(iconData.path);

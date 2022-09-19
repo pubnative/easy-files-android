@@ -3,8 +3,8 @@ package net.easynaps.easyfiles.filesystem;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.provider.DocumentFile;
+import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.cloudrail.si.interfaces.CloudStorage;
 

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.support.v4.util.Pair;
 import android.text.format.Formatter;
+import android.util.Pair;
 
 import com.cloudrail.si.interfaces.CloudStorage;
 

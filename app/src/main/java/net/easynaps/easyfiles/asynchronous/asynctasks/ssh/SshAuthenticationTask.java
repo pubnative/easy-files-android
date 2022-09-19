@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import net.easynaps.easyfiles.R;
@@ -26,6 +25,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import static net.easynaps.easyfiles.filesystem.ssh.SshConnectionPool.SSH_CONNECT_TIMEOUT;
+
+import androidx.annotation.NonNull;
 
 /**
  * {@link AsyncTask} for authenticating with SSH server to verify if parameters are correct.

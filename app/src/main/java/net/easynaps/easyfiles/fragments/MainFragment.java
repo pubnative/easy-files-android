@@ -19,18 +19,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.pm.ShortcutInfoCompat;
-import android.support.v4.content.pm.ShortcutManagerCompat;
-import android.support.v4.graphics.drawable.IconCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.material.appbar.AppBarLayout;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.MainActivity;
@@ -103,9 +92,26 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_PERMISSIONS;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_USE_CIRCULAR_IMAGES;
 
-public class MainFragment extends android.support.v4.app.Fragment implements BottomBarButtonPath {
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.view.ActionMode;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-    public ActionMode mActionMode;
+import javax.security.auth.callback.Callback;
+
+public class MainFragment extends Fragment implements BottomBarButtonPath {
+
+    public androidx.appcompat.view.ActionMode mActionMode;
     public int sortby, dsort, asc;
     public String home;
     public boolean selection, results = false;
@@ -140,7 +146,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
     private boolean stopAnims = true;
     private SwipeRefreshLayout nofilesview;
 
-    private android.support.v7.widget.RecyclerView listView;
+    private RecyclerView listView;
     private UtilitiesProvider utilsProvider;
     private HashMap<String, Bundle> scrolls = new HashMap<>();
     private MainFragment ma = this;
@@ -207,7 +213,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.main_frag, container, false);
         setRetainInstance(true);
-        listView = (android.support.v7.widget.RecyclerView) rootView.findViewById(R.id.listView);
+        listView = (RecyclerView) rootView.findViewById(R.id.listView);
         mToolbarContainer = getMainActivity().getAppbar().getAppbarLayout();
         fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroll);
         fastScroller.setPressedHandleColor(accentColor);
@@ -237,6 +243,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -401,6 +408,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void onSavedInstanceState(final Bundle savedInstanceState) {
         Bundle b = new Bundle();
         String cur = savedInstanceState.getString("CURRENT_PATH");
@@ -428,7 +436,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
         }
     }
 
-    public ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+    public Callback mActionModeCallback = new Callback() {
         private void hideOption(int id, Menu menu) {
             MenuItem item = menu.findItem(id);
             item.setVisible(false);
@@ -817,7 +825,6 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
      * @param isBackButton is it the back button aka '..'
      * @param position the position
      * @param e the list item
-     * @param imageView the check {@link net.pubnative.easyfiles.ui.views.RoundedImageView} that is to be animated
      */
     public void onListItemClicked(boolean isBackButton, int position, LayoutElementParcelable e, ImageView imageView) {
         if (results) {
@@ -985,6 +992,7 @@ public class MainFragment extends android.support.v4.app.Fragment implements Bot
      * @param back if we're coming back from any directory and want the scroll to be restored
      * @param openMode the mode in which the directory should be opened
      */
+
     public void loadlist(final String path, final boolean back, final OpenMode openMode) {
         if (mActionMode != null) mActionMode.finish();
 

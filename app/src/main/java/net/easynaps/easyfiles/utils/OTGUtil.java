@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.provider.DocumentFile;
 import android.util.Log;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.filesystem.HybridFileParcelable;

@@ -12,11 +12,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
+
+import androidx.viewpager.widget.ViewPager;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.utils.AnimUtils;

@@ -20,11 +20,12 @@ import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
-import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cloudrail.si.interfaces.CloudStorage;

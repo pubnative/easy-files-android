@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.util.AttributeSet;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class CustomNavigationView extends NavigationView
         implements NavigationView.OnNavigationItemSelectedListener {

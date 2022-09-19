@@ -1,35 +1,33 @@
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id 'kotlin-android'
+}
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '28.0.3'
+
+    compileSdkVersion 33
 
     dexOptions {
         jumboMode = true
         javaMaxHeapSize "4g"
     }
-
     packagingOptions {
-        exclude 'proguard-project.txt'
-        exclude 'project.properties'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/DEPENDENCIES'
+        resources {
+            excludes += ['proguard-project.txt', 'project.properties', 'META-INF/LICENSE.txt', 'META-INF/LICENSE', 'META-INF/NOTICE.txt', 'META-INF/NOTICE', 'META-INF/DEPENDENCIES.txt', 'META-INF/DEPENDENCIES']
+        }
     }
+
 
     defaultConfig {
         applicationId "net.easynaps.easyfiles"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 301
-        versionName "0.3.1"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 302
+        versionName "0.3.2"
         multiDexEnabled true
 
-        vectorDrawables.useSupportLibrary = true;
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -45,9 +43,6 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -59,28 +54,28 @@ android {
             includeAndroidResources = true
         }
     }
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-
-    implementation 'com.android.support:animated-vector-drawable:27.1.0'
-    implementation 'com.android.support:support-v13:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:palette-v7:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //For tests
-    androidTestImplementation 'junit:junit:4.12'//tests the app logic
-    testImplementation "org.robolectric:robolectric:3.8"//tests android interaction
+    androidTestImplementation 'junit:junit:4.12.0'//tests the app logic
+    testImplementation "org.robolectric:robolectric:4.6.1"//tests android interaction
 
     //Detect memory leaks
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
-    implementation 'org.apache.commons:commons-compress:1.18'
+    implementation 'org.apache.commons:commons-compress:1.21'
 
     implementation ('com.github.junrar:junrar:0.7') {
         exclude module: 'commons-logging'
@@ -102,7 +97,7 @@ dependencies {
 
     implementation group: 'org.apache.mina', name: 'mina-core', version: '2.0.16'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
     // Dependency for 7zip Decompression
@@ -117,15 +112,17 @@ dependencies {
     implementation group: 'org.apache.ftpserver', name: 'ftpserver-core', version: '1.1.0'
 
     //implementation 'com.jcraft:jsch:0.1.53'
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.android.volley:volley:1.2.1'
 
-    implementation 'eu.chainfire:libsuperuser:1.0.0.+'
+    // https://mvnrepository.com/artifact/eu.chainfire/libsuperuser
+    implementation("eu.chainfire:libsuperuser:1.0.0.201704021214")
+
 
     implementation 'com.cloudrail:cloudrail-si-android:2.17.0'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'//Nice charts and graphs
 
-    implementation 'com.github.npgall:concurrent-trees:2.6.1'//Concurrent tries
+    implementation 'com.github.npgall:concurrent-trees:2.6.1'//Concurrent triesat lea
 
     //SFTP
     implementation 'com.hierynomus:sshj:0.26.0'
@@ -134,12 +131,14 @@ dependencies {
     implementation 'com.madgag.spongycastle:prov:1.58.0.0'
 
     //Glide: loads icons seemlessly
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation ("com.github.bumptech.glide:recyclerview-integration:4.6.1") {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.1'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    annotationProcessor 'androidx.annotation:annotation:1.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation 'com.github.jahirfiquitiva:FABsMenu:1.1.4'//Floating Action Buttons Menu (aka expandable FAB)
 
@@ -150,15 +149,10 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'//Multiple dex files
 
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'net.pubnative:hybid.sdk:0.3.0'
-    implementation 'net.pubnative:hybid.adapters.mopub:0.3.0'
-    implementation('com.mopub:mopub-sdk:5.3.0@aar') {
-        transitive = true
-        exclude module: 'libAvid-mopub'
-        exclude module: 'moat-mobile-app-kit'
-    }
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'net.pubnative:hybid.sdk:2.16.0-development_kotlin.9717'
+
+    implementation 'androidx.palette:palette:1.0.0'
 }
 
 configurations.all {
@@ -168,5 +162,3 @@ configurations.all {
         }
     }
 }
-
-apply plugin: 'com.google.gms.google-services'

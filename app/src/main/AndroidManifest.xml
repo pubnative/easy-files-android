@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="net.easynaps.easyfiles">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANA" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="net.easynaps.cloud.permission.ACCESS_PROVIDER" />
@@ -15,179 +15,177 @@
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
-
-    <uses-feature android:name="android.software.leanback"
+    <uses-feature
+        android:name="android.software.leanback"
         android:required="false" />
 
     <application
         android:name=".utils.application.AppConfig"
+        android:banner="@drawable/easyfiles_about_header"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:label"
         android:label="@string/app_name"
-        android:banner="@drawable/easyfiles_about_header">
-
+        android:requestLegacyExternalStorage="true"
+        tools:replace="android:label">
         <activity
+            android:name=".activities.About"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:name=".activities.MainActivity"
-            android:theme="@style/appCompatLight"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait"
+            android:theme="@style/appCompatLight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
+
                 <data android:mimeType="*/*" />
+
                 <category android:name="android.intent.category.OPENABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.RINGTONE_PICKER" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-            <intent-filter>
+            <intent-filter
+                android:scheme="http"
+                tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <data android:mimeType="application/zip" />
                 <data android:mimeType="application/rar" />
-                <data android:mimeType="application/x-rar-compressed"/><!--<category android:name="android.intent.category.OPENABLE" />-->
+                <data android:mimeType="application/x-rar-compressed" /> <!-- <category android:name="android.intent.category.OPENABLE" /> -->
                 <data android:mimeType="application/x-7z-compressed" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="net.easynaps.easyfiles" />
                 <data android:mimeType="resource/folder" />
             </intent-filter>
-
-            <intent-filter>
+            <intent-filter
+                android:scheme="http"
+                tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <data android:mimeType="resource/folder" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
             <intent-filter android:label="@string/intent_save_as">
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
-
         <activity
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:label="@string/setting"
             android:name=".activities.PreferencesActivity"
+            android:exported="true"
+            android:label="@string/setting"
+            android:screenOrientation="portrait"
             android:theme="@style/appCompatLight"
-            android:screenOrientation="portrait">
+            android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
         <activity
-            android:label="@string/textreader"
             android:name=".activities.TextEditorActivity"
-            android:theme="@style/appCompatLight"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:label="@string/textreader"
+            android:screenOrientation="portrait"
+            android:theme="@style/appCompatLight">
             <intent-filter
-                android:label="EasyFiles Text Editor">
-                <action android:name="android.intent.action.VIEW"/>
+                android:label="EasyFiles Text Editor"
+                android:scheme="http"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/*" />
                 <data android:mimeType="application/javascript" />
                 <data android:mimeType="application/json" />
                 <data android:mimeType="application/xml" />
             </intent-filter>
-
         </activity>
         <activity
-            android:label="@string/databasereader"
             android:name=".activities.DatabaseViewerActivity"
-            android:theme="@style/appCompatLight"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:label="@string/databasereader"
+            android:screenOrientation="portrait"
+            android:theme="@style/appCompatLight">
             <intent-filter
-                android:label="EasyFiles Database Reader">
-                <action android:name="android.intent.action.VIEW"/>
+                android:label="EasyFiles Database Reader"
+                android:scheme="http"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="db/*" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".activities.AboutActivity"
-            android:theme="@style/aboutLight"
+        <activity
+            android:name=".activities.AboutActivity"
+            android:exported="true"
             android:label="About"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.mopub.mobileads.MoPubActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.mopub.mobileads.MraidActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.mopub.common.MoPubBrowser"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.mopub.mobileads.MraidVideoPlayerActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.mopub.mobileads.RewardedMraidActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name="com.mopub.common.privacy.ConsentDialogActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:screenOrientation="portrait"
+            android:theme="@style/aboutLight" />
 
         <service
-            android:name = ".asynchronous.services.ExtractService"
-            android:label = "Extracting"
-            >
-        </service>
+            android:name=".asynchronous.services.ExtractService"
+            android:exported="true"
+            android:label="Extracting" />
         <service
-            android:name = ".asynchronous.services.ZipService"
-            android:label = "Compressing"
-            >
-        </service>
+            android:name=".asynchronous.services.ZipService"
+            android:exported="true"
+            android:label="Compressing" />
         <service
-            android:name = ".asynchronous.services.CopyService"
-            android:label = "Copying"
-            >
-        </service>
-
-        <service android:name=".asynchronous.services.EncryptService"
-            android:label="@string/crypt_encrypting"
-            />
-
-        <service android:name=".asynchronous.services.DecryptService"
-            android:label="@string/crypt_decrypting"
-            />
-
+            android:name=".asynchronous.services.CopyService"
+            android:exported="true"
+            android:label="Copying" />
+        <service
+            android:name=".asynchronous.services.EncryptService"
+            android:exported="true"
+            android:label="@string/crypt_encrypting" />
+        <service
+            android:name=".asynchronous.services.DecryptService"
+            android:exported="true"
+            android:label="@string/crypt_decrypting" />
         <service
             android:name=".asynchronous.services.ftp.FTPService"
             android:enabled="true"
             android:exported="true" />
-
-        <service android:name=".asynchronous.services.ftp.FTPTileService"
+        <service
+            android:name=".asynchronous.services.ftp.FTPTileService"
+            android:exported="true"
             android:icon="@drawable/ic_ftp_dark"
             android:label="@string/ftp"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
-                <action
-                    android:name="android.service.quicksettings.action.QS_TILE" />
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
 
@@ -201,26 +199,29 @@
                 <action android:name="net.easynaps.easyfiles.services.ftpservice.FTPReceiver.ACTION_STOP_FTPSERVER" />
             </intent-filter>
         </receiver>
-
         <receiver
-            android:name="net.easynaps.easyfiles.ui.notifications.FTPNotification"
+            android:name=".ui.notifications.FTPNotification"
             android:exported="true">
             <intent-filter>
                 <action android:name="net.easynaps.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_STARTED" />
                 <action android:name="net.easynaps.easyfiles.services.ftpservice.FTPReceiver.FTPSERVER_STOPPED" />
             </intent-filter>
         </receiver>
-        
-        <provider
-            android:authorities="net.easynaps.easyfiles.FILE_PROVIDER"
-            android:name=".utils.GenericFileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
 
+        <provider
+            android:name=".utils.GenericFileProvider"
+            android:authorities="net.easynaps.easyfiles.FILE_PROVIDER"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:exported="false"
+            tools:node="merge"
+            tools:overrideLibrary="com.squareup.leakcanary.internal.DisplayLeakActivity" />
     </application>
 
 </manifest>

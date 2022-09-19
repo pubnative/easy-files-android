@@ -7,17 +7,16 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.mopub.common.SdkInitializationListener;
 
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.database.UtilsHandler;
@@ -68,16 +67,9 @@ public class AppConfig extends GlideApplication {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        PNLite.initialize(getString(R.string.pnlite_app_token), this, success -> {
-
-        });
-
-        SdkConfiguration sdkConfiguration = new SdkConfiguration
-                .Builder(getString(R.string.mopub_banner_ad_unit_id))
-                .build();
-        MoPub.initializeSdk(AppConfig.this, sdkConfiguration, () -> {
-
-        });
+        HyBid.initialize("dde3c298b47648459f8ada4a982fa92d", this, initializedSuccessfully ->
+                Log.d(TAG, "HyBid: onInitialisationFinished"));
+        HyBid.setTestMode(true);
     }
 
     @Override

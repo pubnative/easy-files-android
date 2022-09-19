@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "981010189451",
+    "firebase_url": "https://pubnative-easy-files.firebaseio.com",
+    "project_id": "pubnative-easy-files",
+    "storage_bucket": "pubnative-easy-files.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981010189451:android:6b5e920aa9c84a5a",
+        "android_client_info": {
+          "package_name": "net.easynaps.easyfiles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981010189451-4dm9q6nea55rgt51i4i92bl2glnb1fd9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.easynaps.easyfiles",
+            "certificate_hash": "197481fbe01c896a0bc9076e209af8a3fc5de17d"
+          }
+        },
+        {
+          "client_id": "981010189451-nki7rvtfeblk6032h2n8u2mll8hkl5j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.easynaps.easyfiles",
+            "certificate_hash": "fd2809de7f63cbf16d3d704d4522c4741acd7516"
+          }
+        },
+        {
+          "client_id": "981010189451-e748nomroh23fsktdkviem5siq7gc16n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz8jMICCL7NzIEgRZr2NyMuJGiEnhG1zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981010189451-e748nomroh23fsktdkviem5siq7gc16n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

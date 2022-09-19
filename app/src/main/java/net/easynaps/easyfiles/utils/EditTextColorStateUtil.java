@@ -3,8 +3,9 @@ package net.easynaps.easyfiles.utils;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
-import android.support.v7.widget.AppCompatEditText;
 import android.widget.EditText;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 import net.easynaps.easyfiles.R;
 

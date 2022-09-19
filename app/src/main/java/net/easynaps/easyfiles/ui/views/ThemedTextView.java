@@ -1,8 +1,9 @@
 package net.easynaps.easyfiles.ui.views;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.utils.Utils;

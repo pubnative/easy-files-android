@@ -6,11 +6,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +29,7 @@ public class FastScroller extends FrameLayout {
     boolean manuallyChangingPosition = false;
     int columns = 1;
 
-    private class ScrollListener extends OnScrollListener {
+    private class ScrollListener extends RecyclerView.OnScrollListener {
         public void onScrolled(RecyclerView recyclerView, int i, int i2) {
             if (handle != null && !manuallyChangingPosition) {
                 updateHandlePosition();

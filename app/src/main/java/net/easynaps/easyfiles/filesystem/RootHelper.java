@@ -1,6 +1,7 @@
 package net.easynaps.easyfiles.filesystem;
 
-import android.support.v4.provider.DocumentFile;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import net.easynaps.easyfiles.activities.MainActivity;
 import net.easynaps.easyfiles.exceptions.ShellNotRunningException;
@@ -18,7 +19,7 @@ public class RootHelper {
 
     /**
      * Runs the command and stores output in a list. The listener is set on the handler
-     * thread {@link MainActivity#handlerThread} thus any code run in callback must be thread safe.
+     * thread  thus any code run in callback must be thread safe.
      * Command is run from the root context (u:r:SuperSU0)
      *
      * @param cmd the command

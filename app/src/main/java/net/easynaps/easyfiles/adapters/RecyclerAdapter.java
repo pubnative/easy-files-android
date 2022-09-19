@@ -7,9 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
-import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +15,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import net.easynaps.easyfiles.GlideApp;
 import net.easynaps.easyfiles.R;
 import net.easynaps.easyfiles.activities.superclasses.PreferenceActivity;
 import net.easynaps.easyfiles.adapters.data.IconDataParcelable;
@@ -60,6 +57,10 @@ import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesC
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_PERMISSIONS;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_SHOW_THUMB;
 import static net.easynaps.easyfiles.fragments.preference_fragments.PreferencesConstants.PREFERENCE_USE_CIRCULAR_IMAGES;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.view.ActionMode;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements RecyclerPreloadSizeProvider.RecyclerPreloadSizeProviderCallback {
@@ -151,7 +152,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 // start actionmode if not already started
                 // null condition if there is config change
                 mainFrag.selection = true;
-                mainFrag.mActionMode = mainFrag.getMainActivity().startSupportActionMode(mainFrag.mActionModeCallback);
+                mainFrag.mActionMode = mainFrag.getMainActivity().startSupportActionMode((ActionMode.Callback) mainFrag.mActionModeCallback);
             }
         }
 
@@ -348,7 +349,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         modelProvider = new RecyclerPreloadModelProvider(mainFrag, uris,
                 getBoolean(PREFERENCE_SHOW_THUMB));
 
-        preloader = new RecyclerViewPreloader<>(GlideApp.with(mainFrag), modelProvider, sizeProvider, GlideConstants.MAX_PRELOAD_FILES);
+        preloader = new RecyclerViewPreloader<>(Glide.with(mainFrag), modelProvider, sizeProvider, GlideConstants.MAX_PRELOAD_FILES);
 
         recyclerView.addOnScrollListener(preloader);
     }
@@ -651,7 +652,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 holder.checkImageViewGrid.setVisibility(View.INVISIBLE);
 
                 ((RoundedImageView) holder.genericIcon).setRelativeSize(1.25f, 1.25f);
-                GlideApp.with(mainFrag).load(rowItem.iconData.image).into(holder.genericIcon);
+                Glide.with(mainFrag).load(rowItem.iconData.image).into(holder.genericIcon);
 
                 if (rowItem.filetype == Icons.IMAGE || rowItem.filetype == Icons.VIDEO) {
                     holder.imageView1.setVisibility(View.VISIBLE);
@@ -778,7 +779,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                              ImageView view, OnImageProcessed errorListener) {
         if(iconData.isImageBroken()) {
             viewHolder.genericIcon.setVisibility(View.VISIBLE);
-            GlideApp.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
+            Glide.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
             GradientDrawable gradientDrawable = (GradientDrawable) viewHolder.genericIcon.getBackground();
             gradientDrawable.setColor(grey_color);
 
@@ -787,14 +788,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         viewHolder.genericIcon.setVisibility(View.VISIBLE);
-        GlideApp.with(mainFrag).load(iconData.loadingImage).into(viewHolder.genericIcon);
+        Glide.with(mainFrag).load(iconData.loadingImage).into(viewHolder.genericIcon);
         GradientDrawable gradientDrawable = (GradientDrawable) viewHolder.genericIcon.getBackground();
         gradientDrawable.setColor(iconSkinColor);
 
         modelProvider.getPreloadRequestBuilder(iconData).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
-                GlideApp.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
+                Glide.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
                 gradientDrawable.setColor(grey_color);
 
                 errorListener.onImageProcessed(true);
@@ -821,7 +822,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             viewHolder.genericIcon.setVisibility(View.VISIBLE);
             iconBackground.setBackgroundColor(grey_color);
-            GlideApp.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
+            Glide.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
             view.setVisibility(View.INVISIBLE);
 
             errorListener.onImageProcessed(true);
@@ -832,14 +833,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         iconBackground.setBackgroundColor(iconSkinColor);
         viewHolder.genericIcon.setVisibility(View.VISIBLE);
-        GlideApp.with(mainFrag).load(iconData.loadingImage).into(viewHolder.genericIcon);
+        Glide.with(mainFrag).load(iconData.loadingImage).into(viewHolder.genericIcon);
         view.setVisibility(View.INVISIBLE);
 
         modelProvider.getPreloadRequestBuilder(iconData).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
                 iconBackground.setBackgroundColor(grey_color);
-                GlideApp.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
+                Glide.with(mainFrag).load(R.drawable.ic_broken_image_white_24dp).into(viewHolder.genericIcon);
                 errorListener.onImageProcessed(true);
                 return true;
             }
